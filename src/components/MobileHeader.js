@@ -1,32 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const MobileHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: "Home", id: "home" },
-    { label: "Services", id: "services" },
-    { label: "Platforms", id: "platforms" },
-    { label: "Work", id: "work" },
-    { label: "Insights", id: "insights" },
-    { label: "About", id: "about" },
-    { label: "Contact", id: "contact" },
+    { label: "Home", path: "/" },
+    { label: "Services", path: "/#services" },
+    { label: "Platforms", path: "/#platforms" },
+    { label: "Work", path: "/work" },
+    { label: "Insights", path: "/insights" },
+    { label: "About", path: "/#about" },
+    { label: "Contact", path: "/#contact" },
   ];
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      setIsOpen(false);
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <>
       <header className="mobile-header">
-        <h1 className="logo">Susbridge</h1>
+        <Link href="/" className="logo">Susbridge</Link>
         <button className="menu-trigger" onClick={() => setIsOpen(!isOpen)}>
           MENU
         </button>
@@ -38,10 +31,13 @@ const MobileHeader = () => {
             <button className="close-trigger" onClick={() => setIsOpen(false)}>✕</button>
             <ul>
               {navItems.map((item) => (
-                <li key={item.id}>
-                  <button onClick={() => scrollToSection(item.id)}>
+                <li key={item.path}>
+                  <Link
+                    href={item.path}
+                    onClick={() => setIsOpen(false)}
+                  >
                     {item.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>

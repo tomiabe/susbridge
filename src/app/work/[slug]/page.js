@@ -12,7 +12,7 @@ export default function ProjectPage() {
 
                     {/* Project Header */}
                     <section className="project-header">
-                        <div className="container-wide">
+                        <div className="container">
                             <a href="/work" className="breadcrumb">← Back to Work</a>
                             <h1 className="project-page-title">Project Title Goes Here</h1>
                             <div className="meta-row">
@@ -39,7 +39,7 @@ export default function ProjectPage() {
 
                     {/* Challenge */}
                     <section className="project-section">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">THE CHALLENGE</span>
                             <h2 className="project-section-title">What the organization<br />was facing</h2>
                             <div className="project-prose">
@@ -52,7 +52,7 @@ export default function ProjectPage() {
 
                     {/* Approach */}
                     <section className="project-section bg-light">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">OUR APPROACH</span>
                             <h2 className="project-section-title">How we framed the problem<br />and worked through it</h2>
                             <div className="project-prose">
@@ -66,7 +66,7 @@ export default function ProjectPage() {
 
                     {/* Outcomes */}
                     <section className="project-section">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">OUTCOMES</span>
                             <h2 className="project-section-title">What changed and what it made possible</h2>
                             <div className="outcomes-row">
@@ -84,7 +84,7 @@ export default function ProjectPage() {
 
                     {/* Deliverables */}
                     <section className="project-section bg-accent">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">WHAT WE DELIVERED</span>
                             <h2 className="project-section-title">Tangible outputs from this engagement</h2>
                             <div className="deliverables-row">
@@ -102,7 +102,7 @@ export default function ProjectPage() {
 
                     {/* Testimonial */}
                     <section className="project-testimonial">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm teal">CLIENT TESTIMONIAL</span>
                             <div className="quote-block">
                                 <blockquote>
@@ -115,7 +115,7 @@ export default function ProjectPage() {
 
                     {/* Related Work */}
                     <section className="project-section">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">RELATED WORK</span>
                             <h2 className="project-section-title">Similar engagements</h2>
                             <div className="related-grid">
@@ -140,7 +140,7 @@ export default function ProjectPage() {
 
                     {/* CTA */}
                     <section className="full-cta teal-bg">
-                        <div className="container-wide">
+                        <div className="container">
                             <h2>Need help with something similar?</h2>
                             <p>If you're working on challenges in research, strategy, or communications, we'd like to hear about it.</p>
                             <a href="/contact" className="btn btn-secondary">Start a conversation →</a>

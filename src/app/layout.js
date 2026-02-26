@@ -18,6 +18,12 @@ export const metadata = {
   description: "Independent consulting practice for impact-driven work. Turning complexity into clarity.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

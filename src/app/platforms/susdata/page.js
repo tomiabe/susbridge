@@ -11,7 +11,7 @@ export default function SusdataPage() {
                 <main>
                     {/* Hero */}
                     <section className="platform-hero susdata-hero">
-                        <div className="container-wide">
+                        <div className="container">
                             <div className="platform-logo-row">
                                 <span className="platform-logo-text">Susdata</span>
                             </div>
@@ -23,7 +23,7 @@ export default function SusdataPage() {
 
                     {/* What It Is */}
                     <section className="platform-section">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">WHAT IT IS</span>
                             <h2 className="project-section-title">The gap between data and decision is a design problem</h2>
                             <div className="two-col-row">
@@ -39,7 +39,7 @@ export default function SusdataPage() {
 
                     {/* Featured Datasets */}
                     <section className="platform-dark-section">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm teal">FEATURED DATASETS & TOOLS</span>
                             <h2 className="project-section-title white">Explore the data</h2>
                             <div className="articles-grid dark">
@@ -65,7 +65,7 @@ export default function SusdataPage() {
 
                     {/* Informs Consulting */}
                     <section className="platform-section bg-accent">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">HOW THIS INFORMS OUR CONSULTING</span>
                             <h2 className="project-section-title">Working with real data sharpens every engagement</h2>
                             <div className="two-col-row">
@@ -81,7 +81,7 @@ export default function SusdataPage() {
 
                     {/* CTA */}
                     <section className="full-cta teal-bg">
-                        <div className="container-wide">
+                        <div className="container">
                             <h2>Need data & insight support?</h2>
                             <p>If you're working on impact measurement, sustainability indicators, or data storytelling, we'd like to hear about it.</p>
                             <a href="/contact" className="btn btn-secondary">Start a conversation →</a>

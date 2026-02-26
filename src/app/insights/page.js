@@ -34,7 +34,7 @@ const InsightsPage = () => {
                 <main>
                     {/* Hero */}
                     <section className="insights-hero">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label white">Insights</span>
                             <h1 className="title">Questions we're exploring through<br />research, analysis, and practice.</h1>
                             <p className="description">We write about sustainability, development, information systems, and the gap between knowing and doing.</p>
@@ -77,7 +77,7 @@ const InsightsPage = () => {
 
                     {/* Subscribe CTA */}
                     <section className="subscribe-cta">
-                        <div className="container-wide">
+                        <div className="container">
                             <h2>Want updates when we publish?</h2>
                             <p>We share new insights a few times a month—no noise, just thinking.</p>
                             <div className="subscribe-row">

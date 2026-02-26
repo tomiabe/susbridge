@@ -11,7 +11,7 @@ export default function KnowledgeLabPage() {
                 <main>
                     {/* Hero */}
                     <section className="platform-hero lab-hero">
-                        <div className="container-wide">
+                        <div className="container">
                             <div className="platform-logo-row">
                                 <span className="platform-logo-text">Knowledge Lab</span>
                             </div>
@@ -23,7 +23,7 @@ export default function KnowledgeLabPage() {
 
                     {/* What It Is */}
                     <section className="platform-section">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">WHAT IT IS</span>
                             <h2 className="project-section-title">The consulting practice we wish had existed sooner</h2>
                             <div className="two-col-row">
@@ -39,7 +39,7 @@ export default function KnowledgeLabPage() {
 
                     {/* Projects */}
                     <section className="lab-projects-section">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm lab-label">CURRENT & RECENT PROJECTS</span>
                             <h2 className="project-section-title white">What we're exploring</h2>
 
@@ -59,7 +59,7 @@ export default function KnowledgeLabPage() {
 
                     {/* Informs Consulting */}
                     <section className="platform-section bg-accent">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">HOW THIS INFORMS OUR CONSULTING</span>
                             <h2 className="project-section-title">Prototyping the future of impact advisory</h2>
                             <div className="two-col-row">
@@ -75,7 +75,7 @@ export default function KnowledgeLabPage() {
 
                     {/* CTA */}
                     <section className="full-cta teal-bg">
-                        <div className="container-wide">
+                        <div className="container">
                             <h2>Interested in research collaboration?</h2>
                             <p>If you're exploring new methods for impact measurement, communication, or knowledge systems, let's talk.</p>
                             <a href="/contact" className="btn btn-secondary">Start a conversation →</a>

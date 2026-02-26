@@ -12,7 +12,7 @@ export default function ArticlePage() {
 
                     {/* Article Header */}
                     <section className="article-header">
-                        <div className="container-article">
+                        <div className="container">
                             <a href="/insights" className="breadcrumb">← Back to Insights</a>
                             <span className="article-category">Sustainability</span>
                             <h1 className="article-page-title">How New Carbon Regulations Will Impact African Businesses</h1>
@@ -33,7 +33,7 @@ export default function ArticlePage() {
 
                     {/* Article Body */}
                     <section className="article-body">
-                        <div className="container-article">
+                        <div className="container">
                             <p className="article-intro">In the past eighteen months, three major regulatory frameworks covering carbon pricing and emissions disclosure have either passed or entered their final consultation phases in sub-Saharan Africa. Most organizations operating in the region are not ready.</p>
 
                             <h2>The regulatory shift that is already here</h2>
@@ -62,7 +62,7 @@ export default function ArticlePage() {
 
                     {/* About Author */}
                     <section className="about-author">
-                        <div className="container-article">
+                        <div className="container">
                             <span className="section-label-sm teal">ABOUT THE AUTHOR</span>
                             <div className="author-card-full">
                                 <div className="author-avatar-lg"></div>
@@ -102,7 +102,7 @@ export default function ArticlePage() {
 
                     {/* CTA */}
                     <section className="full-cta teal-bg">
-                        <div className="container-wide">
+                        <div className="container">
                             <h2>Working on this challenge?</h2>
                             <p>If carbon compliance or sustainability strategy is something you're navigating in your organization, we'd like to hear about it.</p>
                             <a href="/contact" className="btn btn-secondary">Start a conversation →</a>

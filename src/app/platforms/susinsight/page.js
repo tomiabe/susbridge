@@ -11,7 +11,7 @@ export default function SusinsightPage() {
                 <main>
                     {/* Hero */}
                     <section className="platform-hero">
-                        <div className="container-wide">
+                        <div className="container">
                             <div className="platform-logo-row">
                                 <span className="platform-logo-text">Susinsight</span>
                             </div>
@@ -23,7 +23,7 @@ export default function SusinsightPage() {
 
                     {/* What It Is */}
                     <section className="platform-section">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">WHAT IT IS</span>
                             <h2 className="project-section-title">An independent publication at the interface of analysis and action</h2>
                             <div className="two-col-row">
@@ -39,7 +39,7 @@ export default function SusinsightPage() {
 
                     {/* Latest Articles */}
                     <section className="platform-dark-section">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm teal">LATEST FROM SUSINSIGHT</span>
                             <h2 className="project-section-title white">Recent analysis from the platform</h2>
                             <div className="articles-grid dark">
@@ -65,7 +65,7 @@ export default function SusinsightPage() {
 
                     {/* Informs Consulting */}
                     <section className="platform-section bg-accent">
-                        <div className="container-wide">
+                        <div className="container">
                             <span className="section-label-sm">HOW THIS INFORMS OUR CONSULTING</span>
                             <h2 className="project-section-title">Publishing keeps our thinking honest</h2>
                             <div className="two-col-row">
@@ -81,7 +81,7 @@ export default function SusinsightPage() {
 
                     {/* CTA */}
                     <section className="full-cta teal-bg">
-                        <div className="container-wide">
+                        <div className="container">
                             <h2>Interested in similar work?</h2>
                             <p>If you're looking for research, editorial strategy, or communications support on sustainability and development challenges, we'd like to hear about it.</p>
                             <a href="/contact" className="btn btn-secondary">Start a conversation →</a>
