@@ -274,15 +274,31 @@ button {
 @media (max-width: 1024px) {
   .hero {
     height: auto;
-    padding: 120px 0 80px;
+    padding: 80px 24px;
+    min-height: 100vh;
   }
 
   .hero .title {
-    font-size: 42px;
+    font-size: 40px;
+    width: 100%;
+    margin-bottom: 32px;
   }
 
   .hero .description {
     font-size: 18px;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+
+  .cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -853,7 +869,8 @@ button {
 /* Mobile responsive fixes */
 @media (max-width: 768px) {
   .section-label {
-    margin-bottom: 24px;
+    font-size: 12px;
+    margin-bottom: 32px;
   }
 
   .question-section,
@@ -866,14 +883,14 @@ button {
   .partners,
   .team-section,
   .contact-section {
-    padding: 80px 0;
+    padding: 80px 24px;
   }
 
   .question,
-  .title,
+  .gap-section .title,
   .services-section .title,
   .practice-section .title,
   .contact-section .title {
-    font-size: 26px;
+    font-size: 28px;
   }
 }
