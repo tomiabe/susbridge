@@ -300,6 +300,23 @@ button {
     width: 100%;
     text-align: center;
   }
+
+  /* Grid Layout Fixes */
+  .platforms-grid,
+  .work-grid,
+  .articles-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .team-grid {
+    flex-direction: column !important;
+    gap: 48px;
+  }
+
+  .team-card {
+    max-width: 100% !important;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 768px) {

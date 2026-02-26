@@ -3,7 +3,6 @@ const Hero = ({ id }) => {
     <section id={id} className="hero">
       <div className="container">
         <div className="hero-content">
-          <span className="subtitle">Susbridge</span>
           <h1 className="title">Independent consulting practice for impact-driven work.</h1>
           <p className="description">
             We work at the information layer where research, data, and communication must become decisions that hold up under real-world pressure.
