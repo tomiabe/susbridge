@@ -1099,7 +1099,7 @@ button {
   align-self: flex-start;
 }
 
-/* Work Page Tablet */
+/* Work Page Tablet (sidebar collapses, 2-col grid) */
 @media (max-width: 1024px) {
   .work-hero {
     padding: 80px 0;
@@ -1113,6 +1113,10 @@ button {
   .work-full-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 40px 24px;
+  }
+
+  .work-card .img-wrap {
+    height: 180px;
   }
 
   .work-cta {
@@ -1131,12 +1135,34 @@ button {
     min-height: auto;
   }
 
+  .work-hero .container {
+    gap: 24px;
+  }
+
   .work-hero .title {
     font-size: 28px;
   }
 
   .work-hero .description {
     font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* Filter bar: scrollable pills with fade hint */
+  .filter-section {
+    position: relative;
+  }
+
+  .filter-section::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, transparent, var(--bg-light));
+    pointer-events: none;
+    z-index: 1;
   }
 
   .filter-section .container {
@@ -1147,19 +1173,55 @@ button {
 
   .filter-bar {
     padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-right: 40px;
   }
 
+  .filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  /* Grid: single column */
   .projects-grid-section {
     padding: 40px 0;
   }
 
   .work-full-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
   }
 
+  .work-card {
+    gap: 12px;
+  }
+
+  .work-card .img-wrap {
+    height: 200px;
+    border-radius: 8px;
+  }
+
+  .work-card .project-title {
+    font-size: 18px;
+  }
+
+  .project-description {
+    font-size: 14px;
+  }
+
+  /* CTA: stacked and full width */
   .work-cta {
     padding: 60px 0;
+  }
+
+  .work-cta .container {
+    gap: 20px;
   }
 
   .cta-title {
@@ -1168,6 +1230,11 @@ button {
 
   .cta-description {
     font-size: 16px;
+  }
+
+  .work-cta .btn-secondary {
+    align-self: stretch;
+    text-align: center;
   }
 }
 
