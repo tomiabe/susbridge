@@ -122,7 +122,7 @@ const WorkPage = () => {
 
                 <main className="work-page">
                     <section className="work-hero">
-                        <div className="work-hero-content">
+                        <div className="container">
                             <span className="section-label white">Work</span>
                             <h1 className="title">Selected engagements across research,<br />strategy, communications, and data.</h1>
                             <p className="description">
@@ -132,39 +132,43 @@ const WorkPage = () => {
                     </section>
 
                     <section className="filter-section">
-                        <div className="filter-bar">
-                            {filters.map(f => (
-                                <button
-                                    key={f}
-                                    className={`filter-btn ${filter === f ? 'active' : ''}`}
-                                    onClick={() => setFilter(f)}
-                                >
-                                    {filter === "All" && f === "All" ? "All Projects" : f}
-                                </button>
-                            ))}
+                        <div className="container">
+                            <div className="filter-bar">
+                                {filters.map(f => (
+                                    <button
+                                        key={f}
+                                        className={`filter-btn ${filter === f ? 'active' : ''}`}
+                                        onClick={() => setFilter(f)}
+                                    >
+                                        {filter === "All" && f === "All" ? "All Projects" : f}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
                     </section>
 
                     <section className="projects-grid-section">
-                        <div className="work-full-grid">
-                            {filteredProjects.map((p, i) => (
-                                <Link key={i} href={`/work/${p.slug}`} className="work-card">
-                                    <div className="img-wrap">
-                                        <img src={p.image} alt={p.title} />
-                                    </div>
-                                    <div className="work-card-info">
-                                        <span className="category">{p.tag}</span>
-                                        <h3 className="project-title">{p.title}</h3>
-                                        <p className="project-description">{p.description}</p>
-                                        <span className="view-link">View case study →</span>
-                                    </div>
-                                </Link>
-                            ))}
+                        <div className="container">
+                            <div className="work-full-grid">
+                                {filteredProjects.map((p, i) => (
+                                    <Link key={i} href={`/work/${p.slug}`} className="work-card">
+                                        <div className="img-wrap">
+                                            <img src={p.image} alt={p.title} />
+                                        </div>
+                                        <div className="work-card-info">
+                                            <span className="category">{p.tag}</span>
+                                            <h3 className="project-title">{p.title}</h3>
+                                            <p className="project-description">{p.description}</p>
+                                            <span className="view-link">View case study →</span>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
                     </section>
 
                     <section className="work-cta">
-                        <div className="work-cta-content">
+                        <div className="container">
                             <h2 className="cta-title">Working on something complex?</h2>
                             <p className="cta-description">
                                 If you're navigating challenges where clarity matters, let's talk about how we can help.
