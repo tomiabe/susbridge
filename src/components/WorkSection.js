@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const WorkSection = ({ id }) => {
   const projects = [
     {
@@ -38,7 +40,7 @@ const WorkSection = ({ id }) => {
           ))}
         </div>
 
-        <button className="see-more">See more work →</button>
+        <Link href="/work" className="see-more">See more work →</Link>
       </div>
     </section>
   );
