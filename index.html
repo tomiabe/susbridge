@@ -1,14 +1,19 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Susbridge — One Page v2</title>
   <meta name="description" content="Independent consulting practice for impact-driven work." />
+  <link rel="icon" type="image/jpeg" href="images/favicon.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
       --primary: #006667;
@@ -21,12 +26,20 @@
       --white: #ffffff;
       --black: #000000;
       --radius: 14px;
-      --shadow-sm: 0 2px 6px rgba(0,0,0,.06);
-      --shadow-md: 0 10px 30px rgba(0,0,0,.12);
+      --shadow-sm: 0 2px 6px rgba(0, 0, 0, .06);
+      --shadow-md: 0 10px 30px rgba(0, 0, 0, .12);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: "Manrope", sans-serif;
       color: var(--ink);
@@ -35,21 +48,35 @@
       overflow-x: hidden;
     }
 
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
       font-family: "Bricolage Grotesque", sans-serif;
       letter-spacing: -.02em;
       line-height: 1.12;
     }
 
-    a { color: inherit; text-decoration: none; }
-    button { border: 0; background: none; font: inherit; cursor: pointer; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      border: 0;
+      background: none;
+      font: inherit;
+      cursor: pointer;
+    }
 
     .container {
       width: min(1160px, 100% - 48px);
       margin-inline: auto;
     }
 
-    section { scroll-margin-top: 88px; }
+    section {
+      scroll-margin-top: 88px;
+    }
 
     .topbar {
       position: fixed;
@@ -101,7 +128,7 @@
     .menu-toggle {
       display: none;
       color: #fff;
-      border: 1px solid rgba(255,255,255,.35);
+      border: 1px solid rgba(255, 255, 255, .35);
       border-radius: 999px;
       padding: 8px 14px;
       font-size: .84rem;
@@ -111,14 +138,14 @@
     .mobile-menu {
       display: none;
       background: #080808;
-      border-top: 1px solid rgba(255,255,255,.12);
+      border-top: 1px solid rgba(255, 255, 255, .12);
     }
 
     .mobile-menu a {
       display: block;
       color: #fff;
       padding: 14px 24px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
       font-weight: 600;
     }
 
@@ -127,13 +154,13 @@
       padding: 144px 0 72px;
       color: #fff;
       background:
-        linear-gradient(126deg, rgba(0,0,0,.93) 0%, rgba(0,0,0,.74) 64%),
-        radial-gradient(1200px 460px at 80% 10%, rgba(108,172,172,.14), transparent),
+        linear-gradient(126deg, rgba(0, 0, 0, .93) 0%, rgba(0, 0, 0, .74) 64%),
+        radial-gradient(1200px 460px at 80% 10%, rgba(108, 172, 172, .14), transparent),
         url("https://picsum.photos/seed/susbridge-hero-bg/2200/1400");
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
     }
 
     .hero-grid {
@@ -147,24 +174,30 @@
     }
 
     .hero p {
-      color: rgba(255,255,255,.9);
+      color: rgba(255, 255, 255, .9);
       max-width: 760px;
       font-size: clamp(1rem, 1.8vw, 1.2rem);
       margin-bottom: 22px;
     }
 
     .hero-meta {
-      border: 1px solid rgba(255,255,255,.16);
+      border: 1px solid rgba(255, 255, 255, .16);
       border-radius: 12px;
       padding: 14px;
-      color: rgba(255,255,255,.9);
+      color: rgba(255, 255, 255, .9);
       font-size: .92rem;
-      background: rgba(255,255,255,.03);
+      background: rgba(255, 255, 255, .03);
     }
 
-    .hero-meta p + p { margin-top: 8px; }
+    .hero-meta p+p {
+      margin-top: 8px;
+    }
 
-    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
     .btn {
       display: inline-flex;
@@ -177,9 +210,20 @@
       transition: transform .16s ease, background-color .16s ease, border-color .16s ease;
     }
 
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: var(--primary); color: #fff; border: 1px solid var(--primary); }
-    .btn-outline { border: 1px solid currentColor; color: inherit; }
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border: 1px solid var(--primary);
+    }
+
+    .btn-outline {
+      border: 1px solid currentColor;
+      color: inherit;
+    }
 
     .section {
       padding: 76px 0;
@@ -187,12 +231,18 @@
       background: #fff;
     }
 
-    .section-alt { background: var(--bg-light); }
-    .section-accent { background: var(--accent); }
+    .section-alt {
+      background: var(--bg-light);
+    }
+
+    .section-accent {
+      background: var(--accent);
+    }
+
     .section-dark {
       background: #0d0f10;
       color: #fff;
-      border-bottom-color: rgba(255,255,255,.1);
+      border-bottom-color: rgba(255, 255, 255, .1);
     }
 
     .section-label {
@@ -207,7 +257,9 @@
       text-transform: uppercase;
     }
 
-    .section-dark .section-label { color: #94c8c8; }
+    .section-dark .section-label {
+      color: #94c8c8;
+    }
 
     .section h2 {
       font-size: clamp(1.5rem, 3.2vw, 2.55rem);
@@ -221,7 +273,9 @@
       font-size: 1rem;
     }
 
-    .section-dark .lead { color: rgba(255,255,255,.84); }
+    .section-dark .lead {
+      color: rgba(255, 255, 255, .84);
+    }
 
     .bullet-list {
       margin-top: 14px;
@@ -356,9 +410,18 @@
       gap: 14px;
     }
 
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
     .about-grid-two {
       margin-top: 22px;
       display: grid;
@@ -422,7 +485,7 @@
 
     .section-dark .card {
       background: #121516;
-      border-color: rgba(255,255,255,.15);
+      border-color: rgba(255, 255, 255, .15);
       box-shadow: none;
     }
 
@@ -453,11 +516,22 @@
       letter-spacing: .01em;
     }
 
-    .section-dark .kicker { color: #bfdede; }
+    .section-dark .kicker {
+      color: #bfdede;
+    }
 
-    .card h3 { font-size: 20px; }
-    .card p { color: var(--ink-soft); font-size: .93rem; }
-    .section-dark .card p { color: rgba(255,255,255,.85); }
+    .card h3 {
+      font-size: 20px;
+    }
+
+    .card p {
+      color: var(--ink-soft);
+      font-size: .93rem;
+    }
+
+    .section-dark .card p {
+      color: rgba(255, 255, 255, .85);
+    }
 
     .service-icon {
       width: 36px;
@@ -516,7 +590,9 @@
       margin-top: 3px;
     }
 
-    .section-dark .card-action { color: #9ed5d5; }
+    .section-dark .card-action {
+      color: #9ed5d5;
+    }
 
     .cta-inline {
       margin-top: 16px;
@@ -539,7 +615,7 @@
       display: grid;
       grid-template-columns: 1.25fr 2fr;
       gap: 18px;
-      border-bottom: 1px solid rgba(255,255,255,.16);
+      border-bottom: 1px solid rgba(255, 255, 255, .16);
       padding-bottom: 60px;
     }
 
@@ -549,7 +625,7 @@
       gap: 12px;
     }
 
-    .footer-links > div {
+    .footer-links>div {
       text-align: right;
       justify-self: end;
     }
@@ -561,8 +637,14 @@
       letter-spacing: .01em;
     }
 
-    .footer h4 { font-size: 16px; color: var(--secondary); margin-bottom: 8px; }
-    .footer a, .footer button {
+    .footer h4 {
+      font-size: 16px;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+
+    .footer a,
+    .footer button {
       color: #efefef;
       opacity: .9;
       font-size: .9rem;
@@ -570,7 +652,14 @@
       text-align: right;
       display: inline-block;
     }
-    .footer-bottom { margin-top: 10px; display: flex; justify-content: space-between; color: #c4c4c4; font-size: .85rem; }
+
+    .footer-bottom {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      color: #c4c4c4;
+      font-size: .85rem;
+    }
 
     .scroll-top {
       position: fixed;
@@ -585,7 +674,7 @@
       justify-content: center;
       background: #111;
       color: #fff;
-      border: 1px solid rgba(255,255,255,.15);
+      border: 1px solid rgba(255, 255, 255, .15);
       opacity: 0;
       pointer-events: none;
       transition: opacity .2s ease;
@@ -601,13 +690,15 @@
       inset: 0;
       z-index: 2000;
       display: none;
-      background: rgba(0,0,0,.72);
+      background: rgba(0, 0, 0, .72);
       padding: 14px;
       align-items: center;
       justify-content: center;
     }
 
-    .modal.open { display: flex; }
+    .modal.open {
+      display: flex;
+    }
 
     .modal-dialog {
       width: min(1120px, 96vw);
@@ -631,7 +722,9 @@
       background: #fff;
     }
 
-    .modal-header h3 { font-size: 1rem; }
+    .modal-header h3 {
+      font-size: 1rem;
+    }
 
     .modal-actions {
       display: flex;
@@ -672,13 +765,28 @@
       background: #e5e7ea;
     }
 
-    .modal-hero img { width: 100%; height: 100%; object-fit: cover; }
-    .modal-content h4 { margin: 14px 0 8px; font-size: 1.05rem; }
-    .modal-content p { color: #2f3135; margin-bottom: 10px; }
+    .modal-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-    .hidden { display: none !important; }
+    .modal-content h4 {
+      margin: 14px 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .modal-content p {
+      color: #2f3135;
+      margin-bottom: 10px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
 
     @media (max-width: 1024px) {
+
       .hero-grid,
       .grid-2,
       .grid-3,
@@ -710,36 +818,72 @@
         aspect-ratio: 16 / 14;
       }
 
-      .footer-links > div {
+      .footer-links>div {
         text-align: left;
         justify-self: start;
       }
 
-      .footer a, .footer button {
+      .footer a,
+      .footer button {
         text-align: left;
       }
 
-      .nav { display: none; }
-      .menu-toggle { display: inline-flex; }
-      .mobile-menu.open { display: block; }
+      .nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .mobile-menu.open {
+        display: block;
+      }
     }
 
     @media (max-width: 640px) {
-      .container { width: min(1160px, 100% - 28px); }
-      .hero { padding: 126px 0 66px; }
-      .section { padding: 60px 0; }
-      .footer { padding: 40px 0; }
+      .container {
+        width: min(1160px, 100% - 28px);
+      }
+
+      .hero {
+        padding: 126px 0 66px;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .footer {
+        padding: 40px 0;
+      }
+
       .footer-grid {
         gap: 40px;
         padding-bottom: 40px;
       }
-      .footer-links { gap: 40px; }
-      .footer-bottom { margin-top: 40px; }
-      .modal { padding: 6px; }
-      .modal-dialog { width: 100%; height: 94vh; border-radius: 12px; }
+
+      .footer-links {
+        gap: 40px;
+      }
+
+      .footer-bottom {
+        margin-top: 40px;
+      }
+
+      .modal {
+        padding: 6px;
+      }
+
+      .modal-dialog {
+        width: 100%;
+        height: 94vh;
+        border-radius: 12px;
+      }
     }
   </style>
 </head>
+
 <body>
   <header class="topbar" id="topbar">
     <div class="container topbar-inner">
@@ -771,7 +915,8 @@
       <div class="container hero-grid">
         <div>
           <h1>Independent consulting practice for impact-driven work.</h1>
-          <p>We work at the information layer where research, data, and communication must become decisions that hold up under real-world pressure.</p>
+          <p>We work at the information layer where research, data, and communication must become decisions that hold up
+            under real-world pressure.</p>
           <div class="cta-row">
             <a href="#contact" class="btn btn-primary">Work with us ↓</a>
             <a href="#work" class="btn btn-outline">See our work →</a>
@@ -784,9 +929,12 @@
       <div class="container">
         <span class="section-label">A Question We're Working On</span>
         <h2>When new carbon rules hit African exporters, who helps turn the fine print into real decisions?</h2>
-        <p class="lead">We work with teams in that gap between regulation and response helping them clarify risk, surface options, and translate complexity into decisions leaders can trust.</p>
+        <p class="lead">We work with teams in that gap between regulation and response helping them clarify risk,
+          surface options, and translate complexity into decisions leaders can trust.</p>
         <div class="cta-inline">
-          <button class="btn btn-outline" data-insight-open="How New Carbon Regulations Will Impact African Businesses">Read the latest insight →</button>
+          <button class="btn btn-outline"
+            data-insight-open="How New Carbon Regulations Will Impact African Businesses">Read the latest insight
+            →</button>
         </div>
       </div>
     </section>
@@ -794,7 +942,8 @@
     <section class="section section-accent" id="gap">
       <div class="container">
         <span class="section-label">The Gap We Work In</span>
-        <h2>Across sustainability, development, and other impact-driven fields, information is everywhere. Usable clarity is rare.</h2>
+        <h2>Across sustainability, development, and other impact-driven fields, information is everywhere. Usable
+          clarity is rare.</h2>
         <div class="problem-grid">
           <article class="problem-card">
             <div class="problem-head"><i class="fa-solid fa-file-lines"></i> Evidence</div>
@@ -827,28 +976,32 @@
             <div class="card-body">
               <span class="service-icon"><i class="fa-solid fa-compass"></i></span>
               <h3>Research &amp; Strategy</h3>
-              <p>We clarify context, map systems, and help teams make sense of what's changing. Policy and market questions, sustainability and impact strategies, evidence synthesis, and decision frameworks.</p>
+              <p>We clarify context, map systems, and help teams make sense of what's changing. Policy and market
+                questions, sustainability and impact strategies, evidence synthesis, and decision frameworks.</p>
             </div>
           </article>
           <article class="card">
             <div class="card-body">
               <span class="service-icon"><i class="fa-solid fa-comments"></i></span>
               <h3>Communications &amp; Narrative</h3>
-              <p>We design narratives and communication systems that respect complexity without losing people. Sustainability and impact communications strategy, report redesign, and digital storytelling.</p>
+              <p>We design narratives and communication systems that respect complexity without losing people.
+                Sustainability and impact communications strategy, report redesign, and digital storytelling.</p>
             </div>
           </article>
           <article class="card">
             <div class="card-body">
               <span class="service-icon"><i class="fa-solid fa-chart-line"></i></span>
               <h3>Data &amp; Insight</h3>
-              <p>We turn data into insight that leaders can act on. Indicators, dashboards, analytics, and reporting systems that make progress visible, risk legible, and opportunity clear.</p>
+              <p>We turn data into insight that leaders can act on. Indicators, dashboards, analytics, and reporting
+                systems that make progress visible, risk legible, and opportunity clear.</p>
             </div>
           </article>
           <article class="card">
             <div class="card-body">
               <span class="service-icon"><i class="fa-solid fa-handshake-angle"></i></span>
               <h3>Advisory &amp; Embedded Support</h3>
-              <p>We embed as senior practitioners inside teams or provide ongoing advisory support, helping leaders think through choices, pressure-test strategies, and keep information honest over time.</p>
+              <p>We embed as senior practitioners inside teams or provide ongoing advisory support, helping leaders
+                think through choices, pressure-test strategies, and keep information honest over time.</p>
             </div>
           </article>
         </div>
@@ -867,13 +1020,16 @@
       <div class="container">
         <span class="section-label">Work</span>
         <h2>Selected engagements across research, strategy, communications, and data.</h2>
-        <p class="lead">We work with organizations that need clarity where complexity is unavoidable helping teams move from information overload to confident action.</p>
+        <p class="lead">We work with organizations that need clarity where complexity is unavoidable helping teams move
+          from information overload to confident action.</p>
 
         <div class="chip-row" id="workFilterRow"></div>
         <div class="grid-3" id="workGrid"></div>
         <div class="cta-inline">
-          <button id="workMore" class="btn btn-outline" style="color:#111;border-color:#cfd2d6;">See more work →</button>
-          <button id="workLess" class="btn btn-outline hidden" style="color:#111;border-color:#cfd2d6;">Load less ↑</button>
+          <button id="workMore" class="btn btn-outline" style="color:#111;border-color:#cfd2d6;">See more work
+            →</button>
+          <button id="workLess" class="btn btn-outline hidden" style="color:#111;border-color:#cfd2d6;">Load less
+            ↑</button>
         </div>
       </div>
     </section>
@@ -896,7 +1052,8 @@
           </article>
           <article class="question-strip">
             <span class="question-icon"><i class="fa-solid fa-quote-left"></i></span>
-            <p class="question-copy">"How do we make complex regulatory risks intelligible to non-technical leaders?"</p>
+            <p class="question-copy">"How do we make complex regulatory risks intelligible to non-technical leaders?"
+            </p>
           </article>
         </div>
       </div>
@@ -906,7 +1063,8 @@
       <div class="container">
         <span class="section-label">Insights</span>
         <h2>Questions we're exploring through research, analysis, and practice.</h2>
-        <p class="lead">We write about sustainability, development, information systems, and the gap between knowing and doing.</p>
+        <p class="lead">We write about sustainability, development, information systems, and the gap between knowing and
+          doing.</p>
 
         <div class="filter-block">
           <span class="filter-label">Filter By Topic</span>
@@ -918,8 +1076,10 @@
         </div>
         <div class="grid-3" id="insightGrid"></div>
         <div class="cta-inline">
-          <button id="insightMore" class="btn btn-outline" style="color:#111;border-color:#cfd2d6;">Read more thoughts →</button>
-          <button id="insightLess" class="btn btn-outline hidden" style="color:#111;border-color:#cfd2d6;">Load less ↑</button>
+          <button id="insightMore" class="btn btn-outline" style="color:#111;border-color:#cfd2d6;">Read more thoughts
+            →</button>
+          <button id="insightLess" class="btn btn-outline hidden" style="color:#111;border-color:#cfd2d6;">Load less
+            ↑</button>
         </div>
       </div>
     </section>
@@ -960,10 +1120,16 @@
             <div class="about-founder-inner">
               <div class="about-founder-media"><img src="./images/tomi-abe.jpg" alt="Tomi Abe"></div>
               <div class="about-founder-content">
-              <h3>Tomi Abe</h3>
-              <p class="kicker">Co-Founder · Creative &amp; Digital Strategy</p>
-              <p>Works across digital strategy, narrative, design, and research. Focused on translating complex ideas into clear communication systems. He leads work on communication architecture and digital strategy, helping teams move from fragmented information into aligned execution. His work often sits at the intersection of brand, product, and implementation, ensuring that strategy is reflected in what teams actually build and publish over time.</p>
-              <button class="btn btn-outline" style="color:#111;border-color:#cfd2d6;" onclick="window.open('https://www.linkedin.com','_blank','noopener,noreferrer')">Connect on LinkedIn →</button>
+                <h3>Tomi Abe</h3>
+                <p class="kicker">Co-Founder · Creative &amp; Digital Strategy</p>
+                <p>Works across digital strategy, narrative, design, and research. Focused on translating complex ideas
+                  into clear communication systems. He leads work on communication architecture and digital strategy,
+                  helping teams move from fragmented information into aligned execution. His work often sits at the
+                  intersection of brand, product, and implementation, ensuring that strategy is reflected in what teams
+                  actually build and publish over time.</p>
+                <button class="btn btn-outline" style="color:#111;border-color:#cfd2d6;"
+                  onclick="window.open('https://www.linkedin.com','_blank','noopener,noreferrer')">Connect on LinkedIn
+                  →</button>
               </div>
             </div>
           </article>
@@ -971,10 +1137,16 @@
             <div class="about-founder-inner">
               <div class="about-founder-media"><img src="./images/toro-adetayo.png" alt="Adetoro Adetayo"></div>
               <div class="about-founder-content">
-              <h3>Adetoro Adetayo</h3>
-              <p class="kicker">Co-Founder · Sustainability Strategy &amp; Research</p>
-              <p>Sustainability researcher and strategist with a background in chemical engineering. Works at the intersection of science, policy and impact. He leads strategy and evidence work on climate adaptation and impact measurement, supporting decisions that hold up across policy, operational, and stakeholder pressures. He focuses on turning technical analysis into practical decision frameworks that leaders can use confidently across regulatory, reporting, and implementation contexts.</p>
-              <button class="btn btn-outline" style="color:#111;border-color:#cfd2d6;" onclick="window.open('https://www.linkedin.com','_blank','noopener,noreferrer')">Connect on LinkedIn →</button>
+                <h3>Adetoro Adetayo</h3>
+                <p class="kicker">Co-Founder · Sustainability Strategy &amp; Research</p>
+                <p>Sustainability researcher and strategist with a background in chemical engineering. Works at the
+                  intersection of science, policy and impact. He leads strategy and evidence work on climate adaptation
+                  and impact measurement, supporting decisions that hold up across policy, operational, and stakeholder
+                  pressures. He focuses on turning technical analysis into practical decision frameworks that leaders
+                  can use confidently across regulatory, reporting, and implementation contexts.</p>
+                <button class="btn btn-outline" style="color:#111;border-color:#cfd2d6;"
+                  onclick="window.open('https://www.linkedin.com','_blank','noopener,noreferrer')">Connect on LinkedIn
+                  →</button>
               </div>
             </div>
           </article>
@@ -985,7 +1157,8 @@
     <section class="section" id="contact">
       <div class="container">
         <span class="section-label">Work With Us</span>
-        <h2>If you're working on complex impact challenges and need clarity you can act on, we'd like to hear about it.</h2>
+        <h2>If you're working on complex impact challenges and need clarity you can act on, we'd like to hear about it.
+        </h2>
         <div class="cta-inline" style="margin-top: 10px;">
           <a class="btn btn-primary" href="mailto:info@susbridge.xyz">Start a conversation: info@susbridge.xyz</a>
         </div>
@@ -998,7 +1171,8 @@
       <div class="footer-grid">
         <div>
           <h3>Susbridge</h3>
-          <p style="margin-top:8px; max-width: 520px; color:#e4e4e4;">Independent consulting practice for impact-driven work.</p>
+          <p style="margin-top:8px; max-width: 520px; color:#e4e4e4;">Independent consulting practice for impact-driven
+            work.</p>
         </div>
         <div class="footer-links">
           <div>
@@ -1103,33 +1277,33 @@
     ];
 
     const workItems = [
-      {title:"Impact Analysis Framework", tag:"Research | Strategy", category:"Research & Strategy", description:"Developed a comprehensive framework for measuring long-term social impact in agricultural supply chains.", image:"https://picsum.photos/seed/work-01/1200/800", slug:"impact-analysis-framework"},
-      {title:"Sustainability Narrative", tag:"Communications | Data", category:"Communications", description:"Crafted a data-backed sustainability story for an international development agency.", image:"https://picsum.photos/seed/work-02/1200/800", slug:"sustainability-narrative"},
-      {title:"Strategic Advisory", tag:"Advisory | Embedded Support", category:"Advisory", description:"Providing ongoing strategic support for a pan-African climate initiative.", image:"https://picsum.photos/seed/work-03/1200/800", slug:"strategic-advisory"},
-      {title:"Climate Data Dashboard", tag:"Data & Insight", category:"Data & Insight", description:"Visualizing complex climate risk data for regional policy makers.", image:"https://picsum.photos/seed/work-04/1200/800", slug:"climate-data-dashboard"},
-      {title:"Policy Research", tag:"Research | Advisory", category:"Research & Strategy", description:"Depth research into the implications of new carbon regulations for exporters.", image:"https://picsum.photos/seed/work-05/1200/800", slug:"policy-research"},
-      {title:"Stakeholder Engagement", tag:"Communications | Strategy", category:"Communications", description:"Designing communication systems for inclusive stakeholder consultation.", image:"https://picsum.photos/seed/work-06/1200/800", slug:"stakeholder-engagement"},
-      {title:"Market Entry Strategy", tag:"Research | Strategy", category:"Research & Strategy", description:"Evaluating opportunities for sustainable technology in emerging markets.", image:"https://picsum.photos/seed/work-07/1200/800", slug:"market-entry-strategy"},
-      {title:"Crisis Communications", tag:"Communications | Advisory", category:"Communications", description:"Advising on narrative integrity during complex environmental challenges.", image:"https://picsum.photos/seed/work-08/1200/800", slug:"crisis-communications"},
-      {title:"ESG Integration", tag:"Data & Insight", category:"Data & Insight", description:"Helping a mid-sized corporation integrate ESG metrics into core reporting.", image:"https://picsum.photos/seed/work-09/1200/800", slug:"esg-integration"},
-      {title:"Capacity Building", tag:"Advisory | Research", category:"Advisory", description:"Training research teams on impact-oriented data collection methods.", image:"https://picsum.photos/seed/work-10/1200/800", slug:"capacity-building"},
-      {title:"Visualizing Impact", tag:"Data & Insight | Communications", category:"Data & Insight", description:"Translating 10 years of longitudinal data into a digital impact report.", image:"https://picsum.photos/seed/work-11/1200/800", slug:"visualizing-impact"},
-      {title:"Digital Transformation", tag:"Strategy | Communications", category:"Communications", description:"Modernizing the knowledge sharing systems of a global foundation.", image:"https://picsum.photos/seed/work-12/1200/800", slug:"digital-transformation"}
+      { title: "Impact Analysis Framework", tag: "Research | Strategy", category: "Research & Strategy", description: "Developed a comprehensive framework for measuring long-term social impact in agricultural supply chains.", image: "https://picsum.photos/seed/work-01/1200/800", slug: "impact-analysis-framework" },
+      { title: "Sustainability Narrative", tag: "Communications | Data", category: "Communications", description: "Crafted a data-backed sustainability story for an international development agency.", image: "https://picsum.photos/seed/work-02/1200/800", slug: "sustainability-narrative" },
+      { title: "Strategic Advisory", tag: "Advisory | Embedded Support", category: "Advisory", description: "Providing ongoing strategic support for a pan-African climate initiative.", image: "https://picsum.photos/seed/work-03/1200/800", slug: "strategic-advisory" },
+      { title: "Climate Data Dashboard", tag: "Data & Insight", category: "Data & Insight", description: "Visualizing complex climate risk data for regional policy makers.", image: "https://picsum.photos/seed/work-04/1200/800", slug: "climate-data-dashboard" },
+      { title: "Policy Research", tag: "Research | Advisory", category: "Research & Strategy", description: "Depth research into the implications of new carbon regulations for exporters.", image: "https://picsum.photos/seed/work-05/1200/800", slug: "policy-research" },
+      { title: "Stakeholder Engagement", tag: "Communications | Strategy", category: "Communications", description: "Designing communication systems for inclusive stakeholder consultation.", image: "https://picsum.photos/seed/work-06/1200/800", slug: "stakeholder-engagement" },
+      { title: "Market Entry Strategy", tag: "Research | Strategy", category: "Research & Strategy", description: "Evaluating opportunities for sustainable technology in emerging markets.", image: "https://picsum.photos/seed/work-07/1200/800", slug: "market-entry-strategy" },
+      { title: "Crisis Communications", tag: "Communications | Advisory", category: "Communications", description: "Advising on narrative integrity during complex environmental challenges.", image: "https://picsum.photos/seed/work-08/1200/800", slug: "crisis-communications" },
+      { title: "ESG Integration", tag: "Data & Insight", category: "Data & Insight", description: "Helping a mid-sized corporation integrate ESG metrics into core reporting.", image: "https://picsum.photos/seed/work-09/1200/800", slug: "esg-integration" },
+      { title: "Capacity Building", tag: "Advisory | Research", category: "Advisory", description: "Training research teams on impact-oriented data collection methods.", image: "https://picsum.photos/seed/work-10/1200/800", slug: "capacity-building" },
+      { title: "Visualizing Impact", tag: "Data & Insight | Communications", category: "Data & Insight", description: "Translating 10 years of longitudinal data into a digital impact report.", image: "https://picsum.photos/seed/work-11/1200/800", slug: "visualizing-impact" },
+      { title: "Digital Transformation", tag: "Strategy | Communications", category: "Communications", description: "Modernizing the knowledge sharing systems of a global foundation.", image: "https://picsum.photos/seed/work-12/1200/800", slug: "digital-transformation" }
     ];
 
     const insightItems = [
-      {title:"How New Carbon Regulations Will Impact African Businesses", category:"Sustainability", date:"Feb 2026", excerpt:"What changes now that disclosure is moving from optional reporting to operational compliance in African markets.", image:"https://picsum.photos/seed/insight-01/1200/800", slug:"how-new-carbon-regulations-will-impact-african-businesses", author:"Tomi Abe", authorSlug:"tomi-abe"},
-      {title:"The Data Infrastructure Gap in Development Finance", category:"Data & Measurement", date:"Jan 2026", excerpt:"Why measurement frameworks fail when data systems are designed for reports rather than decisions.", image:"https://picsum.photos/seed/insight-02/1200/800", slug:"the-data-infrastructure-gap-in-development-finance", author:"Adetoro Adetayo", authorSlug:"adetoro-adetayo"},
-      {title:"Why Most Impact Reports Fail to Drive Decisions", category:"Communications", date:"Jan 2026", excerpt:"The missing translation layer between technical reporting and executive action.", image:"https://picsum.photos/seed/insight-03/1200/800", slug:"why-most-impact-reports-fail-to-drive-decisions", author:"Tomi Abe", authorSlug:"tomi-abe"},
-      {title:"Designing for Decision-Making Under Uncertainty", category:"Strategy", date:"Dec 2025", excerpt:"A practical framework for leading when the data is incomplete and stakes are high.", image:"https://picsum.photos/seed/insight-04/1200/800", slug:"designing-for-decision-making-under-uncertainty", author:"Adetoro Adetayo", authorSlug:"adetoro-adetayo"},
-      {title:"The Role of Narrative in Climate Adaptation", category:"Communications", date:"Nov 2025", excerpt:"Narrative quality is not branding it is infrastructure for coordinated implementation.", image:"https://picsum.photos/seed/insight-05/1200/800", slug:"the-role-of-narrative-in-climate-adaptation", author:"Tomi Abe", authorSlug:"tomi-abe"},
-      {title:"Measuring What Matters: Beyond Standard ESG Metrics", category:"Data & Measurement", date:"Oct 2025", excerpt:"How to move from generic metrics to context-specific indicators that teams can actually use.", image:"https://picsum.photos/seed/insight-06/1200/800", slug:"measuring-what-matters-beyond-standard-esg-metrics", author:"Adetoro Adetayo", authorSlug:"adetoro-adetayo"},
-      {title:"Local Knowledge Systems and Global Development Goals", category:"Research Methods", date:"Sep 2025", excerpt:"What local evidence systems reveal that global goal frameworks often miss.", image:"https://picsum.photos/seed/insight-07/1200/800", slug:"local-knowledge-systems-and-global-development-goals", author:"Adetoro Adetayo", authorSlug:"adetoro-adetayo"},
-      {title:"From Reporting to Action: The Missing Translation Layer", category:"Strategy", date:"Aug 2025", excerpt:"The management architecture needed to turn compliance outputs into clear operating choices.", image:"https://picsum.photos/seed/insight-08/1200/800", slug:"from-reporting-to-action-the-missing-translation-layer", author:"Tomi Abe", authorSlug:"tomi-abe"},
-      {title:"Building Research Partnerships That Last", category:"Research Methods", date:"Jul 2025", excerpt:"Structures that keep collaboration rigorous under changing agendas and funding pressure.", image:"https://picsum.photos/seed/insight-09/1200/800", slug:"building-research-partnerships-that-last", author:"Adetoro Adetayo", authorSlug:"adetoro-adetayo"}
+      { title: "How New Carbon Regulations Will Impact African Businesses", category: "Sustainability", date: "January 5, 2025", excerpt: "Exports will take a hit, costs will rise, and investors are already looking elsewhere—ignoring these carbon rules isn’t an option.", image: "images/carbon-regs.jpg", slug: "how-new-carbon-regulations-will-impact-african-businesses", author: "Adetoro Adetayo", authorSlug: "torotayo" },
+      { title: "The Data Infrastructure Gap in Development Finance", category: "Data & Measurement", date: "Jan 2026", excerpt: "Why measurement frameworks fail when data systems are designed for reports rather than decisions.", image: "https://picsum.photos/seed/insight-02/1200/800", slug: "the-data-infrastructure-gap-in-development-finance", author: "Adetoro Adetayo", authorSlug: "adetoro-adetayo" },
+      { title: "Why Most Impact Reports Fail to Drive Decisions", category: "Communications", date: "Jan 2026", excerpt: "The missing translation layer between technical reporting and executive action.", image: "https://picsum.photos/seed/insight-03/1200/800", slug: "why-most-impact-reports-fail-to-drive-decisions", author: "Tomi Abe", authorSlug: "tomi-abe" },
+      { title: "Designing for Decision-Making Under Uncertainty", category: "Strategy", date: "Dec 2025", excerpt: "A practical framework for leading when the data is incomplete and stakes are high.", image: "https://picsum.photos/seed/insight-04/1200/800", slug: "designing-for-decision-making-under-uncertainty", author: "Adetoro Adetayo", authorSlug: "adetoro-adetayo" },
+      { title: "The Role of Narrative in Climate Adaptation", category: "Communications", date: "Nov 2025", excerpt: "Narrative quality is not branding it is infrastructure for coordinated implementation.", image: "https://picsum.photos/seed/insight-05/1200/800", slug: "the-role-of-narrative-in-climate-adaptation", author: "Tomi Abe", authorSlug: "tomi-abe" },
+      { title: "Measuring What Matters: Beyond Standard ESG Metrics", category: "Data & Measurement", date: "Oct 2025", excerpt: "How to move from generic metrics to context-specific indicators that teams can actually use.", image: "https://picsum.photos/seed/insight-06/1200/800", slug: "measuring-what-matters-beyond-standard-esg-metrics", author: "Adetoro Adetayo", authorSlug: "adetoro-adetayo" },
+      { title: "Local Knowledge Systems and Global Development Goals", category: "Research Methods", date: "Sep 2025", excerpt: "What local evidence systems reveal that global goal frameworks often miss.", image: "https://picsum.photos/seed/insight-07/1200/800", slug: "local-knowledge-systems-and-global-development-goals", author: "Adetoro Adetayo", authorSlug: "adetoro-adetayo" },
+      { title: "From Reporting to Action: The Missing Translation Layer", category: "Strategy", date: "Aug 2025", excerpt: "The management architecture needed to turn compliance outputs into clear operating choices.", image: "https://picsum.photos/seed/insight-08/1200/800", slug: "from-reporting-to-action-the-missing-translation-layer", author: "Tomi Abe", authorSlug: "tomi-abe" },
+      { title: "Building Research Partnerships That Last", category: "Research Methods", date: "Jul 2025", excerpt: "Structures that keep collaboration rigorous under changing agendas and funding pressure.", image: "https://picsum.photos/seed/insight-09/1200/800", slug: "building-research-partnerships-that-last", author: "Adetoro Adetayo", authorSlug: "adetoro-adetayo" }
     ];
 
-    const monthRank = {Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+    const monthRank = { Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6, Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12 };
     insightItems.sort((a, b) => {
       const [am, ay] = a.date.split(' ');
       const [bm, by] = b.date.split(' ');
@@ -1215,14 +1389,30 @@
 
       if (type === 'insight') {
         const firstArticleBody = `
-          <p>In the past eighteen months, three major regulatory frameworks covering carbon pricing and emissions disclosure have either passed or entered their final consultation phases in sub-Saharan Africa. Most organizations operating in the region are not ready.</p>
-          <h4>The regulatory shift that is already here</h4>
-          <p>It is tempting to treat this as a future problem. The regulations are complex, implementation timelines are uncertain, and enforcement mechanisms in many markets remain underdeveloped. But organizations that wait often end up reacting under pressure rather than adapting deliberately.</p>
-          <p>The practical challenge is not compliance alone it is internal clarity. Data exists, but in most organizations it is not arranged for decision-making.</p>
-          <h4>Three things that make this different</h4>
-          <p>Scope is broader than before. Disclosure is moving from voluntary to mandatory. And most organizations do not yet have the data infrastructure required to respond with confidence.</p>
-          <h4>What organizations should do now</h4>
-          <p>Map current emissions data landscape, identify affected decision points, and build alignment on actual regulatory exposure now while there is still room to move intentionally.</p>
+          <p>Exports will take a hit, costs will rise, and investors are already looking elsewhere—ignoring these carbon rules isn’t an option.</p>
+          
+          <h4>The New Business Reality</h4>
+          <p>Africa isn’t sitting on the sidelines of the climate conversation anymore. Global carbon regulations are forcing businesses to rethink how they operate, and ignoring these changes isn’t an option. The <a href="https://trade.ec.europa.eu/access-to-markets/en/news/carbon-border-adjustment-mechanism-cbam" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">European Union’s Carbon Border Adjustment Mechanism (CBAM)</a> is a prime example. It’s not just another bureaucratic policy but a financial wall that could shrink Africa’s exports to the EU by 5.72%, wiping out over <a href="https://africanclimatefoundation.org/wp-content/uploads/2023/05/800756-AFC-Implications-for-Africa-of-a-CBAM-in-the-EU-06A-FINAL.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">£31 billion</a> from the continent’s GDP. That’s not theoretical. That’s real money, real businesses, and real jobs on the line.</p>
+          <p>Investors are watching. Carbon-heavy businesses are becoming risky bets, while companies with strong environmental, social, and governance (ESG) strategies are attracting capital. If you think sustainability is just a good PR move, think again. It’s about securing funding, staying in supply chains, and keeping the doors open. Countries like <a href="https://www.gov.za/sites/default/files/gcis_document/201905/4248323-5act15of2019carbontaxact.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">South Africa have already introduced carbon taxes</a>, and more regulations are coming. The <a href="https://www.impactingafrica.com/how-can-businesses-leverage-carbon-credits/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">African Carbon Markets Initiative (ACMI)</a> is gearing up to unlock billions through voluntary carbon credits. Change isn’t on the horizon—it’s here.</p>
+          
+          <h4>The Competition Trap</h4>
+          <p>CBAM and similar regulations aren’t abstract concepts—they’re going to hit the manufacturing, mining, agriculture, and energy sectors first. Think about it. If your business relies on exports, your products could suddenly become more expensive for foreign buyers just because they carry a higher carbon footprint. That makes you less competitive overnight.</p>
+          <p>Agriculture? Expect higher costs if you don’t meet the new emissions standards. Mining and energy? If your operations are still fossil fuel-heavy, you’re looking at a shrinking customer base. Supply chains are also tightening. Global corporations are cutting ties with suppliers who don’t meet their carbon reporting requirements. If your biggest clients are demanding emissions data and you can’t provide it, you’re done.</p>
+          <p>And yet, many businesses still don’t have the infrastructure to track or report emissions. Small and medium enterprises (SMEs) face an even steeper challenge. Carbon accounting software, sustainability consultants, compliance audits—it all costs money. But what is the cost of not adapting? Much worse.</p>
+          
+          <h4>First Movers Win Big</h4>
+          <p>The challenges are real, but so are the opportunities. Businesses that move early can position themselves ahead of the competition. Green finance is flowing, and impact investors are looking for companies that take emissions seriously. Carbon credits could be an untapped revenue stream—cut your emissions below the required levels, and you could sell the excess as credits on international markets. The ACMI alone aims to unlock <a href="https://www.seforall.org/our-work/initiatives-projects/ACMI" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">$6 billion annually by 2030</a>.</p>
+          <p>Kenya is already showing what’s possible. Its <a href="https://energynews.africa/2024/12/19/kenyas-geothermal-power-leading-africas-clean-energy-drive/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">geothermal energy projects</a> have reduced fossil fuel reliance and created new revenue through energy exports. <a href="https://sunculture.io/carbon/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">SunCulture</a> is using IoT-enabled devices to monitor the environmental impact of its solar-powered irrigation solutions, saving money while keeping regulators off their backs. Businesses that treat sustainability as a competitive strategy rather than a compliance headache will thrive.</p>
+          
+          <h4>What You Can Do Now</h4>
+          <p><strong>1. Invest in Carbon Accounting:</strong> If you don’t know your emissions numbers, you can’t fix them. Platforms like <a href="https://emitwise.com/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Emitwise</a> and <a href="https://www.carbontrust.com/our-work-and-impact/guides-reports-and-tools/sme-carbon-footprint-calculator" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Carbon Trust</a> are making it easier for companies to track emissions efficiently.</p>
+          <p><strong>2. Train Your Team:</strong> You can’t outsource sustainability forever. Get familiar with frameworks like the Task Force on Climate-Related Financial Disclosures (TCFD) and Global Reporting Initiative (GRI). <a href="https://www.dangotecement.com/sustainability-reporting/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Dangote Cement</a> in Nigeria is already ahead of the game, following these global sustainability standards and integrating <a href="https://cement.dangote.com/wp-content/uploads/2024/04/Sustainability-report-DGT_AR23_.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">sustainability reporting</a> into their practices. Investors and regulators are looking for businesses that understand their carbon impact.</p>
+          <p><strong>3. Form Green Partnerships:</strong> Work with suppliers who are improving their sustainability metrics. Governments and industry groups are shaping the policies that will define business in the next decade—be part of that conversation rather than reacting to it.</p>
+          <p><strong>4. Use Sustainability as a Selling Point:</strong> Consumers and investors are choosing companies that prove they’re taking action. <a href="https://mckingtorchafrica.org/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Ghana-based Mckingtorch Africa</a> is making waves globally by creating upcycled products from recycled plastic. Their sustainability isn’t just a compliance measure but their entire business model.</p>
+          
+          <p>New carbon regulations aren’t just about avoiding penalties. They’re about staying in business and gaining a competitive edge. Companies that adapt early will access better funding, win more contracts, and strengthen their brand. Those that don’t? They’ll struggle for relevance in a carbon-conscious economy.</p>
+          <p>Businesses that take control of their sustainability narratives don’t just comply—they lead. Effective communication isn’t optional; it’s how you attract investors, partners, and customers in an economy that values transparency. <a href="#home" style="color:var(--primary);text-decoration:underline;">Susbridge</a> helps impact-driven organizations craft powerful sustainability strategies that connect with their audiences and drive real business results.</p>
+          <p><a href="#contact" class="btn btn-primary" style="margin-top:8px;">Let’s talk →</a></p>
         `;
 
         return `
@@ -1318,7 +1508,7 @@
       platformGrid.appendChild(card);
     });
 
-    window.openByTitle = function(type, title) {
+    window.openByTitle = function (type, title) {
       if (type === 'platform') {
         const item = platformItems.find((p) => p.title === title);
         if (item) openModal('platform', item);
@@ -1514,4 +1704,5 @@
     openByHashIfNeeded();
   </script>
 </body>
+
 </html>
