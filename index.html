@@ -723,7 +723,7 @@
     }
 
     .modal-header h3 {
-      font-size: 1rem;
+      font-size: 20px;
     }
 
     .modal-actions {
@@ -758,7 +758,6 @@
 
     .modal-hero {
       width: 100%;
-      aspect-ratio: 16/6;
       border-radius: 12px;
       overflow: hidden;
       margin-bottom: 12px;
@@ -767,8 +766,47 @@
 
     .modal-hero img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      display: block;
+    }
+
+    .modal-insight-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      margin-bottom: 16px;
+    }
+
+    .modal-insight-topic {
+      font-size: 14px;
+      font-weight: 700;
+      color: #5f6368;
+    }
+
+    .modal-insight-author {
+      font-size: 16px;
+    }
+
+    .modal-insight-author a {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .modal-insight-divider {
+      border: 0;
+      border-top: 1px solid var(--line);
+      margin: 16px 0 24px;
+    }
+
+    .modal-article-body>p:first-of-type::first-letter {
+      float: left;
+      font-size: 3.2rem;
+      line-height: 0.8;
+      margin-right: 6px;
+      margin-top: 4px;
+      font-weight: 700;
+      color: var(--primary);
     }
 
     .modal-content h4 {
@@ -879,6 +917,12 @@
         width: 100%;
         height: 94vh;
         border-radius: 12px;
+      }
+
+      .modal-insight-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
       }
     }
   </style>
@@ -1391,8 +1435,6 @@
 
       if (type === 'insight') {
         const firstArticleBody = `
-          <p>Exports will take a hit, costs will rise, and investors are already looking elsewhere—ignoring these carbon rules isn’t an option.</p>
-          
           <h4>The New Business Reality</h4>
           <p>Africa isn’t sitting on the sidelines of the climate conversation anymore. Global carbon regulations are forcing businesses to rethink how they operate, and ignoring these changes isn’t an option. The <a href="https://trade.ec.europa.eu/access-to-markets/en/news/carbon-border-adjustment-mechanism-cbam" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">European Union’s Carbon Border Adjustment Mechanism (CBAM)</a> is a prime example. It’s not just another bureaucratic policy but a financial wall that could shrink Africa’s exports to the EU by 5.72%, wiping out over <a href="https://africanclimatefoundation.org/wp-content/uploads/2023/05/800756-AFC-Implications-for-Africa-of-a-CBAM-in-the-EU-06A-FINAL.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">£31 billion</a> from the continent’s GDP. That’s not theoretical. That’s real money, real businesses, and real jobs on the line.</p>
           <p>Investors are watching. Carbon-heavy businesses are becoming risky bets, while companies with strong environmental, social, and governance (ESG) strategies are attracting capital. If you think sustainability is just a good PR move, think again. It’s about securing funding, staying in supply chains, and keeping the doors open. Countries like <a href="https://www.gov.za/sites/default/files/gcis_document/201905/4248323-5act15of2019carbontaxact.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">South Africa have already introduced carbon taxes</a>, and more regulations are coming. The <a href="https://www.impactingafrica.com/how-can-businesses-leverage-carbon-credits/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">African Carbon Markets Initiative (ACMI)</a> is gearing up to unlock billions through voluntary carbon credits. Change isn’t on the horizon—it’s here.</p>
@@ -1418,11 +1460,16 @@
         `;
 
         return `
+          <div style="background: var(--accent); padding: 16px 20px; border-radius: 8px; margin-bottom: 16px; font-weight: 500; font-size: 1.05rem;">
+            ${item.excerpt}
+          </div>
           <div class="modal-hero"><img src="${item.image}" alt="${item.title}"></div>
-          <div class="modal-content">
-            <p><strong>${item.category} · ${item.date}</strong></p>
-            <p><strong>Author:</strong> <a href="#author=${item.authorSlug}" data-author-link="${item.authorSlug}" style="color:var(--primary);font-weight:700;">${item.author}</a></p>
-            <p><em>${item.excerpt}</em></p>
+          <div class="modal-insight-meta">
+            <div class="modal-insight-topic">${item.category} · ${item.date}</div>
+            <div class="modal-insight-author">Author: <a href="#author=${item.authorSlug}" data-author-link="${item.authorSlug}">${item.author}</a></div>
+          </div>
+          <hr class="modal-insight-divider">
+          <div class="modal-content modal-article-body">
             ${item.slug === 'how-new-carbon-regulations-will-impact-african-businesses' ? firstArticleBody : '<p>This article is part of our ongoing writing on sustainability, development, information systems, and the gap between knowing and doing.</p><p>We use this space to explore practical decision frameworks, data infrastructure priorities, and communication systems that support real implementation.</p>'}
           </div>
         `;
@@ -1451,6 +1498,7 @@
       });
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       updateHash(type, item.slug || item.title.toLowerCase().replace(/\s+/g, '-'));
     }
@@ -1459,6 +1507,7 @@
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
       modalBody.innerHTML = '';
+      document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       activeModalPayload = null;
       if (fromAuthorJump) return;
