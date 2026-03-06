@@ -1704,6 +1704,15 @@
     renderWork();
     renderInsights();
     openByHashIfNeeded();
+
+    // Randomize co-founder cards on load
+    const founderGrid = document.querySelector('.about-grid-two');
+    if (founderGrid) {
+      const founderCards = Array.from(founderGrid.children);
+      if (Math.random() > 0.5 && founderCards.length === 2) {
+        founderGrid.appendChild(founderCards[0]);
+      }
+    }
   </script>
 </body>
 
