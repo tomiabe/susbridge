@@ -1372,7 +1372,8 @@
     ];
 
     const workItems = [
-      { title: "LCA of Car Transport in Nigeria", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" }
+      { title: "LCA of Car Transport in Nigeria", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" },
+      { title: "LCA of Sachet Water vs PET Bottled Water (Lagos)", tag: "Research", category: "Lab", year: "2026", description: "When one liter of water comes with two very different footprints.", image: "images/lca-sachet-water.jpg", slug: "lca-sachet-water-pet-lagos" }
     ];
 
     const insightItems = [
@@ -1526,6 +1527,11 @@
           <p>Because sustainability thinking in Africa isn’t about copying what works elsewhere. It’s about starting where we are, asking better questions, and building knowledge that drives real decisions.</p>
           <p>Curious about the full analysis? You can read the full technical report below, for a deeper dive into our methodology, data, and findings.</p>
           <p><a href="https://drive.google.com/file/d/1oLLjP5q60fBAA4mKreYNSSmM7MkSR7e2/view" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Read the full technical report →</a></p>
+        ` : item.slug === 'lca-sachet-water-pet-lagos' ? `
+          <p>Sachet and bottled water often sit side by side on the same street. Same city, same thirst, same one liter in your hand. But once you follow the plastic, the fuel, and the smoke from open burning, they stop looking the same.</p>
+          <p>Using <strong>Life Cycle Assessment (LCA)</strong>, we traced the environmental difference between sachet water and PET bottled water in Lagos, one liter at a time. What we found challenges the simple narrative around plastic bans.</p>
+          <p>Explore the full case study &mdash; methodology, findings, scenario analysis, and an interactive studio where you can move the levers and see what actually shifts.</p>
+          <p><a href="https://susbridge.github.io/lca-sachet-pet/case_study_full_presentation.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Explore the full case study &#x2192;</a></p>
         ` : `
           <h4>The challenge</h4>
           <p>The organization found itself navigating a rapidly shifting regulatory landscape without a clear framework for translating complex policy requirements into actionable decisions for their leadership team. Existing processes were built for stability not for the pace of change they were now dealing with.</p>
