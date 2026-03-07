@@ -1947,7 +1947,7 @@
     function openModal(type, item) {
       preModalPath = window.location.pathname;
       activeModalPayload = { type, item };
-      if (type === 'insight' || type === 'work') {
+      if (type === 'insight' || type === 'work' || type === 'platform') {
         modalTitle.textContent = '';
       } else {
         modalTitle.textContent = item.title;
