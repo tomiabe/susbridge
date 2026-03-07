@@ -1373,7 +1373,7 @@
 
     const workItems = [
       { title: "Sachet vs Bottled Water: What Lagos Actually Pays Per Liter", tag: "Research", category: "Lab", year: "2025", description: "Same liter. Different footprint. Here's what the numbers say.", image: "https://picsum.photos/seed/sachet-lagos-water/1200/800", slug: "sachet-vs-bottled-water-lagos" },
-      { title: "LCA of Car Transport in Nigeria", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" }
+      { title: "Petrol vs Diesel: What Nigeria's Cars Actually Cost", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" }
     ];
 
     const insightItems = [
@@ -1538,9 +1538,9 @@
           <h4>Why We Did This</h4>
           <p>Drinking water in Lagos is already a systems story: patchy piped supply, private wells, sachet producers, bottled brands, street vendors, and informal waste pickers.</p>
           <p>Policy debates about \u201cbanning sachets\u201d or \u201cmoving people to bottles\u201d often jump straight from opinion to regulation. We wanted to pause and ask a narrower question:</p>
-          <p>If all you care about is one liter of water actually consumed, what is the environmental bill that comes with sachet water versus PET bottled water in Lagos today? Not in theory. Not in a future with perfect recycling. Under current, messy conditions.</p>
+          <p><strong>If all you care about is one liter of water actually consumed, what is the environmental bill that comes with sachet water versus PET bottled water in Lagos today?</strong> Not in theory. Not in a future with perfect recycling. Under current, messy conditions.</p>
           <h4>How We Measured It</h4>
-          <p>We used <strong>Life Cycle Assessment (LCA)</strong>\u2014a method that tracks environmental impacts from start to finish, like doing an audit of your car\u2019s footprint, but for packaging.</p>
+          <p>We used <strong>Life Cycle Assessment (LCA)</strong>\u2014a method that tracks environmental impacts from start to finish, like doing an <a href="#" onclick="event.preventDefault(); var it=workItems.find(function(x){return x.slug==='lca-car-transport-nigeria';}); if(it) openModal('work', it);" style="color:var(--primary);text-decoration:underline;">audit of your car\u2019s footprint</a>, but for packaging.</p>
           <p>Our anchor:</p>
           <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
             <li><strong>Functional unit:</strong> 1 liter of potable water consumed at point of use</li>
