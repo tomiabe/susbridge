@@ -1450,7 +1450,9 @@
     function buildModalHTML(item, type) {
       if (type === 'work') {
         const categoryLabel = item.category === 'Lab' ? 'Knowledge Lab' : item.category;
-        const lcaBody = item.slug === 'lca-car-transport-nigeria' ? `
+        let lcaBody;
+        if (item.slug === 'lca-car-transport-nigeria') {
+          lcaBody = `
           <h4>Prologue: A Question Worth Asking</h4>
           <p>A lot of us don’t think about what powers our cars. Petrol, diesel, or whatever works. But when you zoom out and trace every bit of energy burned, every resource mined, and every emission released, you start to see just how much that everyday ride really costs.</p>
           <p>We asked a simple question: Between petrol and diesel, which one is better for Nigeria’s environment? Not from a brand or price perspective, but from a long-term, what-does-this-mean-for-us-all lens.</p>
@@ -1527,13 +1529,79 @@
           <p>Because sustainability thinking in Africa isn’t about copying what works elsewhere. It’s about starting where we are, asking better questions, and building knowledge that drives real decisions.</p>
           <p>Curious about the full analysis? You can read the full technical report below, for a deeper dive into our methodology, data, and findings.</p>
           <p><a href="https://drive.google.com/file/d/1oLLjP5q60fBAA4mKreYNSSmM7MkSR7e2/view" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Read the full technical report →</a></p>
-        ` : item.slug === 'lca-sachet-water-pet-lagos' ? `
-          <p>Sachet and bottled water often sit side by side on the same street. Same city, same thirst, same one liter in your hand. But once you follow the plastic, the fuel, and the smoke from open burning, they stop looking the same.</p>
-          <p>Using <strong>Life Cycle Assessment (LCA)</strong>, we traced the environmental difference between sachet water and PET bottled water in Lagos, one liter at a time. What we found challenges the simple narrative around plastic bans.</p>
-          <p>Explore the full case study &mdash; methodology, findings, scenario analysis, and an interactive studio where you can move the levers and see what actually shifts.</p>
-          <p><a href="https://susbridge.github.io/lca-sachet-pet/case_study_full_presentation.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Explore the full case study &#x2192;</a></p>
-        ` : `
-          <h4>The challenge</h4>
+          `;
+        } else if (item.slug === 'lca-sachet-water-pet-lagos') {
+          lcaBody = `
+            <h4>Why we did this</h4>
+          <p>Drinking water in Lagos is already a systems story: patchy piped supply, private wells, sachet producers, bottled brands, street vendors, and informal waste pickers.</p>
+          <p>Policy debates about "banning sachets" or "moving people to bottles" often jump straight from opinion to regulation. We wanted to pause and ask a narrower question:</p>
+          <p>If all you care about is <strong>one liter of water actually consumed</strong>, what is the environmental bill that comes with sachet water versus PET bottled water in Lagos today? Not in theory. Not in a future with perfect recycling. Under current, messy conditions.</p>
+          <h4>How we measured it</h4>
+          <p>We used <strong>Life Cycle Assessment (LCA)</strong> with a simple anchor:</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Functional unit: <strong>1 liter of potable water consumed at point of use</strong></li>
+            <li>Location: <strong>Lagos, Nigeria</strong></li>
+            <li>Boundary: <strong>cradle to grave</strong>, from raw materials to end-of-life</li>
+          </ul>
+          <p>For both systems, we modelled packaging production, filling energy, transport, and end-of-life (recycling, dumping, open burning). Core impact indicators: Climate impact (GWP100), Water depletion, and Cumulative energy demand.</p>
+          <h4>What the numbers say</h4>
+          <p>At the level of <strong>1 liter consumed</strong>, sachet and PET do not start from the same place.</p>
+          <div style="overflow-x:auto; margin: 16px 0;">
+            <table style="width:100%; border-collapse:collapse; font-size:14px;">
+              <thead>
+                <tr style="background:#f5f5f3; text-align:left;">
+                  <th style="padding:10px 12px; border-bottom:2px solid #e5e5e5;">Indicator</th>
+                  <th style="padding:10px 12px; border-bottom:2px solid #e5e5e5;">Sachet Water</th>
+                  <th style="padding:10px 12px; border-bottom:2px solid #e5e5e5;">PET Bottle</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #e5e5e5;"><td style="padding:9px 12px;">Climate impact (GWP100)</td><td style="padding:9px 12px;">&#x2705; 0.0425 kg CO₂-eq/L</td><td style="padding:9px 12px;">&#x274C; 0.0897 kg CO₂-eq/L</td></tr>
+                <tr style="border-bottom:1px solid #e5e5e5;"><td style="padding:9px 12px;">Water + energy demand</td><td style="padding:9px 12px;">&#x2705; ~13 units/L</td><td style="padding:9px 12px;">&#x274C; ~84 units/L</td></tr>
+                <tr><td style="padding:9px 12px;">Biggest driver</td><td style="padding:9px 12px;">Filling energy</td><td style="padding:9px 12px;">Packaging production</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Under current Lagos assumptions, sachet has a <strong>lower climate footprint</strong> per liter delivered. PET needs far more material and energy to do the same basic job.</p>
+          <h4>What happens when you change the system</h4>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li><strong>If PET recycling goes to 50%</strong> — PET climate impact drops from 0.0897 to 0.0555 kg CO₂-eq. Better, but still above sachet at today's levels.</li>
+            <li><strong>If sachet open burning rises to 95%</strong> — Sachet footprint rises, but still stays below PET's baseline.</li>
+            <li><strong>If you lighten packaging for both</strong> — Cutting packaging mass is consistently the strongest lever, regardless of format.</li>
+          </ul>
+          <p>The headline: <strong>even with ambitious PET recycling, sachet remains ahead on climate in this Lagos model.</strong></p>
+          <h4>So what do we do with that?</h4>
+          <p>This is not a "sachets are good" story. Mismanaged sachet waste still shows up everywhere in Lagos. But if we focus only on bans and ignore the underlying material and energy story, we risk swapping one visible problem for a quieter one.</p>
+          <p><strong>For city and state governments</strong></p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Treat sachet and PET as different problems, not interchangeable villains.</li>
+            <li>Use LCA-based signals when setting packaging standards, not just litter visibility.</li>
+            <li>Pair any restrictions with real investments in collection, recycling, and cleaner fuels.</li>
+          </ul>
+          <p><strong>For producers and brands</strong></p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Lightweight packaging before anything else — every gram removed pays back multiple times.</li>
+            <li>Push recycled content where quality and regulation allow.</li>
+            <li>Design formats that are easier to collect and sort locally.</li>
+          </ul>
+          <p><strong>For funders and NGOs</strong></p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Support collection infrastructure, informal recycler support, and standards that have teeth.</li>
+            <li>Use ranges and uncertainty, not single numbers, when talking about "better" options.</li>
+          </ul>
+          <h4>What this case study offers</h4>
+          <p>For this sachet vs PET comparison we built:</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>A transparent, <strong>cradle-to-grave LCA model</strong> for Lagos</li>
+            <li>Deterministic results, <strong>sensitivity runs</strong>, and a <strong>Monte Carlo uncertainty snapshot</strong></li>
+            <li>A <strong>live scenario studio</strong> where decision-makers can move sliders and see what actually shifts</li>
+          </ul>
+          <p>It is not a final verdict on all sachet and PET systems in West Africa. It is a grounded starting point for regulators, utilities, brands, city teams, and anyone arguing about "the right way" to drink water in Lagos.</p>
+          <p>This work sits in our <strong>Knowledge Lab</strong>, where we stress-test common stories about sustainability in African cities and turn them into decision tools others can use.</p>
+          `;
+        } else {
+          lcaBody = `
+            < h4 > The challenge</h4 >
           <p>The organization found itself navigating a rapidly shifting regulatory landscape without a clear framework for translating complex policy requirements into actionable decisions for their leadership team. Existing processes were built for stability not for the pace of change they were now dealing with.</p>
           <p>What made this difficult was the absence of clear internal consensus on risk priorities. Technical teams and senior leaders were operating from different mental models creating friction where clarity was needed most.</p>
           <h4>Our approach</h4>
@@ -1543,9 +1611,10 @@
           <p>Aligned leadership, faster response, and clearer strategic choices under pressure.</p>
           <h4>What we delivered</h4>
           <p>Regulatory Mapping Framework and Scenario Analysis Document.</p>
-        `;
+          `;
+        }
         return `
-          <h2 style="font-size: 20px; margin-bottom: 12px; line-height: 1.3; color: #111;">${item.title}</h2>
+            < h2 style = "font-size: 20px; margin-bottom: 12px; line-height: 1.3; color: #111;" > ${item.title}</h2 >
           <p style="font-size: 1.05rem; margin-bottom: 16px; color: #2f3135; line-height: 1.5;">${item.description}</p>
           <div class="modal-insight-meta">
             <div class="modal-insight-topic">${item.year} · ${item.tag} · ${item.category === 'Lab' ? `<a href="#work=lab" data-work-filter-link="Lab">Knowledge Lab</a>` : categoryLabel}</div>
@@ -1554,12 +1623,12 @@
           <div class="modal-content modal-article-body">
             ${lcaBody}
           </div>
-        `;
+          `;
       }
 
       if (type === 'insight') {
         const firstArticleBody = `
-          <h4>The New Business Reality</h4>
+            < h4 > The New Business Reality</h4 >
           <p>Africa isn’t sitting on the sidelines of the climate conversation anymore. Global carbon regulations are forcing businesses to rethink how they operate, and ignoring these changes isn’t an option. The <a href="https://trade.ec.europa.eu/access-to-markets/en/news/carbon-border-adjustment-mechanism-cbam" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">European Union’s Carbon Border Adjustment Mechanism (CBAM)</a> is a prime example. It’s not just another bureaucratic policy but a financial wall that could shrink Africa’s exports to the EU by 5.72%, wiping out over <a href="https://africanclimatefoundation.org/wp-content/uploads/2023/05/800756-AFC-Implications-for-Africa-of-a-CBAM-in-the-EU-06A-FINAL.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">£31 billion</a> from the continent’s GDP. That’s not theoretical. That’s real money, real businesses, and real jobs on the line.</p>
           <p>Investors are watching. Carbon-heavy businesses are becoming risky bets, while companies with strong environmental, social, and governance (ESG) strategies are attracting capital. If you think sustainability is just a good PR move, think again. It’s about securing funding, staying in supply chains, and keeping the doors open. Countries like <a href="https://www.gov.za/sites/default/files/gcis_document/201905/4248323-5act15of2019carbontaxact.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">South Africa have already introduced carbon taxes</a>, and more regulations are coming. The <a href="https://www.impactingafrica.com/how-can-businesses-leverage-carbon-credits/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">African Carbon Markets Initiative (ACMI)</a> is gearing up to unlock billions through voluntary carbon credits. Change isn’t on the horizon—it’s here.</p>
           
@@ -1581,10 +1650,10 @@
           <p>New carbon regulations aren’t just about avoiding penalties. They’re about staying in business and gaining a competitive edge. Companies that adapt early will access better funding, win more contracts, and strengthen their brand. Those that don’t? They’ll struggle for relevance in a carbon-conscious economy.</p>
           <p>Businesses that take control of their sustainability narratives don’t just comply—they lead. Effective communication isn’t optional; it’s how you attract investors, partners, and customers in an economy that values transparency. <a href="#home" style="color:var(--primary);text-decoration:underline;">Susbridge</a> helps impact-driven organizations craft powerful sustainability strategies that connect with their audiences and drive real business results.</p>
           <p><a href="#contact" class="btn btn-primary" style="margin-top:8px;">Let’s talk →</a></p>
-        `;
+          `;
 
         const articleBody2 = `
-          <h4>Breaking Through the Noise</h4>
+            < h4 > Breaking Through the Noise</h4 >
           <p>In 2023, <a href="https://www.youtube.com/watch?v=QNv9PRDIhes" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Apple released a video</a> where “Mother Nature” stormed into their headquarters, demanding answers about their environmental commitments. The message wasn’t just marketing—it was a bold way to hold the company accountable. Apple promised to achieve net-zero carbon emissions by 2030, touching on everything from clean energy to low-carbon shipping.</p>
           <p>This approach worked because the story made sustainability feel urgent, real, and personal.</p>
           <p>Environmental, social, and economic issues are no longer distant concerns. These challenges shape daily life—how people work, what they buy, and the communities they live in. But understanding the issues isn’t enough. Change happens when messages connect with people and motivate action.</p>
@@ -1612,10 +1681,10 @@
           <p>Apple’s Mother Nature video, designed for social sharing, turned a corporate sustainability update into entertainment. Memorable communication has a lasting impact.</p>
           <p>At <a href="https://susbridge.xyz/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Susbridge</a>, we help organizations cut through the noise. Whether through research, branding, or digital campaigns, our expertise makes messages clear, engaging, and action-driven. Impact starts with how the message is communicated.</p>
           <p><a href="#contact" class="btn btn-primary" style="margin-top:8px;">Let’s talk →</a></p>
-        `;
+          `;
 
         const articleBody3 = `
-          <h4>Clicks That Matter</h4>
+            < h4 > Clicks That Matter</h4 >
           <p>Sustainability efforts don’t fail because people don’t care. They fail because caring isn’t the same as doing. Businesses flood the internet with sustainability pledges, but most don’t spark action. The problem? Awareness alone changes nothing. A person can watch a documentary about plastic pollution, feel outraged, and then buy a plastic-wrapped snack ten minutes later. That gap between awareness and action is where <a href="https://www.emerald.com/insight/content/doi/10.1108/jrim-10-2023-0372/full/html" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">digital media</a> can make or break sustainability efforts.</p>
           <p><a href="https://consensus.app/questions/what-strategies-leveraging-digital-platforms-promoting/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Digital platforms</a>, when used well, don’t just inform; they provoke, challenge, and invite participation. A viral video can turn an obscure environmental issue into a trending topic. A well-designed <a href="https://emplifi.io/resources/blog/how-sustainability-can-drive-social-media-success-on-earth-day" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">interactive campaign</a> can nudge people toward more responsible choices. Studies even show that sustainability messages get more engagement when they feel like <a href="https://www.linkedin.com/pulse/struggling-social-media-engagement-learn-how-can-create-guerreiro" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">conversations</a>, not corporate statements.</p>
           <p>This piece looks at how businesses can use digital media to move past awareness and into action. What works? What doesn’t? And how can companies build engagement that leads to change?</p>
@@ -1644,10 +1713,10 @@
           <p>Companies that want to move past surface-level engagement need to think beyond posting updates. Strategies must be data-driven, transparent, and designed to convert digital interaction into real-world impact. Expert guidance makes a difference. <a href="https://susbridge.xyz" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Susbridge Consult</a> helps organizations cut through the noise, ensuring sustainability efforts don’t just exist online but lead to measurable outcomes.</p>
           <p>The challenge is clear, but so is the opportunity. Digital platforms give businesses the power to engage, educate, and activate at scale. Who will use them to make sustainability something people don’t just talk about but act on?</p>
           <p><a href="#contact" class="btn btn-primary" style="margin-top:8px;">Let’s talk →</a></p>
-        `;
+          `;
 
         const articleBody4 = `
-          <h4>Adapt or Fade Away</h4>
+            < h4 > Adapt or Fade Away</h4 >
           <p>Sustainability isn’t a trend. Not a marketing angle, a compliance box to check, or a feel-good add-on. Business survival depends on it. Customers have made that clear. Investors are demanding proof. Regulators aren’t giving companies a choice. Yet, many brands still treat sustainability like an optional story, something to sprinkle into campaigns when convenient. That approach no longer works.</p>
           <p>A <a href="https://www.cirt.tech/blog-posts/the-rise-of-eco-friendly-brands-meeting-consumer-demands-for-sustainability" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">staggering 73% of global consumers</a> say they’re willing to change their buying habits to reduce environmental harm. This isn’t just sentiment. A power shift is happening. Customers demand real action and don’t hesitate to switch brands when sensing anything fake. Greenwashing gets called out in an instant. The companies that win embed sustainability into the entire brand, not just the ads.</p>
           
@@ -1669,10 +1738,10 @@
           <p>Customers don’t just buy products anymore. Purchasing decisions align with values, favoring companies that back words with real action. The brands getting sustainability right attract loyal customers, draw in impact-driven investors, and build stronger reputations, not because of polished messaging but because of meaningful action.</p>
           <p>For businesses ready to take sustainability seriously, the path forward is clear. Sustainability isn’t just part of the brand. Sustainability defines the brand.</p>
           <p>And Susbridge is here to make that happen. <a href="#contact" class="btn btn-primary" style="margin-top:8px;">Let’s talk →</a></p>
-        `;
+          `;
 
         const articleBody5 = `
-          <h4>Trust Lost, Customers Gone</h4>
+            < h4 > Trust Lost, Customers Gone</h4 >
           <p>Sustainability storytelling is a mess. There, I said it. Companies are scrambling to prove they care about the environment, yet every other claim reeks of marketing fluff. Consumers aren’t fooled. They see through the greenwashing, the vague promises, the “we’re committed to sustainability” nonsense that never actually translates into real action. You know what happens next? Trust erodes. Brands crumble. And the people who actually want to do good get buried under skepticism.</p>
           <p>That’s where <a href="https://susbridge.xyz/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Susbridge</a> comes in. Businesses need a different approach, one that is brutally honest, data-driven, and actually makes people want to listen. If your company is serious about making an impact, storytelling isn’t just a marketing tool, it’s a test of credibility.</p>
           <p><a href="https://www.techtarget.com/whatis/definition/greenwashing" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Greenwashing</a> isn’t just misleading, it’s a brand killer. Travelers, for instance, are paying close attention. <a href="https://goodtourisminstitute.com/library/sustainable-storytelling/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">76% of travelers</a> say they want to adopt more sustainable practices, yet they remain deeply skeptical. They’ve seen too many hotels slap on a “green” label without changing a thing. They’ve heard airlines talk about carbon offsets while expanding their fossil fuel-heavy operations.</p>
@@ -1706,7 +1775,7 @@
           <p>People are tired of corporate jargon. They want businesses to be real, transparent, and accountable. If your company is serious about sustainability not just talking about it but doing it, let’s work together. Susbridge turns sustainability efforts into stories worth believing.</p>
           <p>No more empty claims. No more greenwashing. Just real impact, clearly communicated. Ready to stop talking and start doing?</p>
           <p><a href="#contact" class="btn btn-primary" style="margin-top:8px;">Let’s make it happen →</a></p>
-        `;
+          `;
 
         let selectedBody = '<p>This article is part of our ongoing writing on sustainability, development, information systems, and the gap between knowing and doing.</p><p>We use this space to explore practical decision frameworks, data infrastructure priorities, and communication systems that support real implementation.</p>';
         if (item.slug === 'how-new-carbon-regulations-will-impact-african-businesses') {
@@ -1722,7 +1791,7 @@
         }
 
         return `
-          <h2 style="font-size: 20px; margin-bottom: 12px; line-height: 1.3; color: #111;">${item.title}</h2>
+            < h2 style = "font-size: 20px; margin-bottom: 12px; line-height: 1.3; color: #111;" > ${item.title}</h2 >
           <p style="font-size: 1.05rem; margin-bottom: 16px; color: #2f3135; line-height: 1.5;">${item.excerpt}</p>
           <div class="modal-insight-meta">
             <div class="modal-insight-topic">${item.categories.join(' · ')} · ${item.date} · <a href="#author=${item.authorSlug}" data-author-link="${item.authorSlug}">${item.author}</a></div>
@@ -1731,15 +1800,15 @@
           <div class="modal-content modal-article-body">
             ${selectedBody}
           </div>
-        `;
+          `;
       }
 
       return `
-        <div class="modal-hero"><img src="${item.image}" alt="${item.title}"></div>
+            < div class="modal-hero" ><img src="${item.image}" alt="${item.title}"></div>
         <div class="modal-content">
           ${item.content.map((line) => `<p>${line}</p>`).join('')}
         </div>
-      `;
+          `;
     }
 
     function openModal(type, item) {
@@ -1785,7 +1854,7 @@
       activeModalPayload = null;
       if (fromAuthorJump) return;
       if (preModalHash.startsWith('#author=')) {
-        history.replaceState(null, '', `${window.location.pathname}${window.location.search}${preModalHash}`);
+        history.replaceState(null, '', `${window.location.pathname}${window.location.search}${preModalHash} `);
       } else {
         clearHash();
       }
@@ -1804,8 +1873,8 @@
 
     copyLinkBtn.addEventListener('click', async () => {
       if (!activeModalPayload) return;
-      const hash = window.location.hash || `#${activeModalPayload.type}=${activeModalPayload.item.slug}`;
-      const url = `${window.location.origin}${window.location.pathname}${hash}`;
+      const hash = window.location.hash || `#${activeModalPayload.type}=${activeModalPayload.item.slug} `;
+      const url = `${window.location.origin}${window.location.pathname}${hash} `;
       try {
         await navigator.clipboard.writeText(url);
         const textSpan = copyLinkBtn.querySelector('.copy-text');
@@ -1824,13 +1893,13 @@
       const card = document.createElement('article');
       card.className = 'card';
       card.innerHTML = `
-        <div class="img-wrap"><img src="${p.image}" alt="${p.title}"></div>
+            < div class="img-wrap" ><img src="${p.image}" alt="${p.title}"></div>
         <div class="card-body">
           <h3>${p.title}</h3>
           <p>${p.short}</p>
           <button class="card-action">Learn more →</button>
         </div>
-      `;
+          `;
       card.querySelector('.card-action').addEventListener('click', () => openModal('platform', p));
       platformGrid.appendChild(card);
     });
@@ -1854,7 +1923,7 @@
       workFilterRow.innerHTML = '';
       workFilters.forEach((filter) => {
         const btn = document.createElement('button');
-        btn.className = `chip ${workActiveFilter === filter ? 'active' : ''}`;
+        btn.className = `chip ${workActiveFilter === filter ? 'active' : ''} `;
         btn.textContent = filter === 'All' ? 'All Projects' : filter;
         btn.addEventListener('click', () => {
           workActiveFilter = filter;
@@ -1872,14 +1941,14 @@
         const card = document.createElement('article');
         card.className = 'card';
         card.innerHTML = `
-          <div class="img-wrap"><img src="${item.image}" alt="${item.title}"></div>
+            < div class="img-wrap" ><img src="${item.image}" alt="${item.title}"></div>
           <div class="card-body">
             <p class="kicker" style="font-size: 14px;">${item.category === 'Lab' ? `${item.tag} · Knowledge Lab` : item.tag}</p>
             <h3>${item.title}</h3>
             <p>${item.description}</p>
             <button class="card-action">View case study →</button>
           </div>
-        `;
+          `;
         card.querySelector('.card-action').addEventListener('click', () => openModal('work', item));
         workGrid.appendChild(card);
       });
@@ -1922,7 +1991,7 @@
       insightFilterRow.innerHTML = '';
       insightFilters.forEach((filter) => {
         const btn = document.createElement('button');
-        btn.className = `chip ${insightActiveFilter === filter ? 'active' : ''}`;
+        btn.className = `chip ${insightActiveFilter === filter ? 'active' : ''} `;
         btn.textContent = filter;
         btn.addEventListener('click', () => {
           insightActiveFilter = filter;
@@ -1935,7 +2004,7 @@
       insightAuthorFilterRow.innerHTML = '';
       insightAuthorFilters.forEach((author) => {
         const btn = document.createElement('button');
-        btn.className = `chip ${insightActiveAuthor === author ? 'active' : ''}`;
+        btn.className = `chip ${insightActiveAuthor === author ? 'active' : ''} `;
         btn.textContent = author;
         btn.addEventListener('click', () => {
           insightActiveAuthor = author;
@@ -1964,7 +2033,7 @@
         const card = document.createElement('article');
         card.className = 'card';
         card.innerHTML = `
-          <div class="img-wrap"><img src="${item.image}" alt="${item.title}"></div>
+            < div class="img-wrap" ><img src="${item.image}" alt="${item.title}"></div>
           <div class="card-body">
             <p class="kicker" style="font-size: 14px;">${item.categories.join(' · ')} · ${item.date}</p>
             <h3>${item.title}</h3>
