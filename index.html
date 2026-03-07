@@ -1439,8 +1439,15 @@
     let preModalPath = '';
 
     function updatePath(kind, slug) {
-      const prefix = kind === 'author' ? '/author/' : '/';
-      history.pushState(null, '', prefix + slug);
+      if (kind === 'author') {
+        history.pushState(null, '', '/author/' + slug);
+      } else if (kind === 'work-filter') {
+        history.pushState(null, '', '/work/' + slug.toLowerCase());
+      } else if (kind === 'insight-filter') {
+        history.pushState(null, '', '/insights/' + slug.toLowerCase());
+      } else {
+        history.pushState(null, '', '/' + slug);
+      }
     }
 
     function clearPath() {
@@ -1450,7 +1457,7 @@
     function buildModalHTML(item, type) {
       if (type === 'work') {
         const categoryLabel = item.category === 'Lab' ? 'Knowledge Lab' : item.category;
-        const knowledgeLabLink = item.category === 'Lab' ? '<a href="/work" data-work-filter-link="Lab">Knowledge Lab</a>' : categoryLabel;
+        const knowledgeLabLink = item.category === 'Lab' ? '<a href="/work/lab" data-work-filter-link="Lab">Knowledge Lab</a>' : categoryLabel;
         let modalBody;
         if (item.slug === 'lca-car-transport-nigeria') {
           modalBody = `
@@ -1907,9 +1914,11 @@
       modalBody.querySelectorAll('[data-work-filter-link]').forEach((link) => {
         link.addEventListener('click', (event) => {
           event.preventDefault();
-          workActiveFilter = link.getAttribute('data-work-filter-link');
+          const filterVal = link.getAttribute('data-work-filter-link');
+          workActiveFilter = filterVal;
           workLimit = 6;
           renderWork();
+          updatePath('work-filter', filterVal);
           closeModal(true);
           document.getElementById('work').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
@@ -2000,6 +2009,7 @@
           workActiveFilter = filter;
           workLimit = 6;
           renderWork();
+          if (filter === 'All') { clearPath(); } else { updatePath('work-filter', filter); }
         });
         workFilterRow.appendChild(btn);
       });
@@ -2069,6 +2079,7 @@
           insightActiveFilter = filter;
           insightLimit = 6;
           renderInsights();
+          if (filter === 'All') { clearPath(); } else { updatePath('insight-filter', filter); }
         });
         insightFilterRow.appendChild(btn);
       });
@@ -2136,9 +2147,31 @@
       if (path === '/' || path === '') return;
 
       if (path.startsWith('/author/')) {
-        const authorSlug = path.replace('/author/', '');
+        const authorSlug = path.slice('/author/'.length);
         if (authorSlug) {
           applyAuthorFilter(authorSlug);
+          document.getElementById('insights').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        return;
+      }
+
+      if (path.startsWith('/work/')) {
+        const filterSlug = path.slice('/work/'.length);
+        const match = workFilters.find((f) => f.toLowerCase() === filterSlug);
+        if (match) {
+          workActiveFilter = match;
+          renderWork();
+          document.getElementById('work').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        return;
+      }
+
+      if (path.startsWith('/insights/')) {
+        const filterSlug = path.slice('/insights/'.length);
+        const match = insightFilters.find((f) => f.toLowerCase() === filterSlug);
+        if (match) {
+          insightActiveFilter = match;
+          renderInsights();
           document.getElementById('insights').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
         return;
