@@ -1439,8 +1439,7 @@
     let preModalPath = '';
 
     function updatePath(kind, slug) {
-      const bases = { insight: '/insights/', work: '/work/', platform: '/initiatives/', author: '/author/' };
-      history.pushState(null, '', (bases[kind] || '/') + slug);
+      history.pushState(null, '', '/' + slug);
     }
 
     function clearPath() {
@@ -1929,11 +1928,7 @@
       document.body.style.overflow = '';
       activeModalPayload = null;
       if (fromAuthorJump) return;
-      if (preModalPath.startsWith('/author/')) {
-        history.pushState(null, '', preModalPath);
-      } else {
-        clearPath();
-      }
+      history.pushState(null, '', preModalPath || '/');
       preModalPath = '';
     }
 
@@ -2087,7 +2082,7 @@
           insightLimit = 6;
           renderInsights();
           if (author === 'All Authors') {
-            if (!window.location.pathname.startsWith('/insights/')) clearPath();
+            clearPath();
           } else {
             const slug = insightItems.find((item) => item.author === author)?.authorSlug;
             if (slug) updatePath('author', slug);
@@ -2138,28 +2133,21 @@
     function openByPathIfNeeded() {
       const path = window.location.pathname;
       if (path === '/' || path === '') return;
-      const parts = path.replace(/^\//, '').split('/');
-      const kind = parts[0];
-      const slug = parts.slice(1).join('/');
+      const slug = path.replace(/^\//, '').replace(/\/$/, '');
       if (!slug) return;
 
-      if (kind === 'work') {
-        const item = workItems.find((w) => w.slug === slug);
-        if (item) openModal('work', item);
-      }
+      const workItem = workItems.find((w) => w.slug === slug);
+      if (workItem) { openModal('work', workItem); return; }
 
-      if (kind === 'insights') {
-        const item = insightItems.find((i) => i.slug === slug);
-        if (item) openModal('insight', item);
-      }
+      const insightItem = insightItems.find((i) => i.slug === slug);
+      if (insightItem) { openModal('insight', insightItem); return; }
 
-      if (kind === 'initiatives') {
-        const normalized = slug.replace(/-/g, ' ').toLowerCase();
-        const item = platformItems.find((p) => p.title.toLowerCase() === normalized);
-        if (item) openModal('platform', item);
-      }
+      const normalized = slug.replace(/-/g, ' ').toLowerCase();
+      const platformItem = platformItems.find((p) => p.title.toLowerCase() === normalized);
+      if (platformItem) { openModal('platform', platformItem); return; }
 
-      if (kind === 'author') {
+      const authorItem = insightItems.find((i) => i.authorSlug === slug);
+      if (authorItem) {
         applyAuthorFilter(slug);
         document.getElementById('insights').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
