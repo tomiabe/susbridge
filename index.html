@@ -1436,21 +1436,21 @@
     const copyLinkBtn = document.getElementById('copyLink');
 
     let activeModalPayload = null;
-    let preModalHash = '';
+    let preModalPath = '';
 
-    function updateHash(kind, slug) {
-      const hash = `${kind}=${slug}`;
-      history.replaceState(null, '', `#${hash}`);
+    function updatePath(kind, slug) {
+      const bases = { insight: '/insights/', work: '/work/', platform: '/initiatives/', author: '/author/' };
+      history.pushState(null, '', (bases[kind] || '/') + slug);
     }
 
-    function clearHash() {
-      history.replaceState(null, '', window.location.pathname + window.location.search);
+    function clearPath() {
+      history.pushState(null, '', '/');
     }
 
     function buildModalHTML(item, type) {
       if (type === 'work') {
         const categoryLabel = item.category === 'Lab' ? 'Knowledge Lab' : item.category;
-        const knowledgeLabLink = item.category === 'Lab' ? '<a href="#work=lab" data-work-filter-link="Lab">Knowledge Lab</a>' : categoryLabel;
+        const knowledgeLabLink = item.category === 'Lab' ? '<a href="/work" data-work-filter-link="Lab">Knowledge Lab</a>' : categoryLabel;
         let modalBody;
         if (item.slug === 'lca-car-transport-nigeria') {
           modalBody = `
@@ -1870,7 +1870,7 @@
           <h2 style="font-size: 20px; margin-bottom: 12px; line-height: 1.3; color: #111;">${item.title}</h2>
           <p style="font-size: 1.05rem; margin-bottom: 16px; color: #2f3135; line-height: 1.5;">${item.excerpt}</p>
           <div class="modal-insight-meta">
-            <div class="modal-insight-topic">${item.categories.join(' · ')} · ${item.date} · <a href="#author=${item.authorSlug}" data-author-link="${item.authorSlug}">${item.author}</a></div>
+            <div class="modal-insight-topic">${item.categories.join(' · ')} · ${item.date} · <a href="/author/${item.authorSlug}" data-author-link="${item.authorSlug}">${item.author}</a></div>
           </div>
           <div class="modal-hero"><img src="${item.image}" alt="${item.title}"></div>
           <div class="modal-content modal-article-body">
@@ -1888,7 +1888,7 @@
     }
 
     function openModal(type, item) {
-      preModalHash = window.location.hash || '';
+      preModalPath = window.location.pathname;
       activeModalPayload = { type, item };
       if (type === 'insight' || type === 'work') {
         modalTitle.textContent = '';
@@ -1918,7 +1918,7 @@
       modal.setAttribute('aria-hidden', 'false');
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
-      updateHash(type, item.slug || item.title.toLowerCase().replace(/\s+/g, '-'));
+      updatePath(type, item.slug || item.title.toLowerCase().replace(/\s+/g, '-'));
     }
 
     function closeModal(fromAuthorJump = false) {
@@ -1929,12 +1929,12 @@
       document.body.style.overflow = '';
       activeModalPayload = null;
       if (fromAuthorJump) return;
-      if (preModalHash.startsWith('#author=')) {
-        history.replaceState(null, '', `${window.location.pathname}${window.location.search}${preModalHash}`);
+      if (preModalPath.startsWith('/author/')) {
+        history.pushState(null, '', preModalPath);
       } else {
-        clearHash();
+        clearPath();
       }
-      preModalHash = '';
+      preModalPath = '';
     }
 
     closeModalBtn.addEventListener('click', closeModal);
@@ -1949,8 +1949,7 @@
 
     copyLinkBtn.addEventListener('click', async () => {
       if (!activeModalPayload) return;
-      const hash = window.location.hash || `#${activeModalPayload.type}=${activeModalPayload.item.slug}`;
-      const url = `${window.location.origin}${window.location.pathname}${hash}`;
+      const url = window.location.href;
       try {
         await navigator.clipboard.writeText(url);
         const textSpan = copyLinkBtn.querySelector('.copy-text');
@@ -2061,7 +2060,7 @@
       insightActiveAuthor = author;
       insightLimit = 6;
       renderInsights();
-      updateHash('author', authorSlug);
+      updatePath('author', authorSlug);
     }
 
     function renderInsights() {
@@ -2088,10 +2087,10 @@
           insightLimit = 6;
           renderInsights();
           if (author === 'All Authors') {
-            if (!window.location.hash.startsWith('#insight=')) clearHash();
+            if (!window.location.pathname.startsWith('/insights/')) clearPath();
           } else {
             const slug = insightItems.find((item) => item.author === author)?.authorSlug;
-            if (slug) updateHash('author', slug);
+            if (slug) updatePath('author', slug);
           }
         });
         insightAuthorFilterRow.appendChild(btn);
@@ -2136,23 +2135,25 @@
       renderInsights();
     });
 
-    function openByHashIfNeeded() {
-      const raw = window.location.hash.replace('#', '');
-      if (!raw.includes('=')) return;
-      const [kind, slug] = raw.split('=');
-      if (!kind || !slug) return;
+    function openByPathIfNeeded() {
+      const path = window.location.pathname;
+      if (path === '/' || path === '') return;
+      const parts = path.replace(/^\//, '').split('/');
+      const kind = parts[0];
+      const slug = parts.slice(1).join('/');
+      if (!slug) return;
 
       if (kind === 'work') {
         const item = workItems.find((w) => w.slug === slug);
         if (item) openModal('work', item);
       }
 
-      if (kind === 'insight') {
+      if (kind === 'insights') {
         const item = insightItems.find((i) => i.slug === slug);
         if (item) openModal('insight', item);
       }
 
-      if (kind === 'platform') {
+      if (kind === 'initiatives') {
         const normalized = slug.replace(/-/g, ' ').toLowerCase();
         const item = platformItems.find((p) => p.title.toLowerCase() === normalized);
         if (item) openModal('platform', item);
@@ -2164,6 +2165,18 @@
       }
     }
 
+    window.addEventListener('popstate', () => {
+      if (modal.classList.contains('open')) {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        modalBody.innerHTML = '';
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        activeModalPayload = null;
+      }
+      openByPathIfNeeded();
+    });
+
     document.querySelectorAll('[data-insight-open]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const title = btn.getAttribute('data-insight-open');
@@ -2174,7 +2187,7 @@
 
     renderWork();
     renderInsights();
-    openByHashIfNeeded();
+    openByPathIfNeeded();
 
     // Randomize co-founder cards on load
     const founderGrid = document.querySelector('.about-grid-two');
