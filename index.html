@@ -1245,9 +1245,9 @@
         <span class="section-label">Work With Us</span>
         <h2>If you're working on complex impact challenges and need clarity you can act on, we'd like to hear about it.
         </h2>
-        <div class="cta-inline" style="margin-top: 10px; flex-direction: column; align-items: flex-start;">
-          <p style="font-size: 16px; margin-bottom: 12px;">Start a conversation:</p>
-          <a class="btn btn-primary" href="mailto:info@susbridge.xyz">info@susbridge.xyz</a>
+        <div class="cta-inline" style="margin-top: 10px;">
+          <a class="btn btn-primary" href="mailto:info@susbridge.xyz" style="font-size: 14px;">Start a conversation:
+            info@susbridge.xyz</a>
         </div>
       </div>
     </section>
@@ -1372,7 +1372,8 @@
     ];
 
     const workItems = [
-      { title: "LCA of Car Transport in Nigeria", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" }
+      { title: "LCA of Car Transport in Nigeria", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" },
+      { title: "Sachet vs Bottled Water: What Lagos Actually Pays Per Liter", tag: "Research", category: "Lab", year: "2025", description: "Same liter. Different footprint. Here's what the numbers say.", image: "https://picsum.photos/seed/sachet-lagos-water/1200/800", slug: "sachet-vs-bottled-water-lagos" }
     ];
 
     const insightItems = [
@@ -1449,23 +1450,26 @@
     function buildModalHTML(item, type) {
       if (type === 'work') {
         const categoryLabel = item.category === 'Lab' ? 'Knowledge Lab' : item.category;
-        const lcaBody = item.slug === 'lca-car-transport-nigeria' ? `
+        const knowledgeLabLink = item.category === 'Lab' ? '<a href="#work=lab" data-work-filter-link="Lab">Knowledge Lab</a>' : categoryLabel;
+        let modalBody;
+        if (item.slug === 'lca-car-transport-nigeria') {
+          modalBody = `
           <h4>Prologue: A Question Worth Asking</h4>
-          <p>A lot of us don’t think about what powers our cars. Petrol, diesel, or whatever works. But when you zoom out and trace every bit of energy burned, every resource mined, and every emission released, you start to see just how much that everyday ride really costs.</p>
-          <p>We asked a simple question: Between petrol and diesel, which one is better for Nigeria’s environment? Not from a brand or price perspective, but from a long-term, what-does-this-mean-for-us-all lens.</p>
+          <p>A lot of us don't think about what powers our cars. Petrol, diesel, or whatever works. But when you zoom out and trace every bit of energy burned, every resource mined, and every emission released, you start to see just how much that everyday ride really costs.</p>
+          <p>We asked a simple question: <strong>Between petrol and diesel, which one is better for Nigeria's environment?</strong> Not from a brand or price perspective, but from a long-term, what-does-this-mean-for-us-all lens.</p>
           <p>So we did the work. We traced the environmental impacts of both fuel types, all the way from the oil well to the final ride. What we found was more than a technical report. It became a story about the decisions we make and how much power lies in them.</p>
           <h4>How We Did It</h4>
-          <p>We used a method called <strong>Life Cycle Assessment (LCA)</strong>. It’s like doing an audit, not of your bank account but of your car’s entire environmental footprint. From oil extraction to car production to everyday driving. Every input and output is tracked.</p>
-          <p>We compared a petrol-powered car to a diesel-powered car, both mid-sized, both used in Nigeria, both expected to last 14 years, driving 15,000 km annually. Here’s what we included in our analysis:</p>
+          <p>We used a method called <strong>Life Cycle Assessment (LCA)</strong>. It's like doing an audit, not of your bank account but of your car's entire environmental footprint. From oil extraction to car production to everyday driving. Every input and output is tracked.</p>
+          <p>We compared a petrol-powered car to a diesel-powered car, both mid-sized, both used in Nigeria, both expected to last 14 years, driving 15,000 km annually. Here's what we included in our analysis:</p>
           <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
             <li>Fuel production: from extraction to refining</li>
             <li>Car manufacturing: parts and assembly</li>
             <li>Vehicle use: the fuel it burns while you drive</li>
           </ul>
-          <p>We didn’t include the <strong>end-of-life stage</strong> (recycling or disposal); data wasn’t available. And to stay credible, we only analysed what we could measure confidently.</p>
+          <p>We didn't include the <strong>end-of-life stage</strong> (recycling or disposal); data wasn't available. And to stay credible, we only analysed what we could measure confidently.</p>
           <div style="margin:20px 0;"><img src="images/lca-findings.jpg" alt="LCA Findings" style="width:100%; border-radius:8px;"><p style="font-size:13px; color:#888; margin-top:6px;">Simple breakdown of lifecycle stages.</p></div>
           <h4>What We Found</h4>
-          <p>The numbers told a clear story, but not an obvious one. <strong>Diesel</strong> wins on most fronts except <strong>human health</strong>. That’s a big trade-off, and it matters.</p>
+          <p>The numbers told a clear story, but not an obvious one. <strong>Diesel</strong> wins on most fronts except <strong>human health</strong>. That's a big trade-off, and it matters.</p>
           <div style="overflow-x:auto; margin: 16px 0;">
             <table style="width:100%; border-collapse:collapse; font-size:14px;">
               <thead>
@@ -1486,27 +1490,27 @@
             </table>
           </div>
           <p><strong>What This Means for Nigeria</strong></p>
-          <p>People often assume progress means moving to electric. But we’re not all there yet. Most Nigerians are still buying diesel or petrol cars. That’s our reality. This study helps us make better choices within that reality.</p>
+          <p>People often assume progress means moving to electric. But we're not all there yet. Most Nigerians are still buying diesel or petrol cars. That's our reality. This study helps us make better choices within that reality.</p>
           <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
             <li><strong>For someone buying a car today:</strong> Diesel might be the more environmentally conscious option. But if you live in a city with poor air quality, petrol might pose fewer health risks.</li>
-            <li><strong>If you’re a policymaker:</strong> Should you incentivize diesel over petrol? Or push both industries to reduce emissions with filters and cleaner fuels?</li>
-            <li><strong>If you’re in the car industry:</strong> Are there ways to lighten vehicles and improve fuel efficiency without skyrocketing cost?</li>
+            <li><strong>If you're a policymaker:</strong> Should you incentivize diesel over petrol? Or push both industries to reduce emissions with filters and cleaner fuels?</li>
+            <li><strong>If you're in the car industry:</strong> Are there ways to lighten vehicles and improve fuel efficiency without skyrocketing cost?</li>
           </ul>
-          <p>This isn’t just a technical debate. It’s about aligning everyday decisions with long-term outcomes.</p>
+          <p>This isn't just a technical debate. It's about aligning everyday decisions with long-term outcomes.</p>
           <p><strong>Questions Worth Asking</strong></p>
           <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
             <li>If diesel is better for the planet but worse for people, what should we prioritise?</li>
-            <li>Can better fuel standards help reduce diesel’s health risks?</li>
+            <li>Can better fuel standards help reduce diesel's health risks?</li>
             <li>Should we invest in retrofitting cars with pollution filters?</li>
-            <li>How do we move toward cleaner transport while recognizing most Nigerians can’t afford EVs right now?</li>
+            <li>How do we move toward cleaner transport while recognizing most Nigerians can't afford EVs right now?</li>
           </ul>
-          <p>We don’t have all the answers. But we need to start asking the right questions.</p>
+          <p>We don't have all the answers. But we need to start asking the right questions.</p>
           <h4>What We Can Do (Right Now)</h4>
           <p><strong>Consumers:</strong></p>
           <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
             <li>Reduce use when possible: walk, share rides, use public transport</li>
             <li>Maintain your car regularly to reduce emissions</li>
-            <li>If you’re buying: ask about fuel efficiency and emissions, not just price</li>
+            <li>If you're buying: ask about fuel efficiency and emissions, not just price</li>
           </ul>
           <p><strong>Government:</strong></p>
           <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
@@ -1520,13 +1524,157 @@
             <li>Offer consumer education on environmental performance</li>
           </ul>
           <h4>Looking Ahead: The Bigger Conversation</h4>
-          <p>This case study is about diesel vs petrol. But it’s really about what we do with the tools we have. Electric vehicles sound great. But until power grids are reliable, charging infrastructure is widespread, and costs come down, they aren’t the answer for most Nigerians.</p>
-          <p>So what can we do now? Make better use of what’s already in play.</p>
-          <p>This project from our Knowledge Lab isn’t the final word. It’s a spark. A model for how we can think differently about common things. A push to turn research into reflection and, eventually, into action.</p>
-          <p>Because sustainability thinking in Africa isn’t about copying what works elsewhere. It’s about starting where we are, asking better questions, and building knowledge that drives real decisions.</p>
+          <p>This case study is about diesel vs petrol. But it's really about what we do with the tools we have. Electric vehicles sound great. But until power grids are reliable, charging infrastructure is widespread, and costs come down, they aren't the answer for most Nigerians.</p>
+          <p>So what can we do now? Make better use of what's already in play.</p>
+          <p>This project from our Knowledge Lab isn't the final word. It's a spark. A model for how we can think differently about common things. A push to turn research into reflection and, eventually, into action.</p>
+          <p>Because sustainability thinking in Africa isn't about copying what works elsewhere. It's about starting where we are, asking better questions, and building knowledge that drives real decisions.</p>
           <p>Curious about the full analysis? You can read the full technical report below, for a deeper dive into our methodology, data, and findings.</p>
-          <p><a href="https://drive.google.com/file/d/1oLLjP5q60fBAA4mKreYNSSmM7MkSR7e2/view" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Read the full technical report →</a></p>
-        ` : `
+          <p><a href="https://drive.google.com/file/d/1oLLjP5q60fBAA4mKreYNSSmM7MkSR7e2/view" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Read the full technical report \u2192</a></p>
+          `;
+        } else if (item.slug === 'sachet-vs-bottled-water-lagos') {
+          modalBody = `
+          <h4>Why We Did This</h4>
+          <p>Drinking water in Lagos is already a systems story: patchy piped supply, private wells, sachet producers, bottled brands, street vendors, and informal waste pickers.</p>
+          <p>Policy debates about \u201cbanning sachets\u201d or \u201cmoving people to bottles\u201d often jump straight from opinion to regulation. We wanted to pause and ask a narrower question:</p>
+          <p>If all you care about is one liter of water actually consumed, what is the environmental bill that comes with sachet water versus PET bottled water in Lagos today? Not in theory. Not in a future with perfect recycling. Under current, messy conditions.</p>
+          <h4>How We Measured It</h4>
+          <p>We used <strong>Life Cycle Assessment (LCA)</strong>\u2014a method that tracks environmental impacts from start to finish, like doing an audit of your car\u2019s footprint, but for packaging.</p>
+          <p>Our anchor:</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li><strong>Functional unit:</strong> 1 liter of potable water consumed at point of use</li>
+            <li><strong>Location:</strong> Lagos, Nigeria</li>
+            <li><strong>Boundary:</strong> Cradle to grave\u2014from raw materials to end-of-life</li>
+          </ul>
+          <p>For both systems, we modelled:</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Packaging production \u2013 plastic resin, film or bottle, and converting</li>
+            <li>Filling \u2013 energy to treat and pack the water</li>
+            <li>Transport \u2013 moving packaged water to where people buy it</li>
+            <li>End-of-life \u2013 recycling, dumping, open burning, and everything in between</li>
+          </ul>
+          <p>Core impact indicators: <strong>Climate impact (GWP)</strong> in kg CO\u2082-eq per liter, water depletion, and cumulative energy demand. Foreground data came from Lagos-relevant literature and industry defaults. Background processes were mapped to open databases so others can reproduce and critique the model.</p>
+          <h4>What the Numbers Say</h4>
+          <p>At the level of 1 liter consumed, sachet and PET do not start from the same place.</p>
+          <p><strong>Climate impact per 1 L of water (Lagos baseline)</strong></p>
+          <div style="margin:16px 0;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+              <span style="width:70px; font-size:13px; color:#555; flex-shrink:0;">Sachet</span>
+              <div style="flex:1; background:#f0f0ee; border-radius:4px; overflow:hidden; height:32px;">
+                <div style="width:47%; background:#6CACAC; height:100%; display:flex; align-items:center; padding:0 10px;">
+                  <span style="font-size:12px; color:white; font-weight:600;">0.0425 kg CO\u2082-eq/L</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="width:70px; font-size:13px; color:#555; flex-shrink:0;">PET</span>
+              <div style="flex:1; background:#f0f0ee; border-radius:4px; overflow:hidden; height:32px;">
+                <div style="width:100%; background:#006667; height:100%; display:flex; align-items:center; padding:0 10px;">
+                  <span style="font-size:12px; color:white; font-weight:600;">0.0897 kg CO\u2082-eq/L</span>
+                </div>
+              </div>
+            </div>
+            <p style="font-size:12px; color:#888; margin-top:8px;">Under current Lagos assumptions, sachet has a lower climate footprint per liter\u2014roughly half that of PET.</p>
+          </div>
+          <p><strong>Water and Energy Use</strong></p>
+          <p>When you combine water depletion and energy demand, sachet needs about 13 units (L of virtual water + MJ of energy) per liter, while PET needs about 84 units. PET requires far more material and energy to do the same basic job: get one liter of safe water into someone\u2019s hand.</p>
+          <div style="overflow-x:auto; margin: 16px 0;">
+            <table style="width:100%; border-collapse:collapse; font-size:14px;">
+              <thead>
+                <tr style="background:#f5f5f3; text-align:left;">
+                  <th style="padding:10px 12px; border-bottom:2px solid #e5e5e5;">System</th>
+                  <th style="padding:10px 12px; border-bottom:2px solid #e5e5e5;">Climate (kg CO\u2082-eq/L)</th>
+                  <th style="padding:10px 12px; border-bottom:2px solid #e5e5e5;">Water (L/L)</th>
+                  <th style="padding:10px 12px; border-bottom:2px solid #e5e5e5;">Energy (MJ/L)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #e5e5e5;"><td style="padding:9px 12px;">Sachet</td><td style="padding:9px 12px;">0.0425</td><td style="padding:9px 12px;">12.4</td><td style="padding:9px 12px;">0.592</td></tr>
+                <tr><td style="padding:9px 12px;">PET</td><td style="padding:9px 12px;">0.0897</td><td style="padding:9px 12px;">82.6</td><td style="padding:9px 12px;">1.912</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4>Where the Damage Comes From</h4>
+          <p>Across both systems, three things dominate: packaging production, filling energy, and end-of-life. Transport barely moves the needle in this Lagos setup.</p>
+          <div style="overflow-x:auto; margin: 16px 0;">
+            <table style="width:100%; border-collapse:collapse; font-size:14px;">
+              <thead>
+                <tr style="background:#f5f5f3; text-align:left;">
+                  <th style="padding:10px 12px; border-bottom:2px solid #e5e5e5;">Stage</th>
+                  <th style="padding:10px 12px; border-bottom:2px solid #e5e5e5;">Sachet</th>
+                  <th style="padding:10px 12px; border-bottom:2px solid #e5e5e5;">PET</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #e5e5e5;"><td style="padding:9px 12px;">Packaging production</td><td style="padding:9px 12px;">38%</td><td style="padding:9px 12px;">54%</td></tr>
+                <tr style="border-bottom:1px solid #e5e5e5;"><td style="padding:9px 12px;">Filling energy</td><td style="padding:9px 12px;">33%</td><td style="padding:9px 12px;">16%</td></tr>
+                <tr style="border-bottom:1px solid #e5e5e5;"><td style="padding:9px 12px;">End-of-life</td><td style="padding:9px 12px;">29%</td><td style="padding:9px 12px;">31%</td></tr>
+                <tr><td style="padding:9px 12px;">Transport</td><td style="padding:9px 12px;">&lt;1%</td><td style="padding:9px 12px;">&lt;1%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4>What Happens When You Change the System</h4>
+          <p>The headline is simple: even with ambitious PET recycling, sachet remains ahead on climate in this Lagos model. We tested how sensitive the results are to levers policymakers and producers actually control.</p>
+          <p><strong>Drag to see how PET\u2019s climate impact changes with different recycling rates:</strong></p>
+          <div style="margin:16px 0; padding:16px; background:#f9f9f7; border-radius:8px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <label style="font-size:14px; color:#444;">PET recycling rate:</label>
+              <strong id="sachet-recycling-pct" style="color:var(--primary);">15%</strong>
+            </div>
+            <input type="range" min="15" max="80" value="15" step="5" style="width:100%; accent-color:var(--primary); cursor:pointer;" oninput='var v=+this.value; document.getElementById("sachet-recycling-pct").textContent=v+"%"; var pet=(0.0897*(1-(v-15)/65*0.39)).toFixed(4); document.getElementById("sachet-pet-gwp").textContent=pet+" kg CO\u2082-eq/L"; document.getElementById("sachet-pet-bar").style.width=Math.round(pet/0.0897*100)+"%";'>
+            <div style="display:flex; align-items:center; gap:12px; margin-top:12px; margin-bottom:10px;">
+              <span style="width:70px; font-size:13px; color:#555; flex-shrink:0;">Sachet</span>
+              <div style="flex:1; background:#e8e8e6; border-radius:4px; overflow:hidden; height:32px;">
+                <div style="width:47%; background:#6CACAC; height:100%; display:flex; align-items:center; padding:0 10px;">
+                  <span style="font-size:12px; color:white; font-weight:600;">0.0425 kg CO\u2082-eq/L</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="width:70px; font-size:13px; color:#555; flex-shrink:0;">PET</span>
+              <div style="flex:1; background:#e8e8e6; border-radius:4px; overflow:hidden; height:32px;">
+                <div id="sachet-pet-bar" style="width:100%; background:#006667; height:100%; display:flex; align-items:center; padding:0 10px; transition:width 0.2s;">
+                  <span id="sachet-pet-gwp" style="font-size:12px; color:white; font-weight:600;">0.0897 kg CO\u2082-eq/L</span>
+                </div>
+              </div>
+            </div>
+            <p style="font-size:12px; color:#888; margin-top:10px;">Even at 50% recycling, PET\u2019s footprint drops but still stays above sachet\u2019s baseline.</p>
+          </div>
+          <p><strong>What the Scenarios Show</strong></p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>If PET recycling goes to 50%: PET\u2019s climate impact drops from 0.0897 to 0.0555 kg CO\u2082-eq. Better, but still above sachet.</li>
+            <li>If sachet open burning rises to 95%: Sachet\u2019s footprint rises, but still stays below PET\u2019s baseline.</li>
+            <li>Cutting packaging mass is consistently one of the strongest levers to reduce impacts for both packaging types.</li>
+          </ul>
+          <h4>So What Do We Do With That?</h4>
+          <p>This is not a \u201csachets are good\u201d story. Mismanaged sachet waste still shows up everywhere in Lagos\u2014from drains to beaches. But if we focus only on bans and ignore the underlying material and energy story, we risk swapping one visible problem for a quieter one.</p>
+          <p><strong>For city and state governments:</strong></p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Treat sachet and PET as different problems, not interchangeable villains</li>
+            <li>Use LCA-based signals when setting packaging standards, not just litter visibility</li>
+            <li>Pair any restrictions with real investments in collection, recycling, and cleaner fuels</li>
+          </ul>
+          <p><strong>For producers and brands:</strong></p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Lightweight packaging before anything else\u2014every gram removed pays back multiple times across climate, water, and energy</li>
+            <li>Push recycled content where quality and regulation allow</li>
+            <li>Design formats that are easier to collect and sort locally</li>
+          </ul>
+          <p><strong>For funders and NGOs:</strong></p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Support systems that change the flows: collection infrastructure, informal recycler support, and standards with teeth</li>
+            <li>Use ranges and uncertainty, not single numbers, when talking about \u201cbetter\u201d options</li>
+          </ul>
+          <h4>What This Case Study Offers</h4>
+          <p>This is the readable version of a full LCA project. For the complete model, data sources, and interactive scenario studio:</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li><a href="https://susbridge.github.io/lca-sachet-pet/case_study_full_presentation.html" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Full technical report</a> \u2013 methods, assumptions, uncertainty analysis</li>
+            <li><a href="https://susbridge.github.io/lca-sachet-pet/case_study_full_presentation.html" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Interactive scenario studio</a> \u2013 test different recycling rates, packaging weights, and waste fates</li>
+          </ul>
+          <p>This work sits in our Knowledge Lab, where we stress-test common stories about sustainability in African cities and turn them into decision tools others can use.</p>
+          <p><a href="https://susbridge.github.io/lca-sachet-pet/case_study_full_presentation.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Open the full case study \u2192</a></p>
+          `;
+        } else {
+          modalBody = `
           <h4>The challenge</h4>
           <p>The organization found itself navigating a rapidly shifting regulatory landscape without a clear framework for translating complex policy requirements into actionable decisions for their leadership team. Existing processes were built for stability not for the pace of change they were now dealing with.</p>
           <p>What made this difficult was the absence of clear internal consensus on risk priorities. Technical teams and senior leaders were operating from different mental models creating friction where clarity was needed most.</p>
@@ -1537,16 +1685,17 @@
           <p>Aligned leadership, faster response, and clearer strategic choices under pressure.</p>
           <h4>What we delivered</h4>
           <p>Regulatory Mapping Framework and Scenario Analysis Document.</p>
-        `;
+          `;
+        }
         return `
           <h2 style="font-size: 20px; margin-bottom: 12px; line-height: 1.3; color: #111;">${item.title}</h2>
           <p style="font-size: 1.05rem; margin-bottom: 16px; color: #2f3135; line-height: 1.5;">${item.description}</p>
           <div class="modal-insight-meta">
-            <div class="modal-insight-topic">${item.year} · ${item.tag} · ${item.category === 'Lab' ? `<a href="#work=lab" data-work-filter-link="Lab">Knowledge Lab</a>` : categoryLabel}</div>
+            <div class="modal-insight-topic">${item.year} \u00b7 ${item.tag} \u00b7 ${knowledgeLabLink}</div>
           </div>
           <div class="modal-hero"><img src="${item.image}" alt="${item.title}"></div>
           <div class="modal-content modal-article-body">
-            ${lcaBody}
+            ${modalBody}
           </div>
         `;
       }
