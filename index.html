@@ -2215,6 +2215,32 @@
     renderInsights();
     openByPathIfNeeded();
 
+    // Intercept anchor links to reset path to / and avoid modal re-opening glitch
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          e.preventDefault();
+          // Close modal if open without restoring previous path (we're navigating away)
+          if (modal.classList.contains('open')) {
+            closeModal(true);
+          }
+          // Reset path to root and set hash
+          history.pushState(null, '', '/#' + targetId);
+          // Scroll to target
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          // Close mobile menu if open
+          if (mobileMenu && mobileMenu.classList.contains('open')) {
+            mobileMenu.classList.remove('open');
+          }
+        }
+      });
+    });
+
     // Randomize co-founder cards on load
     const founderGrid = document.querySelector('.about-grid-two');
     if (founderGrid) {
