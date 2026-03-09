@@ -1563,12 +1563,14 @@
         track.innerHTML = '';
 
         const deviceScale = Math.max(1, window.devicePixelRatio || 1);
+        const qualityBoost = 1.5;
+        const renderScaleMultiplier = Math.min(4, deviceScale * qualityBoost);
         for (let pageNo = 1; pageNo <= pdf.numPages; pageNo += 1) {
           const page = await pdf.getPage(pageNo);
           const baseViewport = page.getViewport({ scale: 1 });
           const scale = targetWidth / baseViewport.width;
           const cssViewport = page.getViewport({ scale });
-          const renderViewport = page.getViewport({ scale: scale * deviceScale });
+          const renderViewport = page.getViewport({ scale: scale * renderScaleMultiplier });
           const canvas = document.createElement('canvas');
           const context = canvas.getContext('2d');
           canvas.width = Math.floor(renderViewport.width);
@@ -1589,7 +1591,7 @@
         let offset = 0;
         let paused = false;
         let lastTs = performance.now();
-        const speedPxPerSecond = 14;
+        const speedPxPerSecond = 22;
 
         const onEnter = () => { paused = true; };
         const onLeave = () => { paused = false; };
