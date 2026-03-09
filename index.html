@@ -1427,7 +1427,8 @@
 
     const workItems = [
       { title: "Sachet vs Bottled Water: What Lagos Actually Pays Per Liter", tag: "Research", category: "Lab", year: "2025", description: "Same liter. Different footprint. Here's what the numbers say.", image: "/images/lca-sachet-water.jpg", slug: "sachet-vs-bottled-water-lagos" },
-      { title: "Petrol vs Diesel: What Nigeria's Cars Actually Cost", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "/images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" }
+      { title: "Translating Technical Expertise Into Market Presence for Culerson", tag: "Communications", category: "Advisory", year: "2025", description: "Helping an early-stage energy advisory make its expertise legible to decision-makers.", image: "https://picsum.photos/seed/culerson-hero/1400/900", slug: "culerson-translating-technical-expertise-into-market-presence" },
+      { title: "Petrol vs Diesel: What Nigeria's Cars Actually Cost", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "/images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" },
     ];
 
     const insightItems = [
@@ -1736,6 +1737,69 @@
           <p>This work sits in our Knowledge Lab, where we stress-test common stories about sustainability in African cities and turn them into decision tools others can use.</p>
           <p><a href="https://lca-sachet-pet.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Open the full case study \u2192</a></p>
           `;
+        } else if (item.slug === 'culerson-translating-technical-expertise-into-market-presence') {
+          modalBody = `
+          <h4>The Client</h4>
+          <p>Culerson is a renewable energy advisory firm helping businesses, developers, and public institutions navigate the shift to distributed energy systems. Founded in 2024 as a minority-owned consultancy, the team brings deep technical experience in AI-driven energy analytics, microgrid design, and renewable integration.</p>
+          <p>What they didn’t yet have was a way to show that expertise to the people making decisions about projects, procurement, and investment.</p>
+
+          <h4>The Challenge</h4>
+          <p>Early-stage technical advisory firms often sit with a familiar tension: they have strong systems knowledge, but limited capacity to build the communications infrastructure that makes that knowledge usable and trustworthy to others.</p>
+          <p>For Culerson, this showed up as:</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>An emerging set of services around DERMS, predictive analytics, and energy storage optimisation</li>
+            <li>No cohesive narrative or digital home to explain what they do and who it is for</li>
+            <li>No channel for publishing analysis on energy transitions</li>
+          </ul>
+          <p>The core question: how do you move from “we understand complex energy systems” to “decision-makers understand what we do and trust us enough to act on it” without a large internal team?</p>
+
+          <h4>Our Approach</h4>
+          <p>We joined Culerson as an embedded partner for over six months, working at the information layer where expertise, data, and narrative need to meet.</p>
+          <p>Rather than treat “brand”, “website”, and “content” as separate briefs, we approached the work as a single communications system designed to:</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Make Culerson’s offer legible to non-technical decision-makers</li>
+            <li>Give them a digital platform they could operate without ongoing external support</li>
+            <li>Create room for their own analysis and perspective to surface over time</li>
+          </ul>
+          <p>Our role combined <strong>Communications & Narrative</strong> with <strong>Advisory & Embedded Support</strong>: sitting in on strategy conversations to understand how they think and sell, translating technical language into clear, grounded positioning, designing a light, maintainable web platform around real constraints, and setting up basic infrastructure for content and analytics before stepping back.</p>
+
+          <div style="margin:20px 0;"><img src="https://picsum.photos/seed/culerson-brand/1600/900" alt="Culerson brand and identity strip" style="width:100%; border-radius:8px;"></div>
+          <h4>What We Built</h4>
+          <p style="font-family:Manrope,sans-serif; font-weight:700; margin-top:6px; margin-bottom:8px;">A Lean Identity and Narrative</p>
+          <p>We developed a simple identity and messaging layer focused less on aesthetics and more on how Culerson shows up in rooms where decisions are made.</p>
+          <p>This included a clear articulation of who they serve and the types of problems they work on, language that connects energy systems thinking to business and policy choices, and a consistent way to describe their role alongside utilities, technology vendors, and public actors.</p>
+          <p>The aim wasn’t to create an elaborate brand universe; it was to give Culerson enough structure that their expertise could breathe and be understood.</p>
+
+          <div style="margin:20px 0;"><img src="https://picsum.photos/seed/culerson-services/1600/900" alt="Culerson services structure" style="width:100%; border-radius:8px;"></div>
+          <p style="font-family:Manrope,sans-serif; font-weight:700; margin-bottom:8px;">A Content-Managed Website for Real-World Use</p>
+          <p>We designed and built a WordPress-based website as the primary container for that narrative.</p>
+          <p>Key choices in the architecture included a service structure that makes complex technical offerings understandable to non-engineers, project-ready slots where future engagements can be documented without a full redesign, an Insights section as a home for analysis and commentary, and a layout that works for low-maintenance updates without dependence on bespoke components.</p>
+          <p>We configured the CMS so the Culerson team could edit copy, adjust navigation, and publish new articles without developer support.</p>
+
+          <div style="margin:20px 0;"><img src="https://picsum.photos/seed/culerson-insights/1600/900" alt="Culerson insights page" style="width:100%; border-radius:8px;"></div>
+          <p style="font-family:Manrope,sans-serif; font-weight:700; margin-bottom:8px;">Launch Content and Thought Leadership</p>
+          <p>To avoid launching an empty shell, we worked with Culerson to draft and publish initial articles that reflected how they think about energy systems in practice, including “Shaping the Future of Energy with Smarter Demand Management” and “Why Relying Solely on Renewable Energy Without Smarter Demand Management Is Risky”.</p>
+          <p>These were written as analysis rather than marketing copy, showing how Culerson connects technical detail to risk, reliability, and long-term planning. The articles gave potential clients something concrete to read beyond a services list and set a pattern the team could follow for future writing.</p>
+
+          <p style="font-family:Manrope,sans-serif; font-weight:700; margin-bottom:8px;">Light-Weight Analytics and Infrastructure</p>
+          <p>We set up just enough infrastructure for Culerson to see how their new presence was working and adjust over time: analytics and search console configuration, SEO-sensible structure and metadata, and email and contact flows integrated with their existing tools.</p>
+          <p>The goal was observability, not a full marketing stack: communications as infrastructure the team could actually maintain.</p>
+
+          <div style="margin:20px 0;"><img src="https://picsum.photos/seed/culerson-system/1600/900" alt="Culerson system view" style="width:100%; border-radius:8px;"></div>
+          <h4>How We Worked</h4>
+          <p style="font-family:Manrope,sans-serif; font-weight:700; margin-top:6px; margin-bottom:8px;">Embedded, Not External</p>
+          <p>We worked as an extension of Culerson’s team rather than as a distant vendor, joining regular check-ins and strategic discussions, iterating language in response to how they were pitching in real conversations, and making trade-offs transparently when time or budget required simplification.</p>
+          <p>This embedded model kept the communications work aligned with the realities of building an early-stage advisory practice, not a hypothetical brand exercise.</p>
+
+          <p style="font-family:Manrope,sans-serif; font-weight:700; margin-bottom:8px;">Communications as System</p>
+          <p>Throughout the engagement, we treated every asset as part of a single system: narrative informed how services were grouped and named; website structure reflected the kinds of conversations Culerson wanted to have with clients; and initial articles tested how well the positioning held up when applied to real issues.</p>
+          <p>When we stepped back, Culerson wasn’t just rebranded. They had a simple, robust communications system that they could operate themselves.</p>
+
+          <h4>Outcome</h4>
+          <p>At the end of the engagement, Culerson had a coherent, credible public presence that reflected the depth of their technical work; a content-managed website they could update without ongoing external support; an initial layer of thought leadership showing how they think about energy transitions; and a clearer internal story about who they are, what they offer, and how to talk about it with potential clients and partners.</p>
+          <p><strong>Need similar solutions?</strong></p>
+          <p><a href="#contact" class="btn btn-primary" style="margin-top:8px;">Let’s talk →</a></p>
+          `;
         } else {
           modalBody = `
           <h4>The challenge</h4>
@@ -1750,13 +1814,19 @@
           <p>Regulatory Mapping Framework and Scenario Analysis Document.</p>
           `;
         }
+        const hideLead = item.slug === 'culerson-translating-technical-expertise-into-market-presence';
+        const leadBlock = hideLead
+          ? ''
+          : `<p style="font-size: 1.05rem; margin-bottom: 16px; color: #2f3135; line-height: 1.5;">${item.description}</p>`;
+        const heroBlock = `<div class="modal-hero"><img src="${item.image}" alt="${item.title}"></div>`;
+
         return `
           <h2 style="font-size: 20px; margin-bottom: 12px; line-height: 1.3; color: #111;">${item.title}</h2>
-          <p style="font-size: 1.05rem; margin-bottom: 16px; color: #2f3135; line-height: 1.5;">${item.description}</p>
+          ${leadBlock}
           <div class="modal-insight-meta">
             <div class="modal-insight-topic">${item.year} \u00b7 ${item.tag} \u00b7 ${knowledgeLabLink}</div>
           </div>
-          <div class="modal-hero"><img src="${item.image}" alt="${item.title}"></div>
+          ${heroBlock}
           <div class="modal-content modal-article-body">
             ${modalBody}
           </div>
