@@ -1683,7 +1683,7 @@
               <label style="font-size:14px; color:#444;">PET recycling rate:</label>
               <strong id="sachet-recycling-pct" style="color:var(--primary);">15%</strong>
             </div>
-            <input type="range" min="15" max="80" value="15" step="5" style="width:100%; accent-color:var(--primary); cursor:pointer;" oninput='var v=+this.value; document.getElementById("sachet-recycling-pct").textContent=v+"%"; var pet=(0.0897*(1-(v-15)/65*0.39)).toFixed(4); document.getElementById("sachet-pet-gwp").textContent=pet+" kg CO\u2082-eq/L"; document.getElementById("sachet-pet-bar").style.width=Math.round(pet/0.0897*100)+"%";'>
+            <input type="range" min="0" max="100" value="15" step="5" style="width:100%; accent-color:var(--primary); cursor:pointer;" oninput='var v=+this.value; document.getElementById("sachet-recycling-pct").textContent=v+"%"; var pet; if(v<=50){pet=0.1044-((v/50)*(0.1044-0.0555));}else{pet=0.0555-(((v-50)/50)*(0.0555-0.0470));} pet=pet.toFixed(4); document.getElementById("sachet-pet-gwp").textContent=pet+" kg CO\u2082-eq/L"; document.getElementById("sachet-pet-bar").style.width=Math.max(20,Math.round((pet/0.1044)*100))+"%";'>
             <div style="display:flex; align-items:center; gap:12px; margin-top:12px; margin-bottom:10px;">
               <span style="width:70px; font-size:13px; color:#555; flex-shrink:0;">Sachet</span>
               <div style="flex:1; background:#e8e8e6; border-radius:4px; overflow:hidden; height:32px;">
@@ -1730,11 +1730,11 @@
           <h4>What This Case Study Offers</h4>
           <p>This is the readable version of a full LCA project. For the complete model, data sources, and interactive scenario studio:</p>
           <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
-            <li><a href="https://susbridge.github.io/lca-sachet-pet/case_study_full_presentation.html" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Full technical report</a> \u2013 methods, assumptions, uncertainty analysis</li>
-            <li><a href="https://susbridge.github.io/lca-sachet-pet/case_study_full_presentation.html" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Interactive scenario studio</a> \u2013 test different recycling rates, packaging weights, and waste fates</li>
+            <li><a href="https://lca-sachet-pet.vercel.app/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Full technical report</a> \u2013 methods, assumptions, uncertainty analysis</li>
+            <li><a href="https://lca-sachet-pet.vercel.app/#dashboard" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Interactive scenario studio</a> \u2013 test different recycling rates, packaging weights, and waste fates</li>
           </ul>
           <p>This work sits in our Knowledge Lab, where we stress-test common stories about sustainability in African cities and turn them into decision tools others can use.</p>
-          <p><a href="https://susbridge.github.io/lca-sachet-pet/case_study_full_presentation.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Open the full case study \u2192</a></p>
+          <p><a href="https://lca-sachet-pet.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Open the full case study \u2192</a></p>
           `;
         } else {
           modalBody = `
