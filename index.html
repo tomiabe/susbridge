@@ -1562,21 +1562,23 @@
         const targetWidth = Math.max(320, Math.floor(viewport.clientWidth || 900));
         track.innerHTML = '';
 
+        const deviceScale = Math.max(1, window.devicePixelRatio || 1);
         for (let pageNo = 1; pageNo <= pdf.numPages; pageNo += 1) {
           const page = await pdf.getPage(pageNo);
           const baseViewport = page.getViewport({ scale: 1 });
           const scale = targetWidth / baseViewport.width;
-          const scaledViewport = page.getViewport({ scale });
+          const cssViewport = page.getViewport({ scale });
+          const renderViewport = page.getViewport({ scale: scale * deviceScale });
           const canvas = document.createElement('canvas');
           const context = canvas.getContext('2d');
-          canvas.width = Math.floor(scaledViewport.width);
-          canvas.height = Math.floor(scaledViewport.height);
+          canvas.width = Math.floor(renderViewport.width);
+          canvas.height = Math.floor(renderViewport.height);
           canvas.style.display = 'block';
-          canvas.style.width = '100%';
-          canvas.style.height = 'auto';
+          canvas.style.width = `${Math.floor(cssViewport.width)}px`;
+          canvas.style.height = `${Math.floor(cssViewport.height)}px`;
           canvas.style.marginBottom = '10px';
           track.appendChild(canvas);
-          await page.render({ canvasContext: context, viewport: scaledViewport }).promise;
+          await page.render({ canvasContext: context, viewport: renderViewport }).promise;
         }
 
         if (loading) loading.style.display = 'none';
@@ -1607,7 +1609,7 @@
         };
         culersonPdfRaf = requestAnimationFrame(tick);
       } catch (error) {
-        if (loading) loading.textContent = 'Preview unavailable. Use the PDF link below.';
+        if (loading) loading.textContent = 'Preview unavailable.';
       }
     }
 
@@ -1892,7 +1894,6 @@
               <div class="culerson-pdf-track" data-pdf-track style="will-change:transform;"></div>
             </div>
             <div data-pdf-loading style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:13px; color:#5f6368; background:rgba(244,246,248,0.9);">Loading document preview…</div>
-            <p style="margin:10px 12px 12px; font-size:12px; color:#61656b;">Can’t see preview? <a href="/images/culerson/Culerson.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--primary); text-decoration:underline;">Open the PDF</a>.</p>
           </div>
           <p>We developed a simple identity and messaging layer focused less on aesthetics and more on how Culerson shows up in rooms where decisions are made.</p>
           <p>This included a clear articulation of who they serve and the types of problems they work on, language that connects energy systems thinking to business and policy choices, and a consistent way to describe their role alongside utilities, technology vendors, and public actors.</p>
