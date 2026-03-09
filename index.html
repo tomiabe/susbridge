@@ -1493,6 +1493,8 @@
     let activeModalPayload = null;
     let preModalPath = '';
     let culersonWebRotatorTimer = null;
+    let culersonPdfRaf = null;
+    let culersonPdfHoverHandlers = null;
 
     function updatePath(kind, slug) {
       if (kind === 'author') {
@@ -1508,6 +1510,105 @@
 
     function clearPath() {
       history.pushState(null, '', '/');
+    }
+
+    function clearCulersonPdfScroller() {
+      if (culersonPdfRaf) {
+        cancelAnimationFrame(culersonPdfRaf);
+        culersonPdfRaf = null;
+      }
+      if (culersonPdfHoverHandlers?.viewer) {
+        culersonPdfHoverHandlers.viewer.removeEventListener('mouseenter', culersonPdfHoverHandlers.onEnter);
+        culersonPdfHoverHandlers.viewer.removeEventListener('mouseleave', culersonPdfHoverHandlers.onLeave);
+        culersonPdfHoverHandlers = null;
+      }
+    }
+
+    function loadPdfJs() {
+      if (window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+      if (window.__pdfJsLoadingPromise) return window.__pdfJsLoadingPromise;
+      window.__pdfJsLoadingPromise = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+        script.async = true;
+        script.onload = () => {
+          if (!window.pdfjsLib) {
+            reject(new Error('PDF.js failed to initialize.'));
+            return;
+          }
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          resolve(window.pdfjsLib);
+        };
+        script.onerror = () => reject(new Error('Unable to load PDF.js library.'));
+        document.head.appendChild(script);
+      });
+      return window.__pdfJsLoadingPromise;
+    }
+
+    async function startCulersonPdfScroller() {
+      clearCulersonPdfScroller();
+      const viewer = modalBody.querySelector('.culerson-pdf-viewer[data-pdf-src]');
+      if (!viewer) return;
+      const viewport = viewer.querySelector('[data-pdf-viewport]');
+      const track = viewer.querySelector('[data-pdf-track]');
+      const loading = viewer.querySelector('[data-pdf-loading]');
+      if (!viewport || !track) return;
+
+      try {
+        const pdfjsLib = await loadPdfJs();
+        if (!modal.classList.contains('open') || !viewer.isConnected) return;
+
+        const pdf = await pdfjsLib.getDocument(viewer.dataset.pdfSrc).promise;
+        const targetWidth = Math.max(320, Math.floor(viewport.clientWidth || 900));
+        track.innerHTML = '';
+
+        for (let pageNo = 1; pageNo <= pdf.numPages; pageNo += 1) {
+          const page = await pdf.getPage(pageNo);
+          const baseViewport = page.getViewport({ scale: 1 });
+          const scale = targetWidth / baseViewport.width;
+          const scaledViewport = page.getViewport({ scale });
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          canvas.width = Math.floor(scaledViewport.width);
+          canvas.height = Math.floor(scaledViewport.height);
+          canvas.style.display = 'block';
+          canvas.style.width = '100%';
+          canvas.style.height = 'auto';
+          canvas.style.marginBottom = '10px';
+          track.appendChild(canvas);
+          await page.render({ canvasContext: context, viewport: scaledViewport }).promise;
+        }
+
+        if (loading) loading.style.display = 'none';
+
+        const maxOffset = Math.max(0, track.scrollHeight - viewport.clientHeight);
+        if (maxOffset <= 1) return;
+
+        let offset = 0;
+        let paused = false;
+        let lastTs = performance.now();
+        const speedPxPerSecond = 14;
+
+        const onEnter = () => { paused = true; };
+        const onLeave = () => { paused = false; };
+        viewer.addEventListener('mouseenter', onEnter);
+        viewer.addEventListener('mouseleave', onLeave);
+        culersonPdfHoverHandlers = { viewer, onEnter, onLeave };
+
+        const tick = (ts) => {
+          const dt = (ts - lastTs) / 1000;
+          lastTs = ts;
+          if (!paused) {
+            offset += speedPxPerSecond * dt;
+            if (offset >= maxOffset) offset = 0;
+            track.style.transform = `translateY(${-offset}px)`;
+          }
+          culersonPdfRaf = requestAnimationFrame(tick);
+        };
+        culersonPdfRaf = requestAnimationFrame(tick);
+      } catch (error) {
+        if (loading) loading.textContent = 'Preview unavailable. Use the PDF link below.';
+      }
     }
 
     function clearCulersonWebRotator() {
@@ -1786,8 +1887,12 @@
 
           <h4>What We Built</h4>
           <p style="font-family:Manrope,sans-serif; font-weight:700; margin-top:6px; margin-bottom:8px;">A Lean Identity and Narrative</p>
-          <div style="margin:20px 0; background:#f4f6f8; border-radius:8px; overflow:hidden; border:1px solid #e1e4e8;">
-            <iframe src="/images/culerson/Culerson.pdf#view=FitH" title="Culerson identity PDF" style="width:100%; height:420px; border:0; display:block;"></iframe>
+          <div class="culerson-pdf-viewer" data-pdf-src="/images/culerson/Culerson.pdf" style="margin:20px 0; background:#f4f6f8; border-radius:8px; overflow:hidden; border:1px solid #e1e4e8; position:relative;">
+            <div class="culerson-pdf-viewport" data-pdf-viewport style="height:420px; overflow:hidden; position:relative;">
+              <div class="culerson-pdf-track" data-pdf-track style="will-change:transform;"></div>
+            </div>
+            <div data-pdf-loading style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:13px; color:#5f6368; background:rgba(244,246,248,0.9);">Loading document preview…</div>
+            <p style="margin:10px 12px 12px; font-size:12px; color:#61656b;">Can’t see preview? <a href="/images/culerson/Culerson.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--primary); text-decoration:underline;">Open the PDF</a>.</p>
           </div>
           <p>We developed a simple identity and messaging layer focused less on aesthetics and more on how Culerson shows up in rooms where decisions are made.</p>
           <p>This included a clear articulation of who they serve and the types of problems they work on, language that connects energy systems thinking to business and policy choices, and a consistent way to describe their role alongside utilities, technology vendors, and public actors.</p>
@@ -2080,6 +2185,7 @@
         });
       });
       startCulersonWebRotator();
+      startCulersonPdfScroller();
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       document.documentElement.style.overflow = 'hidden';
@@ -2089,6 +2195,7 @@
 
     function closeModal(fromAuthorJump = false) {
       clearCulersonWebRotator();
+      clearCulersonPdfScroller();
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
       modalBody.innerHTML = '';
@@ -2352,6 +2459,7 @@
     window.addEventListener('popstate', () => {
       if (modal.classList.contains('open')) {
         clearCulersonWebRotator();
+        clearCulersonPdfScroller();
         modal.classList.remove('open');
         modal.setAttribute('aria-hidden', 'true');
         modalBody.innerHTML = '';
