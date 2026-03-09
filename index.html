@@ -1427,7 +1427,7 @@
 
     const workItems = [
       { title: "Sachet vs Bottled Water: What Lagos Actually Pays Per Liter", tag: "Research", category: "Lab", year: "2025", description: "Same liter. Different footprint. Here's what the numbers say.", image: "/images/lca-sachet-water.jpg", slug: "sachet-vs-bottled-water-lagos" },
-      { title: "Translating Technical Expertise Into Market Presence for Culerson", tag: "Communications", category: "Advisory", year: "2025", description: "Helping an early-stage energy advisory make its expertise legible to decision-makers.", image: "/images/culerson.jpg", slug: "culerson-translating-technical-expertise-into-market-presence" },
+      { title: "Translating Technical Expertise Into Market Presence for Culerson", tag: "Communications", category: "Advisory", year: "2025", description: "Helping an early-stage energy advisory make its expertise legible to decision-makers.", image: "/images/culerson/culerson.jpg", slug: "culerson-translating-technical-expertise-into-market-presence" },
       { title: "Petrol vs Diesel: What Nigeria's Cars Actually Cost", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "/images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" },
     ];
 
@@ -1492,6 +1492,7 @@
 
     let activeModalPayload = null;
     let preModalPath = '';
+    let culersonWebRotatorTimer = null;
 
     function updatePath(kind, slug) {
       if (kind === 'author') {
@@ -1507,6 +1508,26 @@
 
     function clearPath() {
       history.pushState(null, '', '/');
+    }
+
+    function clearCulersonWebRotator() {
+      if (culersonWebRotatorTimer) {
+        clearInterval(culersonWebRotatorTimer);
+        culersonWebRotatorTimer = null;
+      }
+    }
+
+    function startCulersonWebRotator() {
+      clearCulersonWebRotator();
+      const img = modalBody.querySelector('#culersonWebRotator');
+      if (!img || !img.dataset.images) return;
+      const frames = img.dataset.images.split(',').map((value) => value.trim()).filter(Boolean);
+      if (frames.length < 2) return;
+      let frameIndex = 0;
+      culersonWebRotatorTimer = setInterval(() => {
+        frameIndex = (frameIndex + 1) % frames.length;
+        img.src = frames[frameIndex];
+      }, 3000);
     }
 
     function buildModalHTML(item, type) {
@@ -1763,21 +1784,23 @@
           </ul>
           <p>Our role combined <strong>Communications & Narrative</strong> with <strong>Advisory & Embedded Support</strong>: sitting in on strategy conversations to understand how they think and sell, translating technical language into clear, grounded positioning, designing a light, maintainable web platform around real constraints, and setting up basic infrastructure for content and analytics before stepping back.</p>
 
-          <div style="margin:20px 0;"><img src="https://picsum.photos/seed/culerson-brand/1600/900" alt="Culerson brand and identity strip" style="width:100%; border-radius:8px;"></div>
           <h4>What We Built</h4>
           <p style="font-family:Manrope,sans-serif; font-weight:700; margin-top:6px; margin-bottom:8px;">A Lean Identity and Narrative</p>
+          <div style="margin:20px 0; background:#f4f6f8; border-radius:8px; overflow:hidden; border:1px solid #e1e4e8;">
+            <iframe src="/images/culerson/Culerson.pdf#view=FitH" title="Culerson identity PDF" style="width:100%; height:420px; border:0; display:block;"></iframe>
+          </div>
           <p>We developed a simple identity and messaging layer focused less on aesthetics and more on how Culerson shows up in rooms where decisions are made.</p>
           <p>This included a clear articulation of who they serve and the types of problems they work on, language that connects energy systems thinking to business and policy choices, and a consistent way to describe their role alongside utilities, technology vendors, and public actors.</p>
           <p>The aim wasn’t to create an elaborate brand universe; it was to give Culerson enough structure that their expertise could breathe and be understood.</p>
 
-          <div style="margin:20px 0;"><img src="https://picsum.photos/seed/culerson-services/1600/900" alt="Culerson services structure" style="width:100%; border-radius:8px;"></div>
           <p style="font-family:Manrope,sans-serif; font-weight:700; margin-bottom:8px;">A Content-Managed Website for Real-World Use</p>
+          <div style="margin:20px 0;"><img id="culersonWebRotator" src="/images/culerson/culerson-web1.jpg" data-images="/images/culerson/culerson-web1.jpg,/images/culerson/culerson-web2.jpg,/images/culerson/culerson-web3.jpg" alt="Culerson website screens" style="width:100%; border-radius:8px;"></div>
           <p>We designed and built a WordPress-based website as the primary container for that narrative.</p>
           <p>Key choices in the architecture included a service structure that makes complex technical offerings understandable to non-engineers, project-ready slots where future engagements can be documented without a full redesign, an Insights section as a home for analysis and commentary, and a layout that works for low-maintenance updates without dependence on bespoke components.</p>
           <p>We configured the CMS so the Culerson team could edit copy, adjust navigation, and publish new articles without developer support.</p>
 
-          <div style="margin:20px 0;"><img src="https://picsum.photos/seed/culerson-insights/1600/900" alt="Culerson insights page" style="width:100%; border-radius:8px;"></div>
           <p style="font-family:Manrope,sans-serif; font-weight:700; margin-bottom:8px;">Launch Content and Thought Leadership</p>
+          <div style="margin:20px 0;"><img src="/images/culerson/culerson-article.jpg" alt="Culerson article page" style="width:100%; border-radius:8px;"></div>
           <p>To avoid launching an empty shell, we worked with Culerson to draft and publish initial articles that reflected how they think about energy systems in practice, including “Shaping the Future of Energy with Smarter Demand Management” and “Why Relying Solely on Renewable Energy Without Smarter Demand Management Is Risky”.</p>
           <p>These were written as analysis rather than marketing copy, showing how Culerson connects technical detail to risk, reliability, and long-term planning. The articles gave potential clients something concrete to read beyond a services list and set a pattern the team could follow for future writing.</p>
 
@@ -1785,11 +1808,11 @@
           <p>We set up just enough infrastructure for Culerson to see how their new presence was working and adjust over time: analytics and search console configuration, SEO-sensible structure and metadata, and email and contact flows integrated with their existing tools.</p>
           <p>The goal was observability, not a full marketing stack: communications as infrastructure the team could actually maintain.</p>
 
-          <div style="margin:20px 0;"><img src="https://picsum.photos/seed/culerson-system/1600/900" alt="Culerson system view" style="width:100%; border-radius:8px;"></div>
           <h4>How We Worked</h4>
           <p style="font-family:Manrope,sans-serif; font-weight:700; margin-top:6px; margin-bottom:8px;">Embedded, Not External</p>
           <p>We worked as an extension of Culerson’s team rather than as a distant vendor, joining regular check-ins and strategic discussions, iterating language in response to how they were pitching in real conversations, and making trade-offs transparently when time or budget required simplification.</p>
           <p>This embedded model kept the communications work aligned with the realities of building an early-stage advisory practice, not a hypothetical brand exercise.</p>
+          <div style="margin:20px 0;"><img src="/images/culerson/culerson-post.jpg" alt="Culerson thought post" style="width:100%; border-radius:8px;"></div>
 
           <p style="font-family:Manrope,sans-serif; font-weight:700; margin-bottom:8px;">Communications as System</p>
           <p>Throughout the engagement, we treated every asset as part of a single system: narrative informed how services were grouped and named; website structure reflected the kinds of conversations Culerson wanted to have with clients; and initial articles tested how well the positioning held up when applied to real issues.</p>
@@ -2056,6 +2079,7 @@
           document.getElementById('work').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       });
+      startCulersonWebRotator();
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       document.documentElement.style.overflow = 'hidden';
@@ -2064,6 +2088,7 @@
     }
 
     function closeModal(fromAuthorJump = false) {
+      clearCulersonWebRotator();
       modal.classList.remove('open');
       modal.setAttribute('aria-hidden', 'true');
       modalBody.innerHTML = '';
@@ -2326,6 +2351,7 @@
 
     window.addEventListener('popstate', () => {
       if (modal.classList.contains('open')) {
+        clearCulersonWebRotator();
         modal.classList.remove('open');
         modal.setAttribute('aria-hidden', 'true');
         modalBody.innerHTML = '';
