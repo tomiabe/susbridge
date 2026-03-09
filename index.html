@@ -1427,7 +1427,7 @@
 
     const workItems = [
       { title: "Sachet vs Bottled Water: What Lagos Actually Pays Per Liter", tag: "Research", category: "Lab", year: "2025", description: "Same liter. Different footprint. Here's what the numbers say.", image: "/images/lca-sachet-water.jpg", slug: "sachet-vs-bottled-water-lagos" },
-      { title: "Translating Technical Expertise Into Market Presence for Culerson", tag: "Communications", category: "Advisory", year: "2025", description: "Helping an early-stage energy advisory make its expertise legible to decision-makers.", image: "https://picsum.photos/seed/culerson-hero/1400/900", slug: "culerson-translating-technical-expertise-into-market-presence" },
+      { title: "Translating Technical Expertise Into Market Presence for Culerson", tag: "Communications", category: "Advisory", year: "2025", description: "Helping an early-stage energy advisory make its expertise legible to decision-makers.", image: "/images/culerson.jpg", slug: "culerson-translating-technical-expertise-into-market-presence" },
       { title: "Petrol vs Diesel: What Nigeria's Cars Actually Cost", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "/images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" },
     ];
 
@@ -1814,10 +1814,7 @@
           <p>Regulatory Mapping Framework and Scenario Analysis Document.</p>
           `;
         }
-        const hideLead = item.slug === 'culerson-translating-technical-expertise-into-market-presence';
-        const leadBlock = hideLead
-          ? ''
-          : `<p style="font-size: 1.05rem; margin-bottom: 16px; color: #2f3135; line-height: 1.5;">${item.description}</p>`;
+        const leadBlock = `<p style="font-size: 1.05rem; margin-bottom: 16px; color: #2f3135; line-height: 1.5;">${item.description}</p>`;
         const heroBlock = `<div class="modal-hero"><img src="${item.image}" alt="${item.title}"></div>`;
 
         return `
@@ -2157,7 +2154,7 @@
       visible.forEach((item) => {
         const card = document.createElement('article');
         card.className = 'card';
-        const kicker = item.category === 'Lab' ? item.tag + ' · Knowledge Lab' : item.tag;
+        const kicker = item.category === 'Lab' ? item.tag + ' · Knowledge Lab' : item.tag + ' · ' + item.category;
         card.innerHTML = `
           <div class="img-wrap"><img src="${item.image}" alt="${item.title}"></div>
           <div class="card-body">
