@@ -1426,6 +1426,7 @@
     ];
 
     const workItems = [
+      { title: "Urban Climate Signals", tag: "Research · Data", category: "Lab", year: "2026", description: "Turning Urban Heat and Pollution into Decision-Ready Intelligence", image: "/images/urbanclimate/urbanclimate.jpg", slug: "urban-climate-signals" },
       { title: "Sachet vs Bottled Water: What Lagos Actually Pays Per Liter", tag: "Research", category: "Lab", year: "2025", description: "Same liter. Different footprint. Here's what the numbers say.", image: "/images/lca-sachet-water.jpg", slug: "sachet-vs-bottled-water-lagos" },
       { title: "Translating Technical Expertise Into Market Presence for Culerson", tag: "Communications", category: "Advisory", year: "2025", description: "Helping an early-stage energy advisory make its expertise legible to decision-makers.", image: "/images/culerson/culerson.jpg", slug: "culerson-translating-technical-expertise-into-market-presence" },
       { title: "Petrol vs Diesel: What Nigeria's Cars Actually Cost", tag: "Research", category: "Lab", year: "2024", description: "Between petrol and diesel, which harms more, and what should we do with that knowledge now, before electric cars even arrive?", image: "/images/lca-car-transport.jpg", slug: "lca-car-transport-nigeria" },
@@ -1640,7 +1641,69 @@
         const categoryLabel = item.category === 'Lab' ? 'Knowledge Lab' : item.category;
         const knowledgeLabLink = item.category === 'Lab' ? '<a href="/work/lab" data-work-filter-link="Lab">Knowledge Lab</a>' : categoryLabel;
         let modalBody;
-        if (item.slug === 'lca-car-transport-nigeria') {
+        if (item.slug === 'urban-climate-signals') {
+          modalBody = `
+          <p>Lagos has always been warm. Lately, it has started to feel punishing.</p>
+          <p>For city leaders in fast-growing African metropolises, climate change isn't a future abstraction; it’s a daily governance challenge. Each dry season brings the same story: hotter days, nights that fail to cool, and air that feels heavy long after sunset. While information is everywhere and scattered across weather feeds, satellite maps, and technical reports, usable clarity is rare.</p>
+          <p><strong>Urban Climate Signals</strong> is our response to that gap. It is a live, city-level climate intelligence dashboard designed to explain why cities feel hotter, how pollution builds up, and which levers local decision-makers can pull to reduce stress on people and infrastructure.</p>
+          
+          <div style="margin:20px 0;"><img src="/images/urbanclimate/urbanclimate1.png" alt="Urban Climate Signals Overview" style="width:100%; border-radius:8px;"></div>
+
+          <h4>Why We Built This</h4>
+          <p>In our work with impact-driven organizations, we see a recurring pattern: information overload leads to decision paralysis. Heat warnings are often generic, air quality reports are overly technical, and city officials are left with long PDFs and little help turning them into sharp, tactical decisions.</p>
+          <p>As urbanization across Africa accelerates, more concrete, traffic, and backup generators are adding "local" heat and pollution on top of global climate trends. We wanted to ask a narrower, more urgent question:</p>
+          <p><strong>What exactly is making a city feel this hot today, and what can we do tomorrow morning differently?</strong></p>
+
+          <h4>The Framework: From Signals to SDGs</h4>
+          <p>Instead of building another abstract climate model, we focused on three simple, narrative ideas:</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li><strong>Start from how it feels:</strong> We anchor the experience on the Heat Index; the "perceived heat" that actual human bodies feel to show why a 33°C afternoon in Lagos or Accra can feel closer to 40°C.</li>
+            <li><strong>Connect heat to air quality:</strong> These crises are rarely separate. We model how stagnant air doesn't just feel uncomfortable; it traps particulate matter close to where people breathe.</li>
+            <li><strong>Link daily signals to long-term resilience:</strong> We translate live environmental data into simple markers for SDG 3 (Health) and SDG 11 (Sustainable Cities), showing leaders how today’s conditions align with their global commitments.</li>
+          </ul>
+
+          <h4>How It Works</h4>
+          <p>The experience is structured as a narrative arc, guiding the user from immediate awareness to long-term policy simulation.</p>
+          
+          <p style="font-family:Manrope,sans-serif; font-weight:700; margin-top:20px; margin-bottom:8px;">1. The Live Signal</p>
+          <p>The first view focuses on the "City-Day." We use real-time data to identify the primary stressors of the moment, whether it’s "Urban Trapped Heat" from concrete density or "Heavy, Still Air" preventing nighttime cooling.</p>
+          <div style="margin:20px 0;"><img src="/images/urbanclimate/urbanclimate2.png" alt="The Live Signal" style="width:100%; border-radius:8px;"></div>
+
+          <p style="font-family:Manrope,sans-serif; font-weight:700; margin-top:20px; margin-bottom:8px;">2. The Systems Map</p>
+          <p>We map the chain between drivers (urbanization, traffic, generators) and mitigators (tree cover). This interactive cause-and-effect diagram helps non-technical users follow how a change in one part of the system nudges the others.</p>
+          <div style="margin:20px 0;"><img src="/images/urbanclimate/urbanclimate3.png" alt="The Systems Map" style="width:100%; border-radius:8px;"></div>
+
+          <p style="font-family:Manrope,sans-serif; font-weight:700; margin-top:20px; margin-bottom:8px;">3. The Policy Simulator</p>
+          <p>This is the heart of the "Decision Studio." Users can adjust four key variables that city leaders actually control: Green Infrastructure, Diesel Generator Reliance, Public Transit Usage, and Urban Concrete Density.</p>
+          <div style="margin:20px 0;"><img src="/images/urbanclimate/urbanclimate4.png" alt="The Policy Simulator" style="width:100%; border-radius:8px;"></div>
+          <p>As sliders move, the model updates the projected heat index and air quality (AQI) in real-time. It’s an exploratory playground to test interventions before they are written into policy.</p>
+
+          <p style="font-family:Manrope,sans-serif; font-weight:700; margin-top:20px; margin-bottom:8px;">4. The Resilience Outlook</p>
+          <p>Finally, we convert these readings into a City Resilience Scorecard. This section moves the conversation from "weather" to "governance," providing a language for leaders to talk about why heat and air quality are fundamental to a city's growth and health targets.</p>
+          <div style="margin:20px 0;"><img src="/images/urbanclimate/urbanclimate5.png" alt="The Resilience Outlook" style="width:100%; border-radius:8px;"></div>
+
+          <h4>Data, Methods, and Technology</h4>
+          <p>Urban Climate Signals sits at the information layer, translating raw models into real-world insights.</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li><strong>Standardization:</strong> We use <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">Open-Meteo’s CAMS-based atmospheric models</a>, unified under the United States EPA AQI standard, to allow for consistent comparison across different geographies.</li>
+            <li><strong>Precision:</strong> We anchor readings to curated city coordinates (e.g., Ikeja for Lagos) rather than vague centroids, ensuring data reflects where people actually live and work.</li>
+            <li><strong>Modern Stack:</strong> Built in the Susbridge Knowledge Lab, the app is a lightweight, mobile-first experience using React and Vite, designed to load rapidly on mobile networks across the continent.</li>
+          </ul>
+
+          <h4>Who This Serves</h4>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li><strong>City & State Governments:</strong> To inform heat-action plans and stress-test policies.</li>
+            <li><strong>Urban Planners:</strong> To guide zoning and building codes based on concrete/heat trade-offs.</li>
+            <li><strong>Residents & NGOs:</strong> To provide a clear language for demanding specific, data-backed improvements to their local environment.</li>
+          </ul>
+
+          <p>Urban Climate Signals is more than a dashboard. It is a live model of urban climate stress, proving that the heat our cities feel today is not inevitable, it is the outcome of choices we can start to change now.</p>
+          
+          <div style="margin-top:24px;">
+            <a href="https://urbanclimate.vercel.app" target="_blank" class="btn btn-primary">Explore Urban Climate Signals \u2192</a>
+          </div>
+          `;
+        } else if (item.slug === 'lca-car-transport-nigeria') {
           modalBody = `
           <h4>Prologue: A Question Worth Asking</h4>
           <p>A lot of us don't think about what powers our cars. Petrol, diesel, or whatever works. But when you zoom out and trace every bit of energy burned, every resource mined, and every emission released, you start to see just how much that everyday ride really costs.</p>
