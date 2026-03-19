@@ -2345,7 +2345,11 @@
         workFilterRow.appendChild(btn);
       });
 
-      const filtered = workActiveFilter === 'All' ? workItems : workItems.filter((item) => item.category === workActiveFilter || item.tag === workActiveFilter);
+      const filtered = workActiveFilter === 'All' ? workItems : workItems.filter((item) => 
+        item.category === workActiveFilter || 
+        item.tag === workActiveFilter ||
+        (item.tag && item.tag.includes(' · ') && item.tag.split(' · ').includes(workActiveFilter))
+      );
       const visible = filtered.slice(0, workLimit);
 
       workGrid.innerHTML = '';
