@@ -1426,6 +1426,7 @@
     ];
 
     const workItems = [
+      { title: "Abuja's Dirty Backup Paradox: A Carbon Accounting of Household Electricity", tag: "Research · Data", category: "Lab", year: "2026", description: "Abuja’s households rely on backup generators that quietly overtake the grid in climate cost.", image: "/images/abuja-carbon-accounting-electricity.png", slug: "abuja-carbon-accounting-electricity" },
       { title: "Urban Climate Signals", tag: "Research · Data", category: "Lab", year: "2026", description: "Turning urban heat and pollution into decision-ready intelligence.", image: "/images/urbanclimate/urbanclimate.jpg", slug: "urban-climate-signals" },
       { title: "Sachet vs Bottled Water: What Lagos Actually Pays Per Liter", tag: "Research", category: "Lab", year: "2025", description: "Same liter. Different footprint. Here's what the numbers say.", image: "/images/lca-sachet-water.jpg", slug: "sachet-vs-bottled-water-lagos" },
       { title: "Translating Technical Expertise Into Market Presence for Culerson", tag: "Communications", category: "Advisory", year: "2025", description: "Helping an early-stage energy advisory make its expertise legible to decision-makers.", image: "/images/culerson/culerson.jpg", slug: "culerson-translating-technical-expertise-into-market-presence" },
@@ -1781,6 +1782,104 @@
           <p>Because sustainability thinking in Africa isn't about copying what works elsewhere. It's about starting where we are, asking better questions, and building knowledge that drives real decisions.</p>
           <p>Curious about the full analysis? You can read the full technical report below, for a deeper dive into our methodology, data, and findings.</p>
           <p><a href="https://drive.google.com/file/d/1oLLjP5q60fBAA4mKreYNSSmM7MkSR7e2/view" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Read the full technical report \u2192</a></p>
+          `;
+        } else if (item.slug === 'abuja-carbon-accounting-electricity') {
+          modalBody = `
+          <p>Every evening in Abuja, the grid goes quiet. Generators start. Inverters kick in. Life continues. It has always felt like a minor inconvenience. The numbers tell a different story.</p>
+          <p>This project traces where Abuja's household electricity actually comes from, and what each source costs in carbon — not in theory, but under the real conditions of a Nigerian city in 2025.</p>
+          <h4>Why We Did This</h4>
+          <p>Nigeria's electricity grid story is well-known: unreliable supply, load-shedding, households patching the gap with petrol and diesel generators, and a growing base of solar inverters for those who can afford them.</p>
+          <p>What is less well-known is the emissions math that sits underneath that patchwork. Grid power has a carbon intensity. Generator fuel has one too — and it is roughly 2.5× worse. Solar is a different order of magnitude entirely.</p>
+          <p>The question we wanted to answer precisely: <strong>if you could see every kilowatt-hour in an Abuja household mapped to its emissions source, what would that picture look like — and what would it say about where the carbon cost actually comes from?</strong></p>
+          <h4>How We Measured It</h4>
+          <p>We built a <strong>diagnostic carbon accounting model</strong> grounded in ISO 14040/44 and the GHG Protocol. The functional unit is one household-month of delivered electricity in Abuja.</p>
+          <p>Grid availability was derived from AEDC Monthly Energy Cap disclosures across all 676 non-MD feeders. NERC's Band classification system provided the supply-hour framework. Off-grid energy was split across the actual generator mix Abuja households use: petrol-heavy, with a growing diesel and solar share.</p>
+          <p>Emission factors:</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li><strong>Grid:</strong> 0.402 kg CO₂e/kWh (Climatiq, Nigeria national average 2024)</li>
+            <li><strong>Petrol generator:</strong> ~1.05 kg CO₂e/kWh (EIA, Tank-to-Wake)</li>
+            <li><strong>Diesel generator:</strong> ~0.94 kg CO₂e/kWh (EIA, Tank-to-Wake)</li>
+            <li><strong>Solar PV:</strong> 0.030 kg CO₂e/kWh (IPCC AR5 Ch. 7, lifecycle)</li>
+          </ul>
+          <p>Two consumption scenarios were modelled: a conservative household at 71 kWh/month and a mid-income household at 675 kWh/month.</p>
+          <h4>What the Numbers Say</h4>
+          <p>The headline is not what most people expect.</p>
+          <p><strong>Share of energy supplied vs. share of emissions produced:</strong></p>
+          <div style="margin:16px 0;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+              <span style="width:90px; font-size:13px; color:#555; flex-shrink:0;">Grid</span>
+              <div style="flex:1; position:relative;">
+                <div style="background:#f0f0ee; border-radius:4px; overflow:hidden; height:28px; margin-bottom:4px;">
+                  <div style="width:69%; background:#3bbd87; height:100%; display:flex; align-items:center; padding:0 10px; opacity:0.7;">
+                    <span style="font-size:12px; color:white; font-weight:600;">69% of energy</span>
+                  </div>
+                </div>
+                <div style="background:#f0f0ee; border-radius:4px; overflow:hidden; height:28px;">
+                  <div style="width:55.3%; background:#3bbd87; height:100%; display:flex; align-items:center; padding:0 10px;">
+                    <span style="font-size:12px; color:white; font-weight:600;">55.3% of emissions</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+              <span style="width:90px; font-size:13px; color:#555; flex-shrink:0;">Generators</span>
+              <div style="flex:1;">
+                <div style="background:#f0f0ee; border-radius:4px; overflow:hidden; height:28px; margin-bottom:4px;">
+                  <div style="width:21.7%; background:#f07040; height:100%; display:flex; align-items:center; padding:0 10px; opacity:0.7;">
+                    <span style="font-size:12px; color:white; font-weight:600;">21.7% of energy</span>
+                  </div>
+                </div>
+                <div style="background:#f0f0ee; border-radius:4px; overflow:hidden; height:28px;">
+                  <div style="width:44.1%; background:#f07040; height:100%; display:flex; align-items:center; padding:0 10px;">
+                    <span style="font-size:12px; color:white; font-weight:600;">44.1% of emissions</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span style="width:90px; font-size:13px; color:#555; flex-shrink:0;">Solar PV</span>
+              <div style="flex:1;">
+                <div style="background:#f0f0ee; border-radius:4px; overflow:hidden; height:28px; margin-bottom:4px;">
+                  <div style="width:9.3%; background:#dba830; height:100%; display:flex; align-items:center; padding:0 10px; opacity:0.7;">
+                    <span style="font-size:12px; color:white; font-weight:600;">9.3%</span>
+                  </div>
+                </div>
+                <div style="background:#f0f0ee; border-radius:4px; overflow:hidden; height:28px;">
+                  <div style="width:2%; background:#dba830; height:100%; min-width:48px; display:flex; align-items:center; padding:0 10px;">
+                    <span style="font-size:12px; color:white; font-weight:600;">0.6%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p style="font-size:12px; color:#888; margin-top:10px;">Generators punch 2× above their weight on emissions. Solar does the opposite.</p>
+          </div>
+          <p>A mid-income Abuja household produces roughly <strong>339 kg CO₂e per month</strong> — or about 4,066 kg CO₂e annually. That is before transport, food, or anything else. Just electricity. And a disproportionate share of it comes from the generator running a few hours a night.</p>
+          <h4>The Dirty Backup Paradox</h4>
+          <p>The model makes a structural problem visible: the backup systems Nigerian households depend on are not a neutral gap-filler. They carry a carbon multiplier that is 2.3–2.6× the grid's emission intensity.</p>
+          <p>More grid hours doesn't just reduce inconvenience. It directly reduces carbon. Every percentage-point improvement in grid availability shifts energy away from the highest-intensity source in the mix.</p>
+          <p>Solar inverts the logic entirely. At 0.030 kg CO₂e/kWh — 13× cleaner than the grid — it is the only source that genuinely decarbonises rather than just substituting one fossil source for another.</p>
+          <h4>So What Do We Do With That?</h4>
+          <p><strong>For policymakers and grid operators:</strong></p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Grid reliability is a climate intervention, not just a service quality issue</li>
+            <li>Even modest improvements in Band D and E supply hours have outsized emissions impact</li>
+            <li>Household-level carbon accounting should inform NERC's band classification review</li>
+          </ul>
+          <p><strong>For businesses, institutions, and facilities managers:</strong></p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Generator hours are the highest-leverage item in any Scope 2 reduction plan</li>
+            <li>Solar-plus-storage is the only off-grid option that does not make the carbon problem worse</li>
+            <li>Without disaggregated accounting, most organisations are underestimating their operational footprint</li>
+          </ul>
+          <p><strong>For sustainability practitioners and researchers:</strong></p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li>Nigeria's national grid EF significantly underestimates real household carbon exposure when off-grid generation is excluded</li>
+            <li>The model and data are open — adapt the scenario parameters for your city or context</li>
+          </ul>
+          <h4>About This Work</h4>
+          <p>This project was produced by <strong>Adetoro Adetayo</strong> (Research &amp; Analysis) and <strong>Tomi Abe</strong> (Design &amp; Visualization). It sits in Susbridge's Knowledge Lab, where we build the kind of diagnostic tools that turn messy local data into decisions others can actually use.</p>
+          <p>The full site includes an interactive household calculator, scenario modelling, and the complete methodology.</p>
+          <p><a href="/abuja-carbon-accounting-electricity" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">Open the interactive report →</a></p>
           `;
         } else if (item.slug === 'sachet-vs-bottled-water-lagos') {
           modalBody = `

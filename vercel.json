@@ -4,7 +4,11 @@
   "outputDirectory": null,
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/abuja-carbon-accounting-electricity/:path*",
+      "destination": "/abuja-carbon-accounting-electricity/index.html"
+    },
+    {
+      "source": "/((?!abuja-carbon-accounting-electricity).*)",
       "destination": "/index.html"
     }
   ]

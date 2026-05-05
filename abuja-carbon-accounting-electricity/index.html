@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en" data-audience="plain" data-household="midincome">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abuja Carbon Accounting — Household Electricity Emissions</title>
+  <meta name="description" content="A diagnostic carbon accounting of household electricity in Abuja, Nigeria.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Miranda+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ─────────────────────────────────── */
+    :root {
+      --bg:         #0b1929;
+      --bg-alt:     #0e2038;
+      --surface:    #132236;
+      --surface-2:  #1a2e47;
+      --rim:        rgba(255,255,255,0.06);
+      --text:       #dde6f0;
+      --text-2:     #6e90ae;
+      --text-3:     #3d5f7a;
+      --accent:     #f0a030;
+      --accent-dim: rgba(240,160,48,0.10);
+      --positive:   #34d399;
+      --negative:   #f87171;
+      --c-grid:     #3bbd87;
+      --c-petrol:   #f07040;
+      --c-diesel:   #e05050;
+      --c-solar:    #dba830;
+      --nav-h:      54px;
+      --bar-h:      46px;
+      --r:          10px;
+      --font:       'Miranda Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    /* ── RESET ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    em, i { font-style: normal; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { opacity: 0.8; }
+    table { border-collapse: collapse; width: 100%; }
+    ::selection { background: rgba(240,160,48,0.25); }
+
+    /* ── AUDIENCE ───────────────────────────────── */
+    [data-audience="plain"]     .tech-only  { display: none !important; }
+    [data-audience="technical"] .plain-only { display: none !important; }
+
+    /* ── NAV ────────────────────────────────────── */
+    #main-nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(11,25,41,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      height: var(--nav-h);
+      border-bottom: 1px solid var(--rim);
+    }
+    .nav-inner {
+      max-width: 1120px; margin: 0 auto; padding: 0 1.5rem;
+      height: 100%; display: flex; align-items: center; gap: 2rem;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.875rem; font-weight: 700; color: var(--text);
+      white-space: nowrap; flex-shrink: 0; letter-spacing: -0.01em;
+    }
+    .nav-pip { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .nav-links { display: flex; align-items: center; gap: 0.125rem; flex: 1; }
+    .nav-links a {
+      font-size: 0.82rem; font-weight: 500; color: var(--text-2);
+      padding: 0.3rem 0.65rem; border-radius: 6px;
+      transition: color 0.15s, background 0.15s; white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--rim); opacity: 1; }
+    .nav-hamburger {
+      display: none; background: none; border: none; color: var(--text-2);
+      font-size: 1.25rem; cursor: pointer; padding: 0.25rem; margin-left: auto;
+    }
+
+    /* ── CONTROLS BAR ───────────────────────────── */
+    #controls-bar {
+      position: sticky; top: var(--nav-h); z-index: 199;
+      background: var(--surface);
+      height: var(--bar-h);
+      border-bottom: 1px solid var(--rim);
+    }
+    .controls-inner {
+      max-width: 1120px; margin: 0 auto; padding: 0 1.5rem;
+      height: 100%; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+    }
+    .toggle-group { display: flex; align-items: center; gap: 0.5rem; }
+    .toggle-label { font-size: 0.75rem; font-weight: 500; color: var(--text-3); white-space: nowrap; }
+    .toggle-pill {
+      display: flex; background: var(--bg); border-radius: 999px;
+      padding: 3px; gap: 2px;
+    }
+    .toggle-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-2); font-family: var(--font);
+      font-size: 0.78rem; font-weight: 600; padding: 0.22rem 0.85rem;
+      border-radius: 999px; transition: background 0.15s, color 0.15s; white-space: nowrap;
+    }
+    .toggle-btn.active { background: var(--accent); color: #0b1929; }
+
+    /* ── LAYOUT ─────────────────────────────────── */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: clamp(3.5rem,7vw,5.5rem) 0; }
+    section:nth-child(even) { background: var(--bg-alt); }
+    .label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 0.75rem; display: block;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800;
+      color: var(--text); line-height: 1.15; letter-spacing: -0.02em;
+      margin-bottom: 0.65rem;
+    }
+    .section-sub {
+      font-size: 1rem; color: var(--text-2); max-width: 640px; margin-bottom: 2.5rem;
+    }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 780px) { .two-col { grid-template-columns: 1fr; gap: 2rem; } }
+
+    /* ── SURFACE / CARD ─────────────────────────── */
+    .surface {
+      background: var(--surface); border-radius: var(--r);
+      border: 1px solid var(--rim);
+    }
+    .pad { padding: 1.75rem; }
+
+    /* ── HERO ───────────────────────────────────── */
+    #overview { background: var(--bg); }
+    .hero-eyebrow {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-3); margin-bottom: 1.25rem; display: block;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900;
+      color: var(--text); line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 1.25rem; max-width: 820px;
+    }
+    .hero-title .em { color: var(--accent); }
+    .hero-body { font-size: 1.05rem; color: var(--text-2); max-width: 620px; margin-bottom: 3rem; }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--rim);
+      border-radius: var(--r); overflow: hidden;
+      border: 1px solid var(--rim); margin-bottom: 3rem;
+    }
+    @media (max-width: 600px) { .hero-stats { grid-template-columns: 1fr 1fr; } }
+    .hero-stat {
+      background: var(--surface); padding: 1.5rem 1.25rem; text-align: center;
+    }
+    .hero-stat-value {
+      font-size: clamp(1.75rem,4vw,2.5rem); font-weight: 900;
+      color: var(--text); display: block; letter-spacing: -0.03em; margin-bottom: 0.3rem;
+    }
+    .hero-stat-label { font-size: 0.78rem; color: var(--text-2); line-height: 1.45; }
+    .paradox-pill {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent-dim); border: 1px solid rgba(240,160,48,0.2);
+      color: var(--accent); padding: 0.55rem 1rem;
+      border-radius: 999px; font-size: 0.85rem; font-weight: 600;
+      margin-bottom: 2rem;
+    }
+    .paradox-pip { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .scroll-cue { font-size: 0.78rem; color: var(--text-3); }
+    .scroll-arrow { display: inline-block; margin-left: 0.25rem; animation: bob 1.8s ease-in-out infinite; }
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+    /* ── APPROACH ───────────────────────────────── */
+    .flow-steps { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 2.5rem; }
+    .flow-step {
+      background: var(--surface); border: 1px solid var(--rim);
+      border-radius: 6px; padding: 0.45rem 0.9rem;
+      font-size: 0.82rem; font-weight: 600; color: var(--text-2);
+    }
+    .flow-arrow { color: var(--text-3); font-size: 0.9rem; }
+    .subhead { font-size: 0.95rem; font-weight: 700; color: var(--text); margin: 1.75rem 0 0.6rem; letter-spacing: -0.01em; }
+    .body-text { font-size: 0.92rem; color: var(--text-2); line-height: 1.7; }
+
+    /* Band bar */
+    .band-bar { display: flex; height: 2rem; border-radius: 6px; overflow: hidden; margin: 0.75rem 0; }
+    .band-seg {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.9);
+      transition: width 0.4s ease; min-width: 0; overflow: hidden;
+    }
+    .bA { background: #1a3a5c; }
+    .bB { background: #1f4a70; }
+    .bC { background: #255d88; }
+    .bD { background: #2c73a5; }
+    .bE { background: #3588bf; }
+    .band-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; margin-top: 0.5rem; }
+    .band-legend-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; color: var(--text-2); }
+    .bl-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+    /* EF Table */
+    .ef-table { width: 100%; }
+    .ef-table th {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-3); padding: 0.6rem 0.75rem;
+      text-align: left; border-bottom: 1px solid var(--rim);
+    }
+    .ef-table th.r { text-align: right; }
+    .ef-table td { padding: 0.65rem 0.75rem; font-size: 0.9rem; border-bottom: 1px solid var(--rim); }
+    .ef-table tr:last-child td { border-bottom: none; }
+    .ef-table .num { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .ef-table .ref { text-align: right; font-size: 0.78rem; color: var(--text-3); }
+    .src-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 7px; vertical-align: middle; }
+
+    /* Callout */
+    .callout {
+      border-left: 3px solid var(--accent);
+      padding: 0.9rem 1.1rem; border-radius: 0 6px 6px 0;
+      background: var(--accent-dim); margin: 1.25rem 0;
+    }
+    .callout-title { font-size: 0.82rem; font-weight: 700; color: var(--accent); margin-bottom: 0.3rem; }
+    .callout p { font-size: 0.88rem; color: var(--text-2); }
+    .callout-pos { border-left-color: var(--positive); background: rgba(52,211,153,0.07); }
+    .callout-pos .callout-title { color: var(--positive); }
+
+    /* ── RESULTS ────────────────────────────────── */
+    .chart-wrap { width: 100%; overflow: visible; }
+    .chart-wrap svg { width: 100%; height: auto; display: block; }
+    .chart-note { font-size: 0.78rem; color: var(--text-3); margin-top: 0.6rem; }
+
+    /* Matrix table */
+    .mx-table th {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-3); padding: 0.5rem 0.85rem 0.5rem;
+      text-align: left; border-bottom: 1px solid var(--rim);
+    }
+    .mx-table th.r { text-align: right; }
+    .mx-table td { padding: 0.6rem 0.85rem; font-size: 0.88rem; border-bottom: 1px solid var(--rim); color: var(--text); }
+    .mx-table tr:last-child td { border-bottom: none; background: var(--surface-2); font-weight: 700; }
+    .mx-table .r { text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* Stat panels */
+    .stat-pair { display: grid; grid-template-columns: 1fr 1fr; }
+    .stat-block {
+      text-align: center; padding: 1.5rem 1rem;
+      border-right: 1px solid var(--rim);
+    }
+    .stat-block:last-child { border-right: none; }
+    .stat-val { font-size: clamp(1.5rem,3vw,2.1rem); font-weight: 900; color: var(--text); display: block; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+    .stat-lbl { font-size: 0.78rem; color: var(--text-2); }
+
+    /* Compare table */
+    .cmp-table th {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-3); padding: 0.55rem 1rem;
+      text-align: left; border-bottom: 1px solid var(--rim);
+    }
+    .cmp-table td { padding: 0.65rem 1rem; font-size: 0.88rem; border-bottom: 1px solid var(--rim); color: var(--text); }
+    .cmp-table tr:last-child td { border-bottom: none; }
+    .cmp-table .r { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 0.2rem;
+      font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 999px;
+    }
+    .pill-pos { background: rgba(52,211,153,0.12); color: var(--positive); }
+    .pill-neg { background: rgba(248,113,113,0.12); color: var(--negative); }
+    .pill-neu { background: var(--rim); color: var(--text-3); }
+
+    /* Sensitivity table */
+    .sens-table th {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-3); padding: 0.5rem 0.85rem;
+      text-align: left; border-bottom: 1px solid var(--rim);
+    }
+    .sens-table th.r { text-align: right; }
+    .sens-table td { padding: 0.55rem 0.85rem; font-size: 0.85rem; border-bottom: 1px solid var(--rim); color: var(--text-2); }
+    .sens-table tr:nth-child(2) td { color: var(--text); font-weight: 600; }
+    .sens-table tr:last-child td { border-bottom: none; }
+    .sens-table .r { text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* ── STUDIO ─────────────────────────────────── */
+    .studio-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
+    @media (max-width: 780px) { .studio-layout { grid-template-columns: 1fr; } }
+    .slider-block { margin-bottom: 2.25rem; }
+    .slider-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+    .slider-label { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .slider-val { font-size: 0.88rem; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; }
+    input[type="range"] {
+      width: 100%; accent-color: var(--accent);
+      cursor: pointer; display: block; margin: 0.4rem 0;
+    }
+    .slider-bounds { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-3); }
+    .preset-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.65rem; }
+    .chip {
+      font-size: 0.72rem; font-weight: 600; padding: 0.2rem 0.65rem;
+      border-radius: 999px; border: 1px solid var(--rim);
+      color: var(--text-2); background: var(--surface);
+      cursor: pointer; font-family: var(--font);
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+    .chip.active { background: var(--accent); color: #0b1929; border-color: var(--accent); }
+
+    /* Stacked bar */
+    .stack-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); margin-bottom: 0.5rem; }
+    .stacked-bar { display: flex; height: 1.75rem; border-radius: 6px; overflow: hidden; margin-bottom: 0.6rem; }
+    .bar-seg { height: 100%; transition: width 0.3s ease; min-width: 0; }
+    .stack-legend { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; }
+    .stack-legend-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; color: var(--text-2); }
+    .sl-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+
+    /* Studio readout panel */
+    .studio-panel { background: var(--surface); border-radius: var(--r); border: 1px solid var(--rim); overflow: hidden; }
+    .studio-top { padding: 1.75rem; border-bottom: 1px solid var(--rim); }
+    .studio-scenario-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); margin-bottom: 0.4rem; }
+    .studio-big { font-size: clamp(2.5rem,6vw,3.75rem); font-weight: 900; color: var(--text); letter-spacing: -0.04em; line-height: 1; }
+    .studio-unit { font-size: 1rem; font-weight: 500; color: var(--text-2); margin-left: 0.25rem; }
+    .studio-delta {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      font-size: 0.78rem; font-weight: 700; padding: 0.2rem 0.65rem;
+      border-radius: 999px; margin-top: 0.65rem;
+    }
+    .delta-down { background: rgba(52,211,153,0.12); color: var(--positive); }
+    .delta-up   { background: rgba(248,113,113,0.12); color: var(--negative); }
+    .delta-neu  { background: var(--rim); color: var(--text-3); }
+    .studio-rows { padding: 0.25rem 0; }
+    .studio-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.6rem 1.75rem; border-bottom: 1px solid var(--rim);
+    }
+    .studio-row:last-child { border-bottom: none; }
+    .studio-row-label { font-size: 0.85rem; color: var(--text-2); display: flex; align-items: center; gap: 0.45rem; }
+    .studio-row-val { font-size: 0.88rem; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text); }
+    .studio-footer { padding: 1rem 1.75rem; border-top: 1px solid var(--rim); font-size: 0.78rem; color: var(--text-3); display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .studio-footer span { color: var(--text-2); font-weight: 600; }
+
+    /* ── ARTIFACTS ──────────────────────────────── */
+    .artifact-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+    @media (max-width: 780px) { .artifact-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .artifact-grid { grid-template-columns: 1fr; } }
+    .artifact-card {
+      background: var(--surface); border: 1px solid var(--rim);
+      border-radius: var(--r); padding: 1.35rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .artifact-card:hover { border-color: rgba(240,160,48,0.25); background: var(--surface-2); }
+    .artifact-icon { color: var(--text-3); margin-bottom: 0.25rem; }
+    .artifact-name { font-size: 0.9rem; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+    .artifact-desc { font-size: 0.8rem; color: var(--text-2); line-height: 1.55; flex: 1; }
+    .artifact-type {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-3); background: var(--bg); padding: 0.15rem 0.5rem;
+      border-radius: 4px; width: fit-content; border: 1px solid var(--rim);
+    }
+    .artifact-dl { font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-top: auto; display: inline-flex; align-items: center; gap: 0.3rem; }
+
+    /* ── GLOSSARY ───────────────────────────────── */
+    .gloss-list { display: flex; flex-direction: column; gap: 0.375rem; max-width: 800px; }
+    details.gloss {
+      background: var(--surface); border: 1px solid var(--rim); border-radius: var(--r);
+      overflow: hidden;
+    }
+    details.gloss summary {
+      padding: 0.85rem 1.25rem; font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.5rem; color: var(--text);
+    }
+    details.gloss summary::-webkit-details-marker { display: none; }
+    details.gloss summary::before {
+      content: '+'; font-size: 1rem; color: var(--text-3); flex-shrink: 0; width: 1rem; text-align: center;
+      transition: color 0.15s;
+    }
+    details.gloss[open] summary::before { content: '\2212'; color: var(--accent); }
+    details.gloss[open] { border-color: rgba(240,160,48,0.2); }
+    .gloss-body { padding: 0 1.25rem 1rem; font-size: 0.88rem; color: var(--text-2); line-height: 1.7; border-top: 1px solid var(--rim); padding-top: 0.75rem; }
+    .gloss-body p + p { margin-top: 0.5rem; }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    footer {
+      background: var(--bg); border-top: 1px solid var(--rim);
+      padding: 2.5rem 0; font-size: 0.8rem; color: var(--text-3);
+    }
+    .footer-inner {
+      max-width: 1120px; margin: 0 auto; padding: 0 1.5rem;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: flex-start;
+    }
+    footer strong { color: var(--text-2); }
+    .footer-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-3); font-size: 0.8rem; }
+    .footer-links a:hover { color: var(--accent); opacity: 1; }
+
+    /* ── MOBILE ─────────────────────────────────── */
+    @media (max-width: 820px) {
+      .nav-links { display: none; flex-direction: column; position: fixed; top: var(--nav-h); left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--rim); padding: 1rem 1.5rem; z-index: 198; }
+      .nav-links.open { display: flex; }
+      .nav-hamburger { display: block; }
+    }
+    @media (max-width: 560px) { .controls-inner { gap: 0.75rem; } .toggle-label { display: none; } }
+
+    /* ── DIVIDERS ───────────────────────────────── */
+    .divider { border: none; border-top: 1px solid var(--rim); margin: 2.5rem 0; }
+    .space-top { margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <div class="nav-brand"><div class="nav-pip"></div>Abuja Carbon Accounting</div>
+    <div class="nav-links" id="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#approach">Approach</a>
+      <a href="#results">Results</a>
+      <a href="#scenario-studio">Scenario Studio</a>
+      <a href="#artifacts">Artifacts</a>
+      <a href="#glossary">Glossary</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+  </div>
+</nav>
+
+<!-- CONTROLS BAR -->
+<div id="controls-bar">
+  <div class="controls-inner">
+    <div class="toggle-group">
+      <span class="toggle-label">Mode</span>
+      <div class="toggle-pill">
+        <button class="toggle-btn active" data-toggle="audience" data-value="plain">Plain Language</button>
+        <button class="toggle-btn" data-toggle="audience" data-value="technical">Technical</button>
+      </div>
+    </div>
+    <div class="toggle-group">
+      <span class="toggle-label">Household</span>
+      <div class="toggle-pill">
+        <button class="toggle-btn" data-toggle="household" data-value="conservative">Conservative &middot; 71 kWh/mo</button>
+        <button class="toggle-btn active" data-toggle="household" data-value="midincome">Mid-income &middot; 675 kWh/mo</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- 1. OVERVIEW -->
+<section id="overview">
+  <div class="container">
+    <span class="hero-eyebrow">Abuja, Nigeria &nbsp;&middot;&nbsp; April 2026 &nbsp;&middot;&nbsp; Adetoro Adetayo &amp; Tomi Abe</span>
+
+    <h1 class="hero-title plain-only">
+      Abuja's backup generators produce <span class="em">44% of household emissions</span> while delivering just 22% of electricity.
+    </h1>
+    <h1 class="hero-title tech-only">
+      A Diagnostic Carbon Accounting of Household Electricity in Abuja, Nigeria: <span class="em">Assessing the Impact of Grid Reliability and Decentralized Generation</span>
+    </h1>
+
+    <p class="hero-body plain-only">
+      When Abuja's grid goes dark, households fire up petrol and diesel generators. Those generators deliver a fraction of total energy — yet produce nearly half of all carbon emissions. This study puts exact numbers on that gap.
+    </p>
+    <p class="hero-body tech-only">
+      Using NERC's Service-Based Tariff band distribution for January 2025 (FCT + Metro, n=676 feeders) as a grid availability proxy, this study quantifies the emissions asymmetry between grid electricity, backup ICE generation, and distributed solar PV across two household archetypes.
+    </p>
+
+    <div class="paradox-pill">
+      <div class="paradox-pip"></div>
+      The Dirty Backup Paradox: generators = 22% of energy, 44% of emissions
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-value">69.1%</span>
+        <div class="hero-stat-label">Grid availability<br>Jan 2025 weighted</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value" id="hero-monthly-co2">338.8</span>
+        <div class="hero-stat-label">kg CO&#x2082;e / month<br><span id="hero-scenario-label">mid-income household</span></div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-value" id="hero-annual-co2">4,066</span>
+        <div class="hero-stat-label">kg CO&#x2082;e / year<br>per household</div>
+      </div>
+    </div>
+
+    <p class="scroll-cue">Scroll to explore <span class="scroll-arrow">&#8595;</span></p>
+  </div>
+</section>
+
+<!-- 2. APPROACH -->
+<section id="approach">
+  <div class="container">
+    <span class="label">Methodology</span>
+    <h2 class="section-title">How this study was built</h2>
+    <p class="section-sub plain-only">We combined Nigeria's electricity tariff framework with real grid data and internationally recognised emission factors to estimate the carbon cost of each energy source.</p>
+    <p class="section-sub tech-only">Grounded in ISO 14040/44 LCA and GHG Protocol standards. Functional unit: 1 household-month of delivered electricity. Grid availability proxied from AEDC Monthly Energy Cap disclosures (Non-MD feeders, Jan 2024 &amp; 2025).</p>
+
+    <div class="flow-steps">
+      <div class="flow-step">1. Define scope</div><span class="flow-arrow">&#8594;</span>
+      <div class="flow-step">2. Extract band data</div><span class="flow-arrow">&#8594;</span>
+      <div class="flow-step">3. Derive grid share</div><span class="flow-arrow">&#8594;</span>
+      <div class="flow-step">4. Apply emission factors</div><span class="flow-arrow">&#8594;</span>
+      <div class="flow-step">5. Scenario &amp; sensitivity</div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="subhead">Nigeria's Service-Based Tariff (SBT)</div>
+        <p class="body-text plain-only">NERC classifies neighbourhoods into five bands (A–E) based on daily supply hours. Band A: 20 h/day. Band E: 4 h/day. Weighting across 676 feeders gives a city-wide average grid availability.</p>
+        <p class="body-text tech-only">NERC SBT bands link tariff rates to minimum daily supply hours. Weighted grid availability is derived as &sum;(band_share &times; hours_per_day / 24) across all 676 Non-MD feeders in the January 2025 AEDC Monthly Energy Cap disclosure.</p>
+
+        <div class="subhead" style="margin-top:1.5rem;">January 2025 feeder distribution (n = 676)</div>
+        <div class="band-bar">
+          <div class="band-seg bA" style="width:54.14%" title="Band A: 54.14%">A 54.1%</div>
+          <div class="band-seg bB" style="width:18.64%" title="Band B: 18.64%">B 18.6%</div>
+          <div class="band-seg bC" style="width:14.79%" title="Band C: 14.79%">C 14.8%</div>
+          <div class="band-seg bD" style="width:12.28%" title="Band D: 12.28%">D 12.3%</div>
+          <div class="band-seg bE" style="width:0.15%" title="Band E: 0.15%"></div>
+        </div>
+        <div class="band-legend">
+          <div class="band-legend-item"><div class="bl-dot bA"></div>A &mdash; 20 h/day</div>
+          <div class="band-legend-item"><div class="bl-dot bB"></div>B &mdash; 16 h/day</div>
+          <div class="band-legend-item"><div class="bl-dot bC"></div>C &mdash; 12 h/day</div>
+          <div class="band-legend-item"><div class="bl-dot bD"></div>D &mdash; 8 h/day</div>
+          <div class="band-legend-item"><div class="bl-dot bE"></div>E &mdash; 4 h/day</div>
+        </div>
+
+        <div class="callout callout-pos" style="margin-top:1.5rem;">
+          <div class="callout-title">Weighted grid availability: 69.06%</div>
+          <p>The remaining 30.94% of household energy must come from off-grid sources.</p>
+        </div>
+
+        <div class="subhead" style="margin-top:1.75rem;">Off-grid baseline assumption</div>
+        <p class="body-text plain-only">Of energy not supplied by the grid: 70% comes from generators (70% petrol / 30% diesel split), 30% from solar inverters.</p>
+        <p class="body-text tech-only">Baseline non-grid portfolio: 70% genset (petrol 70% / diesel 30%), 30% distributed solar PV. Household size: 4.9 persons (GHS-Panel Wave 5 urban average).</p>
+      </div>
+
+      <div>
+        <div class="subhead">Emission factors</div>
+        <p class="body-text plain-only" style="margin-bottom:1rem;">Each source produces a different amount of CO&#x2082; per kWh. Generators are 2–3&times; more carbon-intensive than the grid. Solar is 13&times; cleaner.</p>
+        <p class="body-text tech-only" style="margin-bottom:1rem;">EFs in kg CO&#x2082;e/kWh. Generator factors are Tank-to-Wake (combustion only). Solar PV is amortised lifecycle per IPCC AR5 Ch. 7 (crystalline silicon). Grid EF: Climatiq Nigeria national average, 2024.</p>
+
+        <div class="surface">
+          <table class="ef-table">
+            <thead>
+              <tr>
+                <th>Source</th>
+                <th class="r">kg CO&#x2082;e/kWh</th>
+                <th class="r tech-only">Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="src-dot" style="background:var(--c-grid)"></span>Grid electricity</td>
+                <td class="num">0.402</td>
+                <td class="ref tech-only">Climatiq</td>
+              </tr>
+              <tr>
+                <td><span class="src-dot" style="background:var(--c-petrol)"></span>Petrol generator</td>
+                <td class="num">~1.05</td>
+                <td class="ref tech-only">EIA (0.45 L/kWh)</td>
+              </tr>
+              <tr>
+                <td><span class="src-dot" style="background:var(--c-diesel)"></span>Diesel generator</td>
+                <td class="num">~0.94</td>
+                <td class="ref tech-only">EIA (0.35 L/kWh)</td>
+              </tr>
+              <tr>
+                <td><span class="src-dot" style="background:var(--c-solar)"></span>Solar PV (lifecycle)</td>
+                <td class="num">0.030</td>
+                <td class="ref tech-only">IPCC AR5 Ch. 7</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout" style="margin-top:1.25rem;">
+          <div class="callout-title">The carbon multiplier</div>
+          <p class="plain-only">Petrol generators emit 2.6&times; more CO&#x2082; per kWh than the grid. Solar PV is 13&times; cleaner than the grid.</p>
+          <p class="tech-only">ICE generators exhibit a carbon intensity 2.3–2.6&times; the national grid EF (0.402 kg CO&#x2082;e/kWh). Solar PV lifecycle EF is ~13&times; lower than the grid baseline.</p>
+        </div>
+
+        <div class="tech-only">
+          <div class="subhead" style="margin-top:1.5rem;">System boundary</div>
+          <p class="body-text">Included: use-phase grid electricity (NERC band-adjusted); operational generator combustion (Tank-to-Wake); amortised solar PV lifecycle. Excluded: appliance embodied emissions; upstream fuel extraction (Well-to-Tank); non-electric household fuels.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. RESULTS -->
+<section id="results">
+  <div class="container">
+    <span class="label">Results</span>
+    <h2 class="section-title">The dirty backup paradox</h2>
+    <p class="section-sub plain-only">January 2025 baseline. Use the Household toggle above to switch scenarios.</p>
+    <p class="section-sub tech-only">Baseline carbon inventory, Jan 2025. Grid share: 69.06%. Off-grid: 70% generators (70% petrol / 30% diesel), 30% solar PV.</p>
+
+    <!-- Paradox chart -->
+    <div class="surface pad" style="margin-bottom:2rem;">
+      <div class="subhead" style="margin-top:0;">Energy supplied vs emissions produced &mdash; by source</div>
+      <p class="body-text plain-only" style="margin-bottom:1.25rem;">Bars above the line show each source's share of total energy. Bars below show its share of total emissions. The generator column makes the paradox unmistakable.</p>
+      <p class="body-text tech-only" style="margin-bottom:1.25rem;">Diverging bars: energy fraction above axis vs GHG emission fraction below axis per source group. Derived from the baseline emission matrix at 69.06% grid availability.</p>
+      <div class="chart-wrap">
+        <svg id="chart-paradox" viewBox="0 0 500 295" style="max-height:320px;"></svg>
+      </div>
+      <div class="callout" style="margin-top:1.25rem;">
+        <div class="callout-title">The asymmetry</div>
+        <p class="plain-only">Generators deliver <strong style="color:var(--accent)">21.7% of energy</strong> but produce <strong style="color:var(--negative)">44.1% of emissions</strong>. Solar delivers 9.3% of energy and only 0.5% of emissions.</p>
+        <p class="tech-only">ICE generators exhibit a disproportionate emission intensity ratio of 2.03&times; (emission share / energy share). Grid: 0.80&times;. Solar PV: 0.054&times;. This asymmetry is the primary lever for household decarbonisation.</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- Source breakdown chart -->
+      <div class="surface pad">
+        <div class="subhead" style="margin-top:0;">Monthly CO&#x2082;e by source</div>
+        <p class="body-text" style="margin-bottom:0.75rem;" id="results-kwh-note"><span id="results-household-label">Mid-income (675 kWh/mo)</span> &mdash; Jan 2025 baseline</p>
+        <div class="chart-wrap">
+          <svg id="chart-sources" viewBox="0 0 440 240" style="max-height:280px;"></svg>
+        </div>
+        <p class="chart-note">All values in kg CO&#x2082;e per month. <a href="#scenario-studio">Adjust in Scenario Studio &#8594;</a></p>
+      </div>
+
+      <!-- Emission matrix + stats -->
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div class="surface">
+          <table class="mx-table" id="results-matrix-table">
+            <thead>
+              <tr>
+                <th>Source</th>
+                <th class="r">kWh</th>
+                <th class="r">Energy</th>
+                <th class="r">kg CO&#x2082;e</th>
+                <th class="r">Emissions</th>
+              </tr>
+            </thead>
+            <tbody id="results-matrix-body"></tbody>
+          </table>
+        </div>
+
+        <div class="surface">
+          <div class="stat-pair">
+            <div class="stat-block">
+              <span class="stat-val" id="results-monthly">338.8</span>
+              <span class="stat-lbl">kg CO&#x2082;e / month</span>
+            </div>
+            <div class="stat-block">
+              <span class="stat-val" id="results-annual">4,066</span>
+              <span class="stat-lbl">kg CO&#x2082;e / year</span>
+            </div>
+          </div>
+          <hr class="divider" style="margin:0;">
+          <div style="text-align:center;padding:1.25rem;">
+            <span class="stat-val" id="results-per-person" style="color:var(--negative);">829.7</span>
+            <span class="stat-lbl" style="display:block;margin-top:0.2rem;">kg CO&#x2082;e / person / year</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year comparison -->
+    <hr class="divider">
+    <div class="subhead">Year-over-year: January 2024 vs January 2025</div>
+    <p class="body-text plain-only" style="margin-bottom:1.5rem;">Band E nearly disappeared between 2024 and 2025. Even this small improvement translated into measurable emissions and cost reductions.</p>
+    <p class="body-text tech-only" style="margin-bottom:1.5rem;">Band E share collapsed from 5.92% to 0.15%. Band B expanded from 12.70% to 18.64%. Weighted grid availability: +0.88 pp. Monthly CO&#x2082;e: &minus;0.56%. Weighted tariff: &minus;3.76%.</p>
+
+    <div class="surface">
+      <table class="cmp-table">
+        <thead>
+          <tr><th>Metric</th><th class="r">Jan 2024</th><th class="r">Jan 2025</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Grid availability (weighted)</td><td class="r">68.18%</td><td class="r">69.06%</td><td><span class="pill pill-pos">&#9650; +0.88 pp</span></td></tr>
+          <tr><td>Conservative monthly CO&#x2082;e</td><td class="r">35.8 kg</td><td class="r">35.6 kg</td><td><span class="pill pill-pos">&#9660; &minus;0.56%</span></td></tr>
+          <tr><td>Mid-income monthly CO&#x2082;e</td><td class="r">340.7 kg</td><td class="r">338.8 kg</td><td><span class="pill pill-pos">&#9660; &minus;0.56%</span></td></tr>
+          <tr><td>Weighted tariff (NGN/kWh)</td><td class="r">142.47</td><td class="r">137.11</td><td><span class="pill pill-pos">&#9660; &minus;3.76%</span></td></tr>
+          <tr><td>Conservative grid cost (NGN/mo)</td><td class="r">6,896</td><td class="r">6,718</td><td><span class="pill pill-pos">&#9660; &minus;2.58%</span></td></tr>
+          <tr><td>Mid-income grid cost (NGN/mo)</td><td class="r">65,566</td><td class="r">63,921</td><td><span class="pill pill-pos">&#9660; &minus;2.51%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-pos" style="margin-top:1.25rem;">
+      <div class="callout-title">Marginal grid improvements have outsized climate value</div>
+      <p class="plain-only">Less than 1 percentage point of extra grid uptime reduced household emissions and cut electricity bills — because every extra grid hour displaces a high-emission generator hour.</p>
+      <p class="tech-only">A +0.88 pp grid availability gain yields &minus;0.56% monthly CO&#x2082;e, driven by a marginal emission intensity differential of &Delta;EF &asymp; 0.62 kg CO&#x2082;e/kWh between grid and off-grid generation blend.</p>
+    </div>
+
+    <!-- Sensitivity (Technical only) -->
+    <div class="tech-only space-top">
+      <div class="subhead">Sensitivity: off-grid technology mix</div>
+      <p class="body-text" style="margin-bottom:1rem;">Holding grid availability at 69.06%, varying the generator/solar split:</p>
+      <div class="surface">
+        <table class="sens-table">
+          <thead>
+            <tr>
+              <th>Off-grid split (gen/solar)</th>
+              <th class="r">Conservative (kg/mo)</th>
+              <th class="r">Mid-income (kg/mo)</th>
+              <th class="r">vs baseline</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>90% gen / 10% solar</td><td class="r">40.0</td><td class="r">380.2</td><td class="r"><span class="pill pill-neg">+12.2%</span></td></tr>
+            <tr><td>70% gen / 30% solar (baseline)</td><td class="r">35.6</td><td class="r">338.8</td><td class="r"><span class="pill pill-neu">&#8212;</span></td></tr>
+            <tr><td>50% gen / 50% solar</td><td class="r">31.3</td><td class="r">297.3</td><td class="r"><span class="pill pill-pos">&minus;12.2%</span></td></tr>
+            <tr><td>30% gen / 70% solar</td><td class="r">26.9</td><td class="r">255.8</td><td class="r"><span class="pill pill-pos">&minus;24.5%</span></td></tr>
+            <tr><td>10% gen / 90% solar</td><td class="r">22.5</td><td class="r">214.4</td><td class="r"><span class="pill pill-pos">&minus;36.7%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. SCENARIO STUDIO -->
+<section id="scenario-studio">
+  <div class="container">
+    <span class="label">Interactive</span>
+    <h2 class="section-title">Scenario Studio</h2>
+    <p class="section-sub plain-only">Adjust the sliders to explore how changes in Abuja's grid or household energy mix affect total emissions in real time.</p>
+    <p class="section-sub tech-only">Parametric scenario engine. Adjust grid availability (&omega;) and off-grid technology mix (&phi;) to model alternative emission trajectories for the selected household archetype.</p>
+
+    <div class="studio-layout">
+      <!-- Sliders -->
+      <div>
+        <div class="slider-block">
+          <div class="slider-row">
+            <label class="slider-label" for="slider-gen-pct">
+              <span class="plain-only">Generator share of off-grid supply</span>
+              <span class="tech-only">Off-grid ICE generator share (&phi;)</span>
+            </label>
+            <span class="slider-val"><span id="slider-gen-display">70</span>%</span>
+          </div>
+          <input type="range" id="slider-gen-pct" min="10" max="90" step="1" value="70">
+          <div class="slider-bounds"><span>10% gen</span><span>90% gen</span></div>
+        </div>
+
+        <div class="slider-block">
+          <div class="slider-row">
+            <label class="slider-label" for="slider-grid-pct">
+              <span class="plain-only">Simulated grid availability</span>
+              <span class="tech-only">Weighted grid availability (&omega;)</span>
+            </label>
+            <span class="slider-val"><span id="slider-grid-display">69.1</span>%</span>
+          </div>
+          <input type="range" id="slider-grid-pct" min="16.7" max="90" step="0.1" value="69.06">
+          <div class="preset-chips" id="preset-chips">
+            <button class="chip" data-preset="83.33">All Band A</button>
+            <button class="chip active" data-preset="69.06">Jan 2025</button>
+            <button class="chip" data-preset="68.18">Jan 2024</button>
+            <button class="chip" data-preset="50.00">All Band C</button>
+            <button class="chip" data-preset="16.67">All Band E</button>
+          </div>
+        </div>
+
+        <div style="margin-top:2rem;">
+          <div class="stack-label">Emissions share by source</div>
+          <div class="stacked-bar">
+            <div class="bar-seg" id="bar-grid"   style="width:55%;background:var(--c-grid)"></div>
+            <div class="bar-seg" id="bar-petrol" style="width:32%;background:var(--c-petrol)"></div>
+            <div class="bar-seg" id="bar-diesel" style="width:12%;background:var(--c-diesel)"></div>
+            <div class="bar-seg" id="bar-solar"  style="width:1%; background:var(--c-solar)"></div>
+          </div>
+          <div class="stack-legend">
+            <div class="stack-legend-item"><div class="sl-dot" style="background:var(--c-grid)"></div>Grid <strong id="pct-grid">55.3%</strong></div>
+            <div class="stack-legend-item"><div class="sl-dot" style="background:var(--c-petrol)"></div>Petrol <strong id="pct-petrol">31.9%</strong></div>
+            <div class="stack-legend-item"><div class="sl-dot" style="background:var(--c-diesel)"></div>Diesel <strong id="pct-diesel">12.2%</strong></div>
+            <div class="stack-legend-item"><div class="sl-dot" style="background:var(--c-solar)"></div>Solar <strong id="pct-solar">0.6%</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live readout -->
+      <div class="studio-panel">
+        <div class="studio-top">
+          <div class="studio-scenario-label">Monthly CO&#x2082;e &mdash; <span id="studio-scenario">mid-income</span></div>
+          <div class="studio-big"><span id="studio-co2">338.8</span><span class="studio-unit">kg</span></div>
+          <div id="studio-delta" class="studio-delta delta-neu">&#8212; baseline</div>
+        </div>
+        <div class="studio-rows">
+          <div class="studio-row">
+            <span class="studio-row-label"><span class="sl-dot" style="background:var(--c-grid);display:inline-block;border-radius:2px;width:8px;height:8px;"></span>Grid</span>
+            <span class="studio-row-val" id="s-grid">187.4 kg</span>
+          </div>
+          <div class="studio-row">
+            <span class="studio-row-label"><span class="sl-dot" style="background:var(--c-petrol);display:inline-block;border-radius:2px;width:8px;height:8px;"></span>Petrol gen</span>
+            <span class="studio-row-val" id="s-petrol">108.2 kg</span>
+          </div>
+          <div class="studio-row">
+            <span class="studio-row-label"><span class="sl-dot" style="background:var(--c-diesel);display:inline-block;border-radius:2px;width:8px;height:8px;"></span>Diesel gen</span>
+            <span class="studio-row-val" id="s-diesel">41.3 kg</span>
+          </div>
+          <div class="studio-row">
+            <span class="studio-row-label"><span class="sl-dot" style="background:var(--c-solar);display:inline-block;border-radius:2px;width:8px;height:8px;"></span>Solar PV</span>
+            <span class="studio-row-val" id="s-solar">1.9 kg</span>
+          </div>
+        </div>
+        <div class="studio-footer">
+          <span>Annual: <span id="s-annual">4,066 kg CO&#x2082;e</span></span>
+          <span>Per person: <span id="s-per-person">829.7 kg</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. ARTIFACTS -->
+<section id="artifacts">
+  <div class="container">
+    <span class="label">Downloads</span>
+    <h2 class="section-title">Artifacts &amp; source data</h2>
+    <p class="section-sub">All underlying data and documentation. Files are in the same directory as this page.</p>
+
+    <div class="artifact-grid">
+      <div class="artifact-card">
+        <div class="artifact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <div class="artifact-name">Full Academic Report</div>
+        <div class="artifact-desc">Complete methodology, results, sensitivity analysis, and policy recommendations.</div>
+        <div class="artifact-type">Markdown</div>
+        <a class="artifact-dl" href="Abuja_Carbon_Accounting_Academic_Report.md" download>Download &#8595;</a>
+      </div>
+      <div class="artifact-card">
+        <div class="artifact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="artifact-name">Energy Calculations (Jan 2025)</div>
+        <div class="artifact-desc">Full emission matrix for both household scenarios. kWh, CO&#x2082;e, shares, costs, sensitivity splits.</div>
+        <div class="artifact-type">CSV</div>
+        <a class="artifact-dl" href="abuja_household_energy_calculations.csv" download>Download &#8595;</a>
+      </div>
+      <div class="artifact-card">
+        <div class="artifact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="artifact-name">2024 vs 2025 Comparison</div>
+        <div class="artifact-desc">Year-over-year metrics: band shares, grid availability, emissions, tariff, and costs.</div>
+        <div class="artifact-type">CSV</div>
+        <a class="artifact-dl" href="abuja_household_energy_comparison_2024_2025.csv" download>Download &#8595;</a>
+      </div>
+      <div class="artifact-card">
+        <div class="artifact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <div class="artifact-name">Delta Summary</div>
+        <div class="artifact-desc">Percentage changes between 2024 and 2025 for all key metrics.</div>
+        <div class="artifact-type">CSV</div>
+        <a class="artifact-dl" href="abuja_household_energy_delta_summary.csv" download>Download &#8595;</a>
+      </div>
+      <div class="artifact-card">
+        <div class="artifact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="artifact-name">Energy Calculations (Jan 2024)</div>
+        <div class="artifact-desc">Historical baseline data for comparison with the 2025 figures.</div>
+        <div class="artifact-type">CSV</div>
+        <a class="artifact-dl" href="abuja_household_energy_calculations_2024.csv" download>Download &#8595;</a>
+      </div>
+      <div class="artifact-card">
+        <div class="artifact-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="artifact-name">Static Charts (SVG)</div>
+        <div class="artifact-desc">Pre-rendered CO&#x2082;e breakdown charts for both scenarios in SVG format.</div>
+        <div class="artifact-type">SVG</div>
+        <a class="artifact-dl" href="abuja_co2_chart_midincome.svg" download>Download &#8595;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. GLOSSARY -->
+<section id="glossary">
+  <div class="container">
+    <span class="label">Reference</span>
+    <h2 class="section-title">Glossary</h2>
+    <p class="section-sub">Key terms used in this report.</p>
+
+    <div class="gloss-list">
+      <details class="gloss">
+        <summary>Service-Based Tariff (SBT)</summary>
+        <div class="gloss-body">
+          <p>Nigeria's electricity tariff framework introduced by NERC that links the price a customer pays per kWh to the number of hours of supply they receive each day. Customers are classified into five bands: Band A (20+ h/day) through Band E (4+ h/day).</p>
+          <p class="tech-only">Introduced under the Multi-Year Tariff Order (MYTO) structure. AEDC Monthly Energy Cap disclosures list feeder-level band assignments for Non-MD customers, enabling derivation of a weighted grid availability metric.</p>
+        </div>
+      </details>
+      <details class="gloss">
+        <summary>NERC / AEDC</summary>
+        <div class="gloss-body">
+          <p>NERC is the Nigerian Electricity Regulatory Commission — the federal body that sets electricity tariffs and standards. AEDC is the Abuja Electricity Distribution Company, the licensed distributor for the Federal Capital Territory and surrounding areas.</p>
+        </div>
+      </details>
+      <details class="gloss">
+        <summary>Emission factor (kg CO&#x2082;e / kWh)</summary>
+        <div class="gloss-body">
+          <p>A coefficient that converts energy consumption into greenhouse gas emissions. A grid factor of 0.402 means every kWh from the grid releases 0.402 kg of CO&#x2082;-equivalent.</p>
+          <p class="tech-only">EFs are expressed in CO&#x2082;e using Global Warming Potential values. Generator EFs are Tank-to-Wake (combustion only). Solar PV EF is amortised over a 25-year lifetime.</p>
+        </div>
+      </details>
+      <details class="gloss">
+        <summary>Grid availability / off-grid</summary>
+        <div class="gloss-body">
+          <p>Grid availability is the share of a household's electricity demand that can be met by the national grid. Off-grid refers to the remainder self-generated via generators or solar inverters.</p>
+          <p class="tech-only">Weighted grid availability: &sum;(band_share &times; hours_per_day / 24). For Jan 2025: (0.5414 &times; 20/24) + (0.1864 &times; 16/24) + (0.1479 &times; 12/24) + (0.1228 &times; 8/24) + (0.0015 &times; 4/24) = 69.06%.</p>
+        </div>
+      </details>
+      <details class="gloss">
+        <summary>kWh (kilowatt-hour)</summary>
+        <div class="gloss-body">
+          <p>The standard unit of electrical energy. One kWh is consumed by a 1,000-watt appliance running for one hour. The conservative scenario uses 71 kWh/month; mid-income uses 675 kWh/month.</p>
+        </div>
+      </details>
+      <details class="gloss">
+        <summary>CO&#x2082;e (carbon dioxide equivalent)</summary>
+        <div class="gloss-body">
+          <p>A standardised unit for comparing the warming impact of different greenhouse gases. CO&#x2082;e converts methane, nitrous oxide, and other gases into the equivalent mass of CO&#x2082; over a 100-year horizon.</p>
+        </div>
+      </details>
+      <details class="gloss">
+        <summary>Functional unit (ISO 14040/44)</summary>
+        <div class="gloss-body">
+          <p class="plain-only">The standardised service unit all calculations are based on. Here: one household-month of delivered electricity.</p>
+          <p class="tech-only">Per ISO 14040/44, the functional unit is 1 household-month of delivered electricity, evaluated across two consumption patterns (71 kWh and 675 kWh/month). Per-person and annualised values are derived metrics normalised against the GHS-Panel Wave 5 urban household size of 4.9 persons.</p>
+        </div>
+      </details>
+      <details class="gloss">
+        <summary>Tank-to-Wake / Well-to-Tank</summary>
+        <div class="gloss-body">
+          <p class="plain-only">This study counts only the carbon released when generators burn fuel, not the carbon emitted during fuel extraction and transport.</p>
+          <p class="tech-only">Tank-to-Wake (TtW) covers combustion-phase emissions only. Well-to-Tank (WtT) covers upstream extraction, refining, and transport. This study applies TtW factors for generators; WtT is excluded from the system boundary.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <strong>A Diagnostic Carbon Accounting of Household Electricity in Abuja, Nigeria</strong><br>
+      Adetoro Adetayo (Research &amp; Analysis) &amp; Tomi Abe (Design &amp; Visualization) &mdash; April 2026<br>
+      Methodology per ISO 14040/44 and GHG Protocol. Grid data: AEDC Monthly Energy Cap (Jan 2024, Jan 2025).
+    </div>
+    <div class="footer-links">
+      <a href="Abuja_Carbon_Accounting_Academic_Report.md" download>Academic Report</a>
+      <a href="abuja_household_energy_calculations.csv" download>Data (CSV)</a>
+      <a href="#glossary">Glossary</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  const DATA = {
+    EF: { grid: 0.402, petrol: 1.05, diesel: 0.94, solar: 0.03 },
+    GEN_MIX: { petrol: 0.70, diesel: 0.30 },
+    HOUSEHOLD_SIZE: 4.9,
+    HOUSEHOLDS: {
+      conservative: { label: 'conservative', kwh: 71 },
+      midincome:    { label: 'mid-income',   kwh: 675 },
+    },
+    GRID_2025: 69.06,
+    BASELINE: {
+      conservative: {
+        kwh: 71, monthly: 35.6, annual: 427.2, perPerson: 87.2,
+        gridKwh: 49.0, petrolKwh: 10.8, dieselKwh: 4.6, solarKwh: 6.6,
+        gridCO2: 19.7, petrolCO2: 11.4, dieselCO2: 4.3, solarCO2: 0.2,
+        gridEPct: 69.0, genEPct: 21.7, solarEPct: 9.3,
+        gridCO2Pct: 55.4, genCO2Pct: 44.1, solarCO2Pct: 0.5,
+      },
+      midincome: {
+        kwh: 675, monthly: 338.8, annual: 4065.6, perPerson: 829.7,
+        gridKwh: 466.2, petrolKwh: 102.3, dieselKwh: 43.9, solarKwh: 62.7,
+        gridCO2: 187.4, petrolCO2: 108.2, dieselCO2: 41.3, solarCO2: 1.9,
+        gridEPct: 69.0, genEPct: 21.7, solarEPct: 9.3,
+        gridCO2Pct: 55.3, genCO2Pct: 44.1, solarCO2Pct: 0.6,
+      },
+    },
+  };
+
+  const STATE = { audience: 'plain', household: 'midincome', genPct: 70, gridPct: 69.06 };
+  let _prevTotal = 338.8;
+
+  function calculate({ kwh, gridPct, genPct }) {
+    const gF = gridPct / 100, oF = 1 - gF, nF = genPct / 100, sF = 1 - nF;
+    const gridKwh = kwh * gF, offKwh = kwh * oF;
+    const genKwh = offKwh * nF, solKwh = offKwh * sF;
+    const petKwh = genKwh * 0.70, dieKwh = genKwh * 0.30;
+    const gCO2 = gridKwh * DATA.EF.grid;
+    const pCO2 = petKwh  * DATA.EF.petrol;
+    const dCO2 = dieKwh  * DATA.EF.diesel;
+    const sCO2 = solKwh  * DATA.EF.solar;
+    const tot  = gCO2 + pCO2 + dCO2 + sCO2;
+    return { co2: { grid: gCO2, petrol: pCO2, diesel: dCO2, solar: sCO2, total: tot },
+             annual: tot * 12, perPerson: (tot * 12) / DATA.HOUSEHOLD_SIZE };
+  }
+
+  function animateVal(el, from, to, ms) {
+    if (!el) return;
+    const t0 = performance.now();
+    (function step(now) {
+      const p = Math.min((now - t0) / ms, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = (from + (to - from) * e).toFixed(1);
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  /* ── PARADOX CHART ─────────────────────────── */
+  function drawParadox(b) {
+    const svg = document.getElementById('chart-paradox');
+    if (!svg) return;
+    const W = 500, H = 295, MID = 148, CH = 105, MAX = 75, BW = 60;
+    const groups = [
+      { label: 'Grid',       ep: b.gridEPct,  emP: b.gridCO2Pct,  fill: '#3bbd87', dark: '#1e8a5e' },
+      { label: 'Generators', ep: b.genEPct,   emP: b.genCO2Pct,   fill: '#f07040', dark: '#b54a20' },
+      { label: 'Solar PV',   ep: b.solarEPct, emP: b.solarCO2Pct, fill: '#dba830', dark: '#9a7010' },
+    ];
+    const STEP = 145, START = 95;
+    let s = '';
+    [25, 50, 75].forEach(p => {
+      const y1 = MID - (p / MAX) * CH, y2 = MID + (p / MAX) * CH;
+      s += `<line x1="38" y1="${y1.toFixed(1)}" x2="${W-8}" y2="${y1.toFixed(1)}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+      s += `<line x1="38" y1="${y2.toFixed(1)}" x2="${W-8}" y2="${y2.toFixed(1)}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+      s += `<text x="32" y="${(y1+4).toFixed(1)}" text-anchor="end" fill="#3d5f7a" font-size="10" font-family="'Miranda Sans',sans-serif">${p}%</text>`;
+      s += `<text x="32" y="${(y2+4).toFixed(1)}" text-anchor="end" fill="#3d5f7a" font-size="10" font-family="'Miranda Sans',sans-serif">${p}%</text>`;
+    });
+    s += `<line x1="38" y1="${MID}" x2="${W-8}" y2="${MID}" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>`;
+    s += `<text x="32" y="${MID+4}" text-anchor="end" fill="#6e90ae" font-size="10" font-family="'Miranda Sans',sans-serif">0%</text>`;
+    groups.forEach((g, i) => {
+      const cx = START + i * STEP, bx = cx - BW / 2;
+      const eH = Math.max((g.ep / MAX) * CH, 2), emH = Math.max((g.emP / MAX) * CH, 2);
+      s += `<rect x="${bx}" y="${(MID-eH).toFixed(1)}" width="${BW}" height="${eH.toFixed(1)}" fill="${g.fill}" opacity="0.55" rx="3"/>`;
+      s += `<text x="${cx}" y="${(MID-eH-6).toFixed(1)}" text-anchor="middle" fill="${g.fill}" font-size="13" font-weight="700" font-family="'Miranda Sans',sans-serif">${g.ep.toFixed(1)}%</text>`;
+      s += `<rect x="${bx}" y="${MID+1}" width="${BW}" height="${emH.toFixed(1)}" fill="${g.fill}" opacity="1" rx="3"/>`;
+      s += `<text x="${cx}" y="${(MID+emH+16).toFixed(1)}" text-anchor="middle" fill="${g.fill}" font-size="13" font-weight="700" font-family="'Miranda Sans',sans-serif">${g.emP.toFixed(1)}%</text>`;
+      s += `<text x="${cx}" y="${H-4}" text-anchor="middle" fill="#6e90ae" font-size="12" font-weight="600" font-family="'Miranda Sans',sans-serif">${g.label}</text>`;
+    });
+    s += `<text x="${W/2}" y="13" text-anchor="middle" fill="#3d5f7a" font-size="10" font-family="'Miranda Sans',sans-serif">share of total energy supplied  &#8593;</text>`;
+    s += `<text x="${W/2}" y="${MID+17}" text-anchor="middle" fill="#3d5f7a" font-size="10" font-family="'Miranda Sans',sans-serif">&#8595;  share of total emissions produced</text>`;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.innerHTML = s;
+  }
+
+  /* ── SOURCE BARS CHART ─────────────────────── */
+  function drawSources(b) {
+    const svg = document.getElementById('chart-sources');
+    if (!svg) return;
+    const W = 440, H = 240, TOP = 48, BOT = 205, BW = 55;
+    const CH = BOT - TOP;
+    const srcs = [
+      { label: 'Grid',       co2: b.gridCO2,   color: '#3bbd87' },
+      { label: 'Petrol Gen', co2: b.petrolCO2, color: '#f07040' },
+      { label: 'Diesel Gen', co2: b.dieselCO2, color: '#e05050' },
+      { label: 'Solar PV',   co2: b.solarCO2,  color: '#dba830' },
+    ];
+    const maxCO2 = Math.max(...srcs.map(s => s.co2));
+    const STEP = 92, START = 76;
+    let s = '';
+    [0.25, 0.5, 0.75, 1.0].forEach(f => {
+      const v = maxCO2 * f, y = BOT - f * CH;
+      s += `<line x1="44" y1="${y.toFixed(1)}" x2="${W-8}" y2="${y.toFixed(1)}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+      s += `<text x="40" y="${(y+4).toFixed(1)}" text-anchor="end" fill="#3d5f7a" font-size="10" font-family="'Miranda Sans',sans-serif">${v >= 10 ? Math.round(v) : v.toFixed(1)}</text>`;
+    });
+    s += `<line x1="44" y1="${BOT}" x2="${W-8}" y2="${BOT}" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>`;
+    srcs.forEach((src, i) => {
+      const cx = START + i * STEP, bh = Math.max((src.co2 / maxCO2) * CH, 1.5), by = BOT - bh;
+      s += `<rect x="${cx-BW/2}" y="${by.toFixed(1)}" width="${BW}" height="${bh.toFixed(1)}" fill="${src.color}" rx="4"/>`;
+      const lbl = src.co2 >= 10 ? src.co2.toFixed(1) : src.co2.toFixed(2);
+      s += `<text x="${cx}" y="${(by-6).toFixed(1)}" text-anchor="middle" fill="${src.color}" font-size="12" font-weight="700" font-family="'Miranda Sans',sans-serif">${lbl}</text>`;
+      s += `<text x="${cx}" y="${BOT+17}" text-anchor="middle" fill="#6e90ae" font-size="11" font-family="'Miranda Sans',sans-serif">${src.label}</text>`;
+    });
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.innerHTML = s;
+  }
+
+  /* ── UPDATES ────────────────────────────────── */
+  function updateHero(b) {
+    const $ = id => document.getElementById(id);
+    if ($('hero-monthly-co2')) $('hero-monthly-co2').textContent = b.monthly.toFixed(1);
+    if ($('hero-annual-co2'))  $('hero-annual-co2').textContent  = Math.round(b.annual).toLocaleString();
+    if ($('hero-scenario-label')) $('hero-scenario-label').textContent = STATE.household === 'midincome' ? 'mid-income household' : 'conservative household';
+  }
+
+  function updateResults(b) {
+    const $ = id => document.getElementById(id);
+    if ($('results-monthly'))    $('results-monthly').textContent    = b.monthly.toFixed(1);
+    if ($('results-annual'))     $('results-annual').textContent     = Math.round(b.annual).toLocaleString();
+    if ($('results-per-person')) $('results-per-person').textContent = b.perPerson.toFixed(1);
+    if ($('results-household-label')) $('results-household-label').textContent = STATE.household === 'midincome' ? 'Mid-income (675 kWh/mo)' : 'Conservative (71 kWh/mo)';
+    const tbody = $('results-matrix-body');
+    if (tbody) {
+      const rows = [
+        { label: 'Grid Network',      color: '#3bbd87', kwh: b.gridKwh,   ePct: b.gridEPct,  co2: b.gridCO2,   emPct: b.gridCO2Pct },
+        { label: 'Petrol Generator',  color: '#f07040', kwh: b.petrolKwh, ePct: +(b.petrolKwh/b.kwh*100).toFixed(1), co2: b.petrolCO2, emPct: +(b.petrolCO2/b.monthly*100).toFixed(1) },
+        { label: 'Diesel Generator',  color: '#e05050', kwh: b.dieselKwh, ePct: +(b.dieselKwh/b.kwh*100).toFixed(1), co2: b.dieselCO2, emPct: +(b.dieselCO2/b.monthly*100).toFixed(1) },
+        { label: 'Solar PV Inverter', color: '#dba830', kwh: b.solarKwh,  ePct: b.solarEPct, co2: b.solarCO2,  emPct: b.solarCO2Pct },
+      ];
+      tbody.innerHTML = rows.map(r => `<tr>
+        <td><span class="src-dot" style="background:${r.color}"></span>${r.label}</td>
+        <td class="r">${+r.kwh.toFixed(1)}</td><td class="r">${+r.ePct}%</td>
+        <td class="r">${+r.co2.toFixed(1)}</td><td class="r">${+r.emPct}%</td>
+      </tr>`).join('') + `<tr>
+        <td>Total</td><td class="r">${b.kwh}</td><td class="r">100%</td>
+        <td class="r">${b.monthly.toFixed(1)}</td><td class="r">100%</td>
+      </tr>`;
+    }
+  }
+
+  function updateStudio(res) {
+    const $ = id => document.getElementById(id);
+    const baseline = DATA.BASELINE[STATE.household];
+    animateVal($('studio-co2'), _prevTotal, res.co2.total, 280);
+    _prevTotal = res.co2.total;
+    const diff = res.co2.total - baseline.monthly;
+    const pct  = (diff / baseline.monthly) * 100;
+    const dEl  = $('studio-delta');
+    if (dEl) {
+      if (Math.abs(pct) < 0.05) { dEl.className = 'studio-delta delta-neu'; dEl.innerHTML = '&#8212; baseline'; }
+      else if (diff < 0) { dEl.className = 'studio-delta delta-down'; dEl.innerHTML = '&#9660; ' + Math.abs(pct).toFixed(1) + '% vs baseline'; }
+      else { dEl.className = 'studio-delta delta-up'; dEl.innerHTML = '&#9650; +' + pct.toFixed(1) + '% vs baseline'; }
+    }
+    const fmt = v => v.toFixed(1) + ' kg';
+    if ($('s-grid'))     $('s-grid').textContent     = fmt(res.co2.grid);
+    if ($('s-petrol'))   $('s-petrol').textContent   = fmt(res.co2.petrol);
+    if ($('s-diesel'))   $('s-diesel').textContent   = fmt(res.co2.diesel);
+    if ($('s-solar'))    $('s-solar').textContent    = fmt(res.co2.solar);
+    if ($('s-annual'))   $('s-annual').textContent   = Math.round(res.annual).toLocaleString() + ' kg CO\u2082e';
+    if ($('s-per-person')) $('s-per-person').textContent = res.perPerson.toFixed(1) + ' kg';
+    if ($('studio-scenario')) $('studio-scenario').textContent = STATE.household === 'midincome' ? 'mid-income' : 'conservative';
+    const t = res.co2.total;
+    const pf = v => (v / t * 100).toFixed(2) + '%';
+    if ($('bar-grid'))   $('bar-grid').style.width   = pf(res.co2.grid);
+    if ($('bar-petrol')) $('bar-petrol').style.width = pf(res.co2.petrol);
+    if ($('bar-diesel')) $('bar-diesel').style.width = pf(res.co2.diesel);
+    if ($('bar-solar'))  $('bar-solar').style.width  = pf(res.co2.solar);
+    if ($('pct-grid'))   $('pct-grid').textContent   = (res.co2.grid   / t * 100).toFixed(1) + '%';
+    if ($('pct-petrol')) $('pct-petrol').textContent = (res.co2.petrol / t * 100).toFixed(1) + '%';
+    if ($('pct-diesel')) $('pct-diesel').textContent = (res.co2.diesel / t * 100).toFixed(1) + '%';
+    if ($('pct-solar'))  $('pct-solar').textContent  = (res.co2.solar  / t * 100).toFixed(1) + '%';
+  }
+
+  function updateSliderUI() {
+    const gd = document.getElementById('slider-gen-display');
+    const grd = document.getElementById('slider-grid-display');
+    if (gd)  gd.textContent  = STATE.genPct.toFixed(0);
+    if (grd) grd.textContent = STATE.gridPct.toFixed(1);
+    document.querySelectorAll('[data-preset]').forEach(c => {
+      c.classList.toggle('active', Math.abs(parseFloat(c.dataset.preset) - STATE.gridPct) < 0.05);
+    });
+  }
+
+  function render() {
+    const b = DATA.BASELINE[STATE.household];
+    const kwh = DATA.HOUSEHOLDS[STATE.household].kwh;
+    const sRes = calculate({ kwh, gridPct: STATE.gridPct, genPct: STATE.genPct });
+    document.documentElement.setAttribute('data-audience', STATE.audience);
+    document.querySelectorAll('[data-toggle="audience"]').forEach(btn => btn.classList.toggle('active', btn.dataset.value === STATE.audience));
+    updateHero(b);
+    drawParadox(b);
+    drawSources(b);
+    updateResults(b);
+    updateStudio(sRes);
+    updateSliderUI();
+  }
+
+  /* ── EVENTS ─────────────────────────────────── */
+  document.querySelectorAll('[data-toggle="audience"]').forEach(btn => btn.addEventListener('click', () => { STATE.audience = btn.dataset.value; render(); }));
+  document.querySelectorAll('[data-toggle="household"]').forEach(btn => btn.addEventListener('click', () => {
+    STATE.household = btn.dataset.value;
+    _prevTotal = DATA.BASELINE[STATE.household].monthly;
+    document.querySelectorAll('[data-toggle="household"]').forEach(b => b.classList.toggle('active', b.dataset.value === STATE.household));
+    render();
+  }));
+  const genSlider = document.getElementById('slider-gen-pct');
+  const gridSlider = document.getElementById('slider-grid-pct');
+  if (genSlider) genSlider.addEventListener('input', () => {
+    STATE.genPct = +genSlider.value;
+    updateStudio(calculate({ kwh: DATA.HOUSEHOLDS[STATE.household].kwh, gridPct: STATE.gridPct, genPct: STATE.genPct }));
+    updateSliderUI();
+  });
+  if (gridSlider) gridSlider.addEventListener('input', () => {
+    STATE.gridPct = +gridSlider.value;
+    updateStudio(calculate({ kwh: DATA.HOUSEHOLDS[STATE.household].kwh, gridPct: STATE.gridPct, genPct: STATE.genPct }));
+    updateSliderUI();
+  });
+  document.querySelectorAll('[data-preset]').forEach(chip => chip.addEventListener('click', () => {
+    STATE.gridPct = +chip.dataset.preset;
+    if (gridSlider) gridSlider.value = STATE.gridPct;
+    updateStudio(calculate({ kwh: DATA.HOUSEHOLDS[STATE.household].kwh, gridPct: STATE.gridPct, genPct: STATE.genPct }));
+    updateSliderUI();
+  }));
+  const hamburger = document.getElementById('nav-hamburger');
+  const navLinks  = document.getElementById('nav-links');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => { const o = navLinks.classList.toggle('open'); hamburger.setAttribute('aria-expanded', o); });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { navLinks.classList.remove('open'); hamburger.setAttribute('aria-expanded', false); }));
+  }
+  const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => obs.observe(s));
+
+  render();
+})();
+</script>
+</body>
+</html>
