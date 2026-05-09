@@ -2681,6 +2681,15 @@
 
     renderWork();
     renderInsights();
+
+    // GitHub Pages SPA: restore path from ?redirect= set by 404.html
+    (function () {
+      const redirectParam = new URLSearchParams(window.location.search).get('redirect');
+      if (redirectParam) {
+        history.replaceState(null, '', redirectParam);
+      }
+    })();
+
     openByPathIfNeeded();
 
     // Intercept anchor links to reset path to / and avoid modal re-opening glitch

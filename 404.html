@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Susbridge</title>
+  <script>
+    // GitHub Pages SPA redirect trick.
+    // When GitHub Pages 404s a client-side route, this page captures the full
+    // URL and redirects to index.html with the path encoded as ?redirect=
+    // index.html then restores the URL and opens the correct drawer.
+    var redirect = window.location.pathname + window.location.search + window.location.hash;
+    window.location.replace(
+      window.location.origin + '/?redirect=' + encodeURIComponent(redirect)
+    );
+  </script>
+</head>
+<body></body>
+</html>
