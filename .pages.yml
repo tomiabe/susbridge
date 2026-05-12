@@ -137,4 +137,5 @@ collections:
             type: text
           - name: content
             label: Full Content (HTML)
-            type: rich-text
+            type: text
+            description: "Raw HTML — use standard tags like <h4>, <p>, <ul>, <li>, <strong>, <a>"
