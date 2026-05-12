@@ -1,0 +1,140 @@
+content: content
+
+media:
+  input: images
+  output: images
+
+collections:
+  - name: site-settings
+    label: "⚙️ Site Settings"
+    type: file
+    path: content/settings/site-settings.json
+    fields:
+      - name: siteName
+        label: Site Name
+        type: string
+      - name: tagline
+        label: Hero Tagline
+        type: string
+        description: "The main headline on the homepage"
+      - name: description
+        label: Site Description
+        type: string
+        description: "Used in meta tags and search results"
+      - name: ogImage
+        label: OG / Social Share Image
+        type: image
+      - name: email
+        label: Contact Email
+        type: string
+      - name: linkedinUrl
+        label: LinkedIn URL
+        type: string
+      - name: twitterHandle
+        label: Twitter / X Handle
+        type: string
+        description: "e.g. @susbridge"
+
+  - name: work
+    label: "💼 Work / Engagements"
+    type: file
+    path: content/work.json
+    fields:
+      - name: items
+        label: Engagements
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: tag
+            label: Tag / Type
+            type: string
+            description: "e.g. Research · Data"
+          - name: category
+            label: Category
+            type: select
+            options:
+              - Lab
+              - Advisory
+              - Communications
+              - Strategy
+          - name: year
+            label: Year
+            type: string
+          - name: description
+            label: Short Description
+            type: text
+          - name: image
+            label: Cover Image
+            type: image
+          - name: slug
+            label: URL Slug
+            type: string
+            description: "Used to link to the detail page"
+
+  - name: insights
+    label: "💡 Insights / Articles"
+    type: file
+    path: content/insights.json
+    fields:
+      - name: items
+        label: Insights
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: categories
+            label: Categories
+            type: string
+            list: true
+          - name: date
+            label: Date
+            type: string
+            description: "e.g. Jan 2025"
+          - name: excerpt
+            label: Excerpt
+            type: text
+          - name: image
+            label: Cover Image
+            type: image
+          - name: slug
+            label: URL Slug
+            type: string
+          - name: author
+            label: Author Name
+            type: string
+          - name: authorSlug
+            label: Author Slug
+            type: string
+
+  - name: platforms
+    label: "🔗 Initiatives / Platforms"
+    type: file
+    path: content/platforms.json
+    fields:
+      - name: items
+        label: Platforms
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: subtitle
+            label: Subtitle
+            type: string
+          - name: image
+            label: Image
+            type: image
+          - name: short
+            label: Short Description
+            type: text
+          - name: content
+            label: Full Content (HTML)
+            type: rich-text

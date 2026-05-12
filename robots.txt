@@ -1,0 +1,45 @@
+# Susbridge – robots.txt
+# Allow all legitimate crawlers and AI assistants (browsing agents).
+# Block AI training crawlers only.
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: omgili
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+User-agent: img2dataset
+Disallow: /
+
+# Allow everything else (Googlebot, Bingbot, ChatGPT-User, Claude-Web, PerplexityBot, etc.)
+User-agent: *
+Allow: /
+
+Sitemap: https://susbridge.xyz/sitemap.xml
