@@ -4,8 +4,7 @@ Source for [susbridge.xyz](https://susbridge.xyz) — an independent consulting 
 
 ## Tech Stack
 
-- HTML, CSS
-- Vercel
+- HTML, CSS, JS
 
 ---
 
