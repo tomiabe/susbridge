@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "Systems Thinking for SDG Implementation",
+      "tag": "Training · Communications",
+      "category": "Lab",
+      "year": "2026",
+      "description": "A practical live session for young SDG advocates on how the goals connect in real life, and how to design smarter, system-aware interventions.",
+      "image": "/images/systems-thinking-sdg/sdg-web.png",
+      "slug": "systems-thinking-for-sdg-implementation"
+    },
+    {
       "title": "Abuja's Backup Penalty: A Carbon Accounting of Household Electricity",
       "tag": "Research · Data",
       "category": "Lab",
