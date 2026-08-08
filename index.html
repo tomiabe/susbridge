@@ -1456,6 +1456,7 @@
     ];
 
     let workItems = [
+      { title: "Systems Thinking for SDG Implementation", tag: "Training · Communications", category: "Lab", year: "2026", description: "A practical live session for young SDG advocates on how the goals connect in real life, and how to design smarter, system-aware interventions.", image: "/images/systems-thinking-sdg/sdg-web.png", slug: "systems-thinking-for-sdg-implementation" },
       { title: "Abuja’s Backup Penalty: A Carbon Accounting of Household Electricity", tag: "Research · Data", category: "Lab", year: "2026", description: "Households here run on generators that quietly overtake the grid in climate cost.", image: "/images/abuja-carbon-accounting-electricity.png", slug: "abuja-carbon-accounting-electricity" },
       { title: "Urban Climate Signals", tag: "Research · Data", category: "Lab", year: "2026", description: "Turning urban heat and pollution into decision-ready intelligence.", image: "/images/urbanclimate/urbanclimate.jpg", slug: "urban-climate-signals" },
       { title: "Sachet vs Bottled Water: What Lagos Actually Pays Per Liter", tag: "Research", category: "Lab", year: "2025", description: "Same liter. Different footprint. Here’s what the numbers say.", image: "/images/lca-sachet-water.jpg", slug: "sachet-vs-bottled-water-lagos" },
@@ -1672,7 +1673,178 @@
         const categoryLabel = item.category === 'Lab' ? 'Knowledge Lab' : item.category;
         const knowledgeLabLink = item.category === 'Lab' ? '<a href="/work/lab" data-work-filter-link="Lab">Knowledge Lab</a>' : categoryLabel;
         let modalBody;
-        if (item.slug === 'urban-climate-signals') {
+        if (item.slug === 'systems-thinking-for-sdg-implementation') {
+          modalBody = `
+          <p>No one starts their day thinking, "Today I'll work on SDG 11." We wake up thinking about NEPA (often referred to as light/electricity in Nigeria), transport, food, money, safety, school, health. That's where this deck begins, and that's the lens it sticks with all the way through.</p>
+          <h4>The Brief</h4>
+          <p>In April 2026, <strong>SDSN Youth (Nigeria)</strong> invited Adetoro Adetayo to design and facilitate a session for the SDGs Advocate Programme, a training track for young Nigerians building sustainability projects in their communities. The subject: <strong>Systems Thinking for SDG Implementation</strong>.</p>
+          <p>That subject could have gone two ways. It could have been a theory class: definitions, diagrams, a slide about "holistic approaches" nobody remembers. Or it could be what it actually became: a live session that helped a room of young advocates notice how the goals already run through their own mornings, and use that to design better projects.</p>
+          <p>We built the second one. The narrative, content, and design were led by <strong>Tomi Abe</strong>; Adetoro facilitated the session live.</p>
+
+          <h4>The Real Assignment Was the Framing</h4>
+          <p>Systems thinking is not a new idea. The actual challenge was translation: how do you make an idea that usually lives in academic papers feel like common sense by the end of an hour?</p>
+          <p>We started from their day, not the theory. The session opens by following Zainab, 22, from Agege, who wakes up sweating because the power was out all night, buys two sachets of water because tap water isn't safe, takes a danfo through traffic, and eats street food because it's what she can afford. By breakfast she has touched eight to ten SDGs without trying.</p>
+          <p>That's the whole point, told in one morning instead of a framework.</p>
+          <div style="margin:20px 0; background:#f9f9f7; border:1px solid var(--line); border-radius:10px; padding:16px;">
+            <p style="font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:#5f6368; font-weight:700; margin:0 0 12px;">One morning, four moments, eight to ten goals</p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px;">
+              <div style="background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px;">
+                <span style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; background:var(--accent); color:var(--primary); font-size:15px;"><i class="fa-solid fa-bolt"></i></span>
+                <p style="font-weight:700; font-size:13px; margin:8px 0 2px;">Morning</p>
+                <p style="font-size:12px; color:#5f6368; margin:0 0 8px;">Generator ran all night</p>
+                <div>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">7</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">3</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">13</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">1</span>
+                </div>
+              </div>
+              <div style="background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px;">
+                <span style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; background:var(--accent); color:var(--primary); font-size:15px;"><i class="fa-solid fa-droplet"></i></span>
+                <p style="font-weight:700; font-size:13px; margin:8px 0 2px;">Water</p>
+                <p style="font-size:12px; color:#5f6368; margin:0 0 8px;">Two sachets, tap water unsafe</p>
+                <div>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">6</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">3</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">12</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">11</span>
+                </div>
+              </div>
+              <div style="background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px;">
+                <span style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; background:var(--accent); color:var(--primary); font-size:15px;"><i class="fa-solid fa-bus"></i></span>
+                <p style="font-weight:700; font-size:13px; margin:8px 0 2px;">Transport</p>
+                <p style="font-size:12px; color:#5f6368; margin:0 0 8px;">Danfo through traffic</p>
+                <div>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">11</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">9</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">3</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">13</span>
+                </div>
+              </div>
+              <div style="background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px;">
+                <span style="display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; background:var(--accent); color:var(--primary); font-size:15px;"><i class="fa-solid fa-utensils"></i></span>
+                <p style="font-weight:700; font-size:13px; margin:8px 0 2px;">Food &amp; Work</p>
+                <p style="font-size:12px; color:#5f6368; margin:0 0 8px;">Street food, market stall</p>
+                <div>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">2</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">3</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">8</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--primary); color:#fff; font-size:11px; font-weight:700; margin:2px;">1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p>Then jollof. A pot of jollof is not just rice, it's heat, pot, oil, tomatoes, time, attention. Change one ingredient and the whole pot changes. Same for heat in Lagos: concrete and asphalt, lost trees, traffic, generators. If you only look at the rice, you'll never understand why the food tastes good or bad.</p>
+          <p>From there, the SDGs became a web rather than a to-do list, one action moves many goals forward or backward, and the room got a four-step method they could use the same day: <strong>name the issue, map who and what, trace effects, choose entry points.</strong></p>
+          <div style="margin:20px 0; background:#f9f9f7; border:1px solid var(--line); border-radius:10px; padding:16px;">
+            <p style="font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:#5f6368; font-weight:700; margin:0 0 12px;">One action, many directions</p>
+            <div style="text-align:center; margin-bottom:12px;">
+              <span style="display:inline-block; background:var(--primary); color:#fff; border-radius:999px; padding:8px 16px; font-weight:700; font-size:13px;">Building a new road · SDG 9</span>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div style="background:#eef7f2; border:1px solid #cde6d8; border-radius:8px; padding:12px;">
+                <p style="font-weight:700; font-size:13px; color:#1e7a4c; margin:0 0 8px;">Moves forward</p>
+                <p style="font-size:13px; color:#2f3135; margin:0 0 6px;">Better access to schools</p>
+                <div style="margin-bottom:8px;">
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:#1e7a4c; color:#fff; font-size:11px; font-weight:700; margin:2px;">4</span>
+                </div>
+                <p style="font-size:13px; color:#2f3135; margin:0 0 6px;">Improved market access</p>
+                <div>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:#1e7a4c; color:#fff; font-size:11px; font-weight:700; margin:2px;">8</span>
+                </div>
+              </div>
+              <div style="background:#fdf0ec; border:1px solid #f6d5c8; border-radius:8px; padding:12px;">
+                <p style="font-weight:700; font-size:13px; color:#c25b38; margin:0 0 8px;">Moves backward</p>
+                <p style="font-size:13px; color:#2f3135; margin:0 0 6px;">Trees cut, more heat</p>
+                <div style="margin-bottom:8px;">
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:#c25b38; color:#fff; font-size:11px; font-weight:700; margin:2px;">13</span>
+                </div>
+                <p style="font-size:13px; color:#2f3135; margin:0 0 6px;">More flooding risk</p>
+                <div>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:#c25b38; color:#fff; font-size:11px; font-weight:700; margin:2px;">11</span>
+                  <span style="display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:#c25b38; color:#fff; font-size:11px; font-weight:700; margin:2px;">15</span>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:12px; padding:12px; background:#fff; border:1px solid var(--line); border-radius:8px;">
+              <p style="font-size:12px; font-weight:700; color:var(--primary); margin:0 0 4px; text-transform:uppercase; letter-spacing:.05em;">The better question</p>
+              <p style="font-size:13px; color:#2f3135; margin:0;">Not "is this project good or bad?" Instead: where does it help, where might it harm, and how do we design for maximum support?</p>
+            </div>
+          </div>
+          <div style="margin:20px 0; background:#f9f9f7; border:1px solid var(--line); border-radius:10px; padding:16px;">
+            <p style="font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:#5f6368; font-weight:700; margin:0 0 12px;">Four steps, usable anywhere</p>
+            <div style="display:grid; gap:10px;">
+              <div style="display:flex; gap:12px; background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px;">
+                <span style="flex-shrink:0; display:flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:var(--primary); color:#fff; font-weight:700; font-size:13px;">1</span>
+                <div>
+                  <p style="font-weight:700; font-size:13px; margin:0 0 2px;">Name the issue</p>
+                  <p style="font-size:12px; color:#2f3135; margin:0;">Plain language, no jargon. "Many young people can't find decent work, even with skills."</p>
+                </div>
+              </div>
+              <div style="display:flex; gap:12px; background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px;">
+                <span style="flex-shrink:0; display:flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:var(--primary); color:#fff; font-weight:700; font-size:13px;">2</span>
+                <div>
+                  <p style="font-weight:700; font-size:13px; margin:0 0 2px;">Map who and what</p>
+                  <p style="font-size:12px; color:#2f3135; margin:0;">People, businesses, government, schools, energy, transport. Look wide.</p>
+                </div>
+              </div>
+              <div style="display:flex; gap:12px; background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px;">
+                <span style="flex-shrink:0; display:flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:var(--primary); color:#fff; font-weight:700; font-size:13px;">3</span>
+                <div>
+                  <p style="font-weight:700; font-size:13px; margin:0 0 2px;">Trace effects</p>
+                  <p style="font-size:12px; color:#2f3135; margin:0;">No power → generators → higher costs → fewer jobs → more informal work.</p>
+                </div>
+              </div>
+              <div style="display:flex; gap:12px; background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px;">
+                <span style="flex-shrink:0; display:flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:var(--primary); color:#fff; font-weight:700; font-size:13px;">4</span>
+                <div>
+                  <p style="font-weight:700; font-size:13px; margin:0 0 2px;">Choose entry points</p>
+                  <p style="font-size:12px; color:#2f3135; margin:0;">Solar-powered study spaces, transport support for interviews, apprenticeship pathways.</p>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:12px; padding:12px; background:#fff; border:1px solid var(--line); border-radius:8px;">
+              <p style="font-size:13px; color:#2f3135; margin:0;">Same problem, different quality of solution, because you respected the system around it.</p>
+            </div>
+          </div>
+
+          <h4>We Taught With Our Own Work</h4>
+          <p>Instead of borrowing case studies, we used two of our own Knowledge Lab projects as proof that the method holds up in real conditions:</p>
+          <ul style="margin-left:20px; color:#2f3135; margin-bottom:10px;">
+            <li><strong>Sachet vs bottled water:</strong> our <a href="#" onclick="event.preventDefault(); var it=workItems.find(function(x){return x.slug==='sachet-vs-bottled-water-lagos';}); if(it) openModal('work', it);" style="color:var(--primary);text-decoration:underline;">lifecycle assessment in Lagos</a> found sachet carries roughly half the climate footprint of PET per litre, a finding that quietly undermines the instinct to "just ban sachets," because the visible litter is only one part of the system.</li>
+            <li><strong>Urban Climate Signals:</strong> our <a href="#" onclick="event.preventDefault(); var it=workItems.find(function(x){return x.slug==='urban-climate-signals';}); if(it) openModal('work', it);" style="color:var(--primary);text-decoration:underline;">city-level heat and air quality dashboard</a>, which turns live data into decision-ready intelligence with a policy simulator for testing interventions before they are built.</li>
+          </ul>
+          <p>The point wasn't to show off the research. It was to show the room they could run the same kind of thinking on their own community projects. "Systems thinking" is a tool, not a buzzword.</p>
+
+          <h4>What Happened in the Room</h4>
+          <p>The session ran live on YouTube. In the second half, participants picked a real issue from their own communities, flooding after rain, girls dropping out of school, unreliable electricity, open burning of waste, and mapped who was affected, what parts of life it touched, and which two or three SDGs showed up. Not perfect SDG numbers. Just the beginning of seeing connections.</p>
+          <p>The questions that followed were the best part. People asked what to do when two SDGs genuinely conflict in one project. Whether systems thinking is realistic when resources are thin. What to do when the root cause is government failure. How to keep good intentions from making a problem worse. Those aren't theory questions. They're the questions you ask once a framing has landed.</p>
+
+          <h4>What the Participants Said</h4>
+          <div style="border-left:3px solid var(--primary); padding:12px 0 12px 16px; margin:16px 0;">
+            <p style="margin-bottom:6px;">"We are glad to have you yesterday ma'am. We learnt a lot."</p>
+            <p style="font-size:13px; color:#5f6368; margin:0;">Sustainable Development Solutions Network (SDSN) Nigeria</p>
+          </div>
+          <div style="border-left:3px solid var(--primary); padding:12px 0 12px 16px; margin:16px 0;">
+            <p style="margin-bottom:6px;">"The session was quite insightful. It related system thinking to household realities in Nigeria, a big lesson learnt for me."</p>
+            <p style="font-size:13px; color:#5f6368; margin:0;">Oluwaseun Bamigboye</p>
+          </div>
+          <div style="border-left:3px solid var(--primary); padding:12px 0 12px 16px; margin:16px 0;">
+            <p style="margin-bottom:6px;">"Thank you ma for the impactful session. I learnt a lot on how to break down any SDG project I want to embark on."</p>
+            <p style="font-size:13px; color:#5f6368; margin:0;">Barovwe Daniella Omoweh</p>
+          </div>
+          <p><a href="https://www.linkedin.com/feed/update/urn:li:activity:7445788440312471552/" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">See the full thread on LinkedIn →</a></p>
+
+          <h4>Why This Counts as Our Work</h4>
+          <p>This engagement didn't produce a report or a product. It was a test of something we believe: that how an idea is framed decides whether it moves people. The research was the raw material. The framing was the work.</p>
+          <p>When a room of young advocates leaves able to ask <strong>"what is really going on here?"</strong> before jumping to solutions, that is the outcome we designed for.</p>
+
+          <h4>The Session and the Deck</h4>
+          <p><a href="/images/systems-thinking-sdg/systems-thinking-for-sdg-implementation.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">View the session deck →</a></p>
+          <p><a href="https://youtu.be/0Mw4UQBCOo4?t=3666" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="margin-top:8px;">Watch the live session →</a></p>
+          `;
+        } else if (item.slug === 'urban-climate-signals') {
           modalBody = `
           <p>Lagos has always been warm. Lately, it has started to feel punishing.</p>
           <p>For city leaders in fast-growing African metropolises, climate change isn't a future abstraction; it’s a daily governance challenge. Each dry season brings the same story: hotter days, nights that fail to cool, and air that feels heavy long after sunset. While information is everywhere and scattered across weather feeds, satellite maps, and technical reports, usable clarity is rare.</p>
