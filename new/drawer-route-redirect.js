@@ -1,0 +1,4 @@
+(() => {
+  const destination = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  window.location.replace(`/?redirect=${encodeURIComponent(destination)}`);
+})();

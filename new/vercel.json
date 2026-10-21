@@ -1,0 +1,13 @@
+{
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/abj-carbon-accounting-electricity/:path*",
+      "destination": "/abj-carbon-accounting-electricity/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
